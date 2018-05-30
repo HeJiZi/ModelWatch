@@ -5,19 +5,66 @@
     <meta charset="utf-8" />
     <title>个人空间</title>
     <link rel="stylesheet" type="text/css" media="screen" href="../resources/css/main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
-    <div class="wrapper">
-        <nav id="navigator">
-            <ul>
-                <li style="float: left;">主站</li>
-                <li>个人资料</li>
-                <li>我的头像</li>
-                <li class="searchbox">搜索框</li>
-            </ul>
+    <!-- <nav id="nav">
+        <nav class="mw-nav">
+            <div class="mw-nav-wrapper">
+                <ul>
+                    <li style="padding-left: 0px;">
+                        <img src="../resources/images/small_logo.png" width="30px" height="30px">
+                        <a href="">&nbsp主页</a>
+                    </li>
+
+                    <li style="width: 60%;cursor: default">
+                        <input v-on:keydown.enter="search" type="search" placeholder="搜索" class="searchbox">
+                    </li>
+                    <li v-on:mouseenter="ava_over" v-on:mouseleave="ava_out"
+                         v-bind:class="ava_class" style="padding: 0;">
+                        <div class="nav_avater ava-trans" >
+                            <img v-bind:src="user.avater">
+                        </div>
+                        <div class="mw-nav-menu pf_vis" v-bind:style="menu_style" >
+                            <div><span> {{user.name}}</span></div>
+                            <div class="mw-profile">
+                                <div title="项目数">
+                                    <div class="title">项目数:</div>
+                                    <span>{{user.project_num}}</span>
+                                </div>
+                                <div title="模型数">
+                                    <div class="title">模型数：</div>
+                                    <span>{{user.model_num}}</span>
+                                </div>
+                                <div class="footer">
+                                    <div class="quit_button">退出</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li v-on:mouseenter="data_over" v-on:mouseleave="data_out"
+                         v-bind:class="da_class">
+                        <a v-bind:href="user.person_data_url">个人资料</a>
+                    </li>
+                    <li v-on:mouseenter="his_over" v-on:mouseleave="his_out"
+                        v-bind:class="his_class">
+                        <a v-bind:href="user.history_url">浏览历史</a>
+                    </li>
+                    <li v-on:mouseenter="mes_over" v-on:mouseleave="mes_out"
+                        v-bind:class="mes_class">
+                        <a v-bind:href="user.message_url">我的消息</a>
+                    </li>
+                    <li class="createBut" v-on:click="create">创建项目</li>
+                </ul>
+            </div>
         </nav>
+    </nav> -->
+    <nav id="nav">
+        <mw-nav></mw-nav>
+    </nav>
+    <div class="wrapper">
         <div class="content">
             <section class="cover">
                 <div class="wrapper">
@@ -101,7 +148,7 @@
             </div>
         </div>
     </div>
-
 </body>
+<script src="../resources/js/watchUI.js"></script>
 
 </html>

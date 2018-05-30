@@ -1,0 +1,162 @@
+body{
+    margin:0;
+}
+.mw-nav{
+    box-shadow:3px 3px 1px rgba(151, 143, 143, 0.774);
+    font-size: 15px;
+}
+    .mw-nav nav,div,ul,li,img{
+        border: none;
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        font:inherit;
+    }
+    .mw-nav ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }  
+.mw-nav-wrapper{
+    max-width: 1280px;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+    .mw-nav-wrapper ul{
+        font-size: 13px;
+        font-weight: bold;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+        .mw-nav-wrapper ul>li{
+            padding: 0 13px;
+            cursor: pointer;
+            min-width: 60px;
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+            .mw-nav-wrapper li:first-child:hover{
+                color: rgb(193, 193, 248);
+            }
+    .mw-nav-wrapper .nav_avater{
+        width:30px;
+        height: 30px;
+        float: left;
+        border-radius: 50%;
+        border: 2px solid white;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        transition: transform ease 0.5s;
+        position: relative;
+        z-index: 10000;
+        
+    }
+    .mw-nav-wrapper  .mw-nav-menu{
+        background-color: white;
+        padding: 50px 0 0 0;
+        width: 180px;
+        border: 1px solid rgb(226, 225, 225);
+        border-radius: 0 0 5px 5px;
+        box-shadow:0px 0px 1px rgba(151, 143, 143, 0.774);
+        position: absolute;
+        text-align: center;
+        z-index: 0;
+        top:41px;
+        transform: translateX(3px);
+        transition: opacity ease 1.5s;
+        cursor: default;
+    }
+    .mw-nav-menu .mw-profile{
+        margin-top: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        
+    }
+        .mw-nav-menu span{
+            cursor: text;
+        }
+        .mw-profile>div{
+            padding: 2px 0;
+            display: flex;
+            width: 50%;
+            align-items: center;
+            flex-flow: row wrap;
+                
+        }
+        .mw-profile span{
+            margin-left: 2px;
+            cursor: text;
+        }
+        .mw-profile .title{
+            text-align: center;
+            width: 52px;
+            background-color: rgb(176, 176, 245);
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            padding: 2px;
+            margin:0 2px;
+        }
+        .mw-profile .footer{
+            background: rgb(241, 240, 240);
+            height: 20px;
+            width: 100%;
+        }
+        .mw-profile .quit_button{
+            position: relative;
+            left: 80%; 
+            font-weight: normal
+        }
+        .mw-profile .quit_button:hover{
+            color: rgb(174, 174, 235);
+            cursor: pointer;
+        }
+
+        /* 动画 */
+        .na_active .ava-trans{
+            transform: matrix(2.2,0,0,2.2,0,30);
+        }
+        .na_unactive .pf_vis{
+            display:none;
+        }
+        .mw-nav-wrapper .nav_avater img{
+            width: inherit;
+            height: inherit;
+        }
+    .mw-nav-wrapper .searchbox{
+        border: 1px solid #d8d7d7;
+        display: block;
+        border-radius: 10px;
+        font-size: 12px;
+        width: 200px;
+        height: 30px;
+        margin:0 auto;
+    }
+    .mw-nav-wrapper .createBut{
+        background-color:rgb(82, 82, 180);
+        color: white;
+        height: 55px;
+        border-radius: 10px;
+
+    }
+        .mw-nav-wrapper .createBut:hover{
+            background: rgb(119, 119, 250);
+        }
+    .mw-nav-wrapper a{
+        text-decoration: none;
+        color: black;
+        height: inherit;
+        display:flex;
+        align-items: center;
+        color: inherit;
+    }
+    .mw-nav-wrapper ul> .active{
+        background-color:rgb(238, 184, 133);
+        color:white;
+    }
+    

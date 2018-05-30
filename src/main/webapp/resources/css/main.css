@@ -7,7 +7,7 @@
  }
  body{
      /* background-color:rgb(134, 125, 125); */
-     font-size: 20px;
+     font-size: 15px;
  }
  h1,h2{
      margin: 0;
@@ -35,11 +35,10 @@
 
     .content>.wrapper .title {
         width: 100%;
-        margin:0.5em;
+        margin:0.75em;
     }
         .content>.wrapper .title h1{
             float: left;
-            font-size: 1.3em;
             font-weight: bold;
         }
         .content>.wrapper .title>a{
@@ -54,24 +53,9 @@
             font-size: 0.8em;
         }
 
- #navigator ul{
-     border-bottom:1px solid;
-     display: block;
-     overflow: auto;
- }
- #navigator ul>li{
-     float: right;
-     margin: 0 0.5em;
- }
-
- .searchbox{
-     position: absolute;
-     right: 50%;
- }
-
  .cover{
      border: solid 1px;
-     height: 10em;
+     height: 13em;
  }
     .cover .wrapper{
         margin-top:4.5em;
@@ -81,8 +65,8 @@
     .cover #avater{
         float: left;
         
-        width: 4.3em;
-        height: 4.3em;
+        width: 6em;
+        height: 6em;
         float: left;
         border-radius: 50%;
         border: 3px solid gray;
@@ -98,6 +82,7 @@
         overflow: auto;
     }
         .cover #simple_data>h1{
+            margin-top: 0.5em;
             font-weight: bold;
             font-size: 2em;
         }
@@ -111,10 +96,10 @@
     float: left;
     width: 65%;
     border: solid 1px black;
-    border-radius: 0.5em;
+    border-radius: 0.75em;
 }
     .preview section{
-        max-height: 40em;
+        max-height: 60em;
         display: flex;
         display: -webkit-flex;
         flex-flow: row  wrap;
@@ -124,7 +109,7 @@
     }
     
     .preview section>.window{
-        height: 8em;
+        height: 12em;
         width: 22%;
         margin: 0.3em;
         align-items: center;
@@ -153,15 +138,16 @@
     float: left;
     margin-left: 1em;
     width: 24%;
-    height: 7em;
+    height: 10em;
     border: solid 1px black;
     border-radius: 4%;
+    display: flex;
+    align-items:center;
 }
     .person_data>ul{
         display: flex;
         flex-flow: row wrap;
         align-items: center;
-        margin-top:2em;
         margin-left: 0.5em;
         width: 100%;
         height: 50%;
