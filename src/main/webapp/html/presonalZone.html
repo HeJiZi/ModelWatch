@@ -29,9 +29,9 @@
             <article class="preview">
                 <div class="pv_wrapper">
                     <section id="projects">
-                        <mw-title title="我的项目" url=""></mw-title>
+                        <mw-title title="Projects" url=""></mw-title>
                         <div class="pj-box" >
-                                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :url="project.preview_url" height="200px"></mw-photo>
+                                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="../html/test.html"></mw-photo>
                         </div>
                     </section>
                     <section id="subscribes">

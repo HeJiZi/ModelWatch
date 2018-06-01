@@ -30,12 +30,12 @@
      display: flex;
      justify-content: center;
      flex-flow: row wrap;
-     height: 20em;
-     background-image: url("../images/pexels-photo-382167.jpeg");
-     background-position-y: -10em; 
+     height: 30em;
+     background-image: url("../images/person_cover.jpeg");
+     background-position-y: -5em; 
  }
     .cover .wrapper{
-        margin-top:9.5em;
+        margin-top:14.5em;
         width: 10em;
         text-align: center;
     }
@@ -66,14 +66,18 @@
         }
 .preview{
     background: white;
+    
 }
 .pv_wrapper{
-    margin-left: 1em;
+ font-family: 'Times New Roman', Times, serif;
+ text-decoration: none;
+ color: black;
 }
 .pj-box{
     width: 100%;
     display: flex;
     flex-flow: row wrap;
-    max-height: 50em;
-    transition: transform ease 1s;
+    margin-left: 1em;
+    max-height: 930px;
+    overflow: hidden;
 }

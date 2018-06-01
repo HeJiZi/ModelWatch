@@ -99,39 +99,60 @@ Vue.component('mw-title', {
     props: ['title', 'url'],
     data: function () {
         return {
-            color: "gray",
+            color: "black",
         }
     },
     template:
         `
-    <div style="height: 44px;display: flex;flex-flow: row wrap;align-items: center;">
-        <div style="font-size: 20px;font-weight: bold;font-family: fantasy;">{{title}}</div>
-        <a :href="url" :style="{color:color}" @mouseenter="color='black'" @mouseleave="color='gray'"
-        style="font-size: 12px;margin-left: 8px; text-decoration: none;" 
-        >更多></a>
+    <div style="height: 50px;display: flex;flex-flow: row wrap;align-items: center;justify-content: center;">
+        <a :href="url" style="font-size: 30px;font-weight: bold;font-weight:bold;font-family: 'Times New Roman', Times, serif;
+        text-decoration: none;" @mouseenter="color='gray'" @mouseleave="color='black'" :style="{color: color}">
+            {{title}}
+        </a>
     </div>
     `
 })
 Vue.component('mw-photo', {
-    props: ['height','name','time','url'],
+    inheritAttrs: false,
+    props: ['height','name','time','img_url','redirect'],
     data: function () {
         return {
             transform: 'translateY(0px)',
-
+            aspect:0,
         }
     },
-
+    computed:{
+        width:function(){
+            return this.aspect*parseFloat(this.height);
+        }
+    },
+    methods:{
+        jump:function(){
+            var obj=this;
+            window.open(this.redirect);
+        }
+    },
+    created:function(){
+        var img=new Image();
+        var obj=this;
+        img.src=obj.img_url;
+        img.onload=function(){
+            obj.aspect=(img.width/img.height);
+        }
+    },
     template:
         `
-    <article style="margin-right: 10px;margin-bottom: 10px;width: 400px;overflow: hidden;cursor: pointer;"
-        @mouseenter="transform='translateY(-40px)'" @mouseleave="transform='translateY(0px)'" :style="{height:height}">
-        <img :height="height" width="400px" :src="url">
+    <article style="margin-right: 10px;margin-bottom: 10px;overflow: hidden;cursor: pointer;" 
+        @mouseenter="transform='translateY(-40px)'" @mouseleave="transform='translateY(0px)'" 
+        @click="jump" :style="{height:height}">
+        <img :height="height" :width="width" :src="img_url">
         <div :style="{transform: transform}" style="width: 100%;height: 35px;background: rgba(0, 0, 0, 0.253);color:white;
         position: relative;z-index: 1;display: flex;align-items: center;font-family: fantasy; transition: transform ease 0.5s;">
-            <span style="margin-left: 10px;color: white;">&nbsp&nbsp{{name}}</span>
-            <div style="position: relative;left: 56%;display: flex;align-items: center">
-            <div style="background-image: url(../resources/images/icons.png);background-position: -344px -409px;width: 16px;height: 14px;margin-right: 5px;margin-top: -3px;background-repeat: no-repeat"></div>
-            <div >{{time}} </div>
+            <span style="color: white; font-weight:bold;font-family:inherit; width:30%">&nbsp&nbsp{{name}}</span>
+            <div style="display: flex;align-items: center;width:70%;flex-direction: row-reverse;">
+                <div style="margin-right:10px">{{time}} </div>
+                <div style="background-image: url(../resources/images/icons.png);background-position: -344px -409px;background-repeat: no-repeat;
+                    height:100%;height:20px;width: 16px;"></div>
             </div>
         </div>
     </article>    
