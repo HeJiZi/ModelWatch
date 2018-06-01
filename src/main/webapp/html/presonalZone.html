@@ -10,59 +10,8 @@
 </head>
 
 <body>
-    <!-- <nav id="nav">
-        <nav class="mw-nav">
-            <div class="mw-nav-wrapper">
-                <ul>
-                    <li style="padding-left: 0px;">
-                        <img src="../resources/images/small_logo.png" width="30px" height="30px">
-                        <a href="">&nbsp主页</a>
-                    </li>
-
-                    <li style="width: 60%;cursor: default">
-                        <input v-on:keydown.enter="search" type="search" placeholder="搜索" class="searchbox">
-                    </li>
-                    <li v-on:mouseenter="ava_over" v-on:mouseleave="ava_out"
-                         v-bind:class="ava_class" style="padding: 0;">
-                        <div class="nav_avater ava-trans" >
-                            <img v-bind:src="user.avater">
-                        </div>
-                        <div class="mw-nav-menu pf_vis" v-bind:style="menu_style" >
-                            <div><span> {{user.name}}</span></div>
-                            <div class="mw-profile">
-                                <div title="项目数">
-                                    <div class="title">项目数:</div>
-                                    <span>{{user.project_num}}</span>
-                                </div>
-                                <div title="模型数">
-                                    <div class="title">模型数：</div>
-                                    <span>{{user.model_num}}</span>
-                                </div>
-                                <div class="footer">
-                                    <div class="quit_button">退出</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li v-on:mouseenter="data_over" v-on:mouseleave="data_out"
-                         v-bind:class="da_class">
-                        <a v-bind:href="user.person_data_url">个人资料</a>
-                    </li>
-                    <li v-on:mouseenter="his_over" v-on:mouseleave="his_out"
-                        v-bind:class="his_class">
-                        <a v-bind:href="user.history_url">浏览历史</a>
-                    </li>
-                    <li v-on:mouseenter="mes_over" v-on:mouseleave="mes_out"
-                        v-bind:class="mes_class">
-                        <a v-bind:href="user.message_url">我的消息</a>
-                    </li>
-                    <li class="createBut" v-on:click="create">创建项目</li>
-                </ul>
-            </div>
-        </nav>
-    </nav> -->
     <nav id="nav">
-        <mw-nav></mw-nav>
+        <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
     </nav>
     <div class="wrapper">
         <div class="content">
@@ -77,78 +26,26 @@
                     </section>
                 </div>
             </section>
-            <div class="wrapper">
-                <div class="preview">
+            <article class="preview">
+                <div class="pv_wrapper">
                     <section id="projects">
-                        <div class="title">
-                            <h1>我的项目</h1>
-                            <a class="button">更多></a>
-                        </div>
-                        <div class="window">
-                            <div class="pre_img">
-                                <img/>
-                            </div>
-                            <div class="info">
-                                <h2> [潜行解谜]原生体</h2>
-                                <p style="float: right;">2018/5/25</p>
-                            </div>
+                        <mw-title title="我的项目" url=""></mw-title>
+                        <div class="pj-box" >
+                                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :url="project.preview_url" height="200px"></mw-photo>
                         </div>
                     </section>
                     <section id="subscribes">
-                        <div class="title">
-                            <h1>我的关注</h1>
-                            <a class="button">更多></a>
-                        </div>
-                        <div class="window">
-                            <div class="pre_img">
-                                <img/>
-                            </div>
-                            <div class="info">
-                                <h2> [潜行解谜]原生体</h2>
-                                <p style="float: right;">2018/5/25</p>
-                            </div>
-                        </div>
                     </section>
                     <section id="collections">
-                        <div class="title">
-                            <h1>我的收藏</h1>
-                            <a class="button">更多></a>
-                        </div>
-                        <div class="window">
-                            <div class="pre_img">
-                                <img/>
-                            </div>
-                            <div class="info">
-                                <h2> [原生体]小女孩</h2>
-                                <p style="float: right;">2018/5/25</p>
-                            </div>
-                        </div>
                     </section>
                 </div>
-                <div class="wrapper">
-                    <div class="person_data">
-                        <ul>
-                            <li>
-                                <img src="" width=20 height=20>
-                                <span>uid</span>
-                            </li>
-                            <li>
-                                <img src="" width=20 height="20">
-                                <span>创建时间</span>
-                            </li>
-                            <div class="straightLine"></div>
-                            <li>
-                                <img src="" width="20" height="20">
-                                <span>生日</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            </article>
 
-            </div>
+
         </div>
     </div>
 </body>
 <script src="../resources/js/watchUI.js"></script>
+<script src="../resources/js/personalZone.js"></script>
 
 </html>

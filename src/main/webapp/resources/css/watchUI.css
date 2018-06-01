@@ -2,8 +2,12 @@ body{
     margin:0;
 }
 .mw-nav{
+    font-family: fantasy;
     box-shadow:3px 3px 1px rgba(151, 143, 143, 0.774);
     font-size: 15px;
+    position: relative;
+    z-index: 10000;
+    background-color: white;
 }
     .mw-nav nav,div,ul,li,img{
         border: none;
@@ -57,6 +61,7 @@ body{
         
     }
     .mw-nav-wrapper  .mw-nav-menu{
+        font-family: 'Courier New', Courier, monospace;
         background-color: white;
         padding: 50px 0 0 0;
         width: 180px;
@@ -66,7 +71,7 @@ body{
         position: absolute;
         text-align: center;
         z-index: 0;
-        top:41px;
+        top:40px;
         transform: translateX(3px);
         transition: opacity ease 1.5s;
         cursor: default;
@@ -94,6 +99,7 @@ body{
         }
         .mw-profile .title{
             text-align: center;
+            height: 20px;
             width: 52px;
             background-color: rgb(176, 176, 245);
             color: white;
@@ -138,14 +144,14 @@ body{
         margin:0 auto;
     }
     .mw-nav-wrapper .createBut{
-        background-color:rgb(82, 82, 180);
+        background-color:rgb(233, 117, 81);
         color: white;
         height: 55px;
         border-radius: 10px;
 
     }
         .mw-nav-wrapper .createBut:hover{
-            background: rgb(119, 119, 250);
+            background: rgb(230, 144, 118);
         }
     .mw-nav-wrapper a{
         text-decoration: none;
@@ -156,7 +162,6 @@ body{
         color: inherit;
     }
     .mw-nav-wrapper ul> .active{
-        background-color:rgb(238, 184, 133);
+        background-color:rgb(230, 144, 118);
         color:white;
     }
-    
