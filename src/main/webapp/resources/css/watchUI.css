@@ -165,3 +165,22 @@ body{
         background-color:rgb(230, 144, 118);
         color:white;
     }
+
+
+.mw-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:50px;
+    width:60px;
+}
+.mw-button:hover{
+    background-color: orange;
+}
+
+.mw-icon{
+    background-image: url(../resources/images/icons.png);
+    background-position: -344px -409px;
+    background-repeat: no-repeat;
+    height:100%;height:20px;width: 16px;
+}
