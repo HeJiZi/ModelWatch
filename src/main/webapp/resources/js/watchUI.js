@@ -181,7 +181,8 @@ const vue = new Vue({
             menu_style: {
                 opacity: "0",
             }
-        }
+        },
+        isActive:false,
     },
 
 })

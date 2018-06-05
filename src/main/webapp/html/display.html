@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>模型展览</title>
+    <link rel="stylesheet" type="text/css" href="../resources/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../resources/css/display.css" />
+    <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="nav" @mouseenter="isActive=true" @mouseleave="isActive=false">
+        <div class="nav-wrapper" :class={active:isActive}>
+            <mw-nav :user="user" :cs="cs"></mw-nav>
+        </div>
+        <div style="height: 60px;opacity:0;position:absolute;width: 100%;"></div>
+    </div>
+    <div id="view" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
+        <article >
+            
+        </article>
+
+        <div class="footbar" :class="active" @mouseover="active='hidden'">
+            
+
+        </div>
+        <!-- <div :style="{top:switch_h+'px',left:switch_w+'px'}" class="switch" :class="{active:switch_active}"
+        @mouseenter="switch_active=true" @mouseleave="switch_active=false" @click="jump">
+        观察者模式
+        </div> -->
+    </div>
+</body>
+<script   src="../resources/js/watchUI.js"></script>
+<script>
+    const viewapp = new Vue({
+        el: '#view',
+        data: {
+            width: 0,
+            height: 0,
+            active:"",
+            switch_active:false,
+        },
+        created: function () {
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
+            var obj = this;
+            window.onresize = function () {
+                obj.width = window.innerWidth;
+                obj.height = window.innerHeight;
+            }
+        },
+        computed:{
+            switch_h:function(){
+                return this.height-50;
+            },
+            switch_w:function(){
+                return parseFloat(this.width)/2;
+            }
+        },
+        methods:{
+            jump:function(){
+                window.location.href='../';
+            }
+        }
+    })
+</script>
+
+</html>
