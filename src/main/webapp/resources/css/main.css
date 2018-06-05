@@ -19,3 +19,52 @@
      padding: 0;
  }
 
+
+
+.normalnav{
+    background: black;
+    color: white;
+    height: 50px;
+    width: 100%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    box-shadow: 1px 1px 1px gray;
+}
+    .normalnav a{
+        color: white;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+    .normalnav a:hover{
+        color: bisque;
+    }
+    .normalnav >div{
+        align-items: center;
+        display: flex;
+        height: 100%;
+    }
+
+.operation-view{
+    background-color: blue;
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.component{
+    width:20%;
+    height: 100%;
+    background-color: yellow;
+}
+.view{
+    width: 60%;
+    height: 100%;
+}
+.creatComp{
+    width: 20%;
+    height: 100%;
+    background-color: blueviolet;
+}
+
