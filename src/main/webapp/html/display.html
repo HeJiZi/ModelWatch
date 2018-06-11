@@ -5,31 +5,31 @@
     <meta charset="UTF-8">
     <title>模型展览</title>
     <link rel="stylesheet" type="text/css" href="../resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/display.css" />
     <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
     <div id="nav" @mouseenter="isActive=true" @mouseleave="isActive=false">
-        <div class="nav-wrapper" :class={active:isActive}>
+        <div style="z-index: 10000" class="nav-wrapper moveable" :class={active:isActive}>
             <mw-nav :user="user" :cs="cs"></mw-nav>
         </div>
         <div style="height: 60px;opacity:0;position:absolute;width: 100%;"></div>
     </div>
     <div id="view" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
-        <article >
+        <div  class="leftbar moveable" :style="{transform:transform}" >
+        <!-- <div  class="leftbar moveable" > -->
+        </div>
+        <article style="width: 100%;height: 100%;background: rgb(231, 231, 231);"@click="transform=transform==''?'translateX(-300px)':''">
             
         </article>
 
-        <div class="footbar" :class="active" @mouseover="active='hidden'">
-            
-
+        <!-- <div class="rightbar" :style="{opacity:opacity}" @mouseover="opacity=1" @mouseleave="opacity=0" > -->
+        <div class="rightbar" style="opacity: 1"  >
+            <a title="切换模式" href="editor.html"><div class="mw-icon transbutton"></div></a>
+            <div title="收藏" ><div class="mw-icon lovebutton"></div></div>
+            <div title="下载"><div class="mw-icon downloadbutton"></div></div>
         </div>
-        <!-- <div :style="{top:switch_h+'px',left:switch_w+'px'}" class="switch" :class="{active:switch_active}"
-        @mouseenter="switch_active=true" @mouseleave="switch_active=false" @click="jump">
-        观察者模式
-        </div> -->
     </div>
 </body>
 <script   src="../resources/js/watchUI.js"></script>
@@ -39,8 +39,10 @@
         data: {
             width: 0,
             height: 0,
-            active:"",
+            opacity:0,
+            transform:"translateX(-300px)",
             switch_active:false,
+
         },
         created: function () {
             this.width = window.innerWidth;
