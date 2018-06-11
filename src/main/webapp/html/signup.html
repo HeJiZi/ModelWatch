@@ -1,0 +1,47 @@
+
+<html>
+<head>
+  <title>注册</title>
+  <link href="../resources//css/signup.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="entireBody">
+  <div class="baseBox">
+    <div class="box_header">
+      <p class="firstT" >Model</p>
+      <p class="secondT" id="subTitle">点击注册,加入我们的精彩世界</p>
+    </div>
+    <div class="box_body">
+      <div>
+        <form id="form1">
+          <div class="username_content">
+            <div class="text_content">
+              <input class="inputText" type="text" value=""  placeholder="账号" id="username">
+              <div id="username_erro" class="erromask"></div>
+            </div>
+          </div>
+          <div class="password_content">
+            <div class="text_content">
+              <input class="inputText" type="password" value="" placeholder="密码" id="password"/>
+              <div id="password_erro" class="erromask"></div>
+            </div>
+          </div>
+          <div class="password_content" id="re_content">
+            <div class="text_content">
+              <input class="inputText" type="password" value="" placeholder="再次输入密码" id="rePassword"/>
+              <div id="rePassword_erro" class="erromask"></div>
+            </div>
+          </div>
+        </form>
+        <div>
+            <input id="button" style="cursor:pointer;" class="button" type="button" value="注册" />
+        </div>
+      </div>
+    </div>
+    <div class="content_switch" >
+      <span id="switch_head"> 已有账号?&nbsp&nbsp</span>
+      <span id="switch" style="color:rgb(72, 72, 247);cursor:pointer;">登录</span>
+    </div>
+  </div>
+</body>
+  <script src="../resources/js/signup.js"></script>
+</html>

@@ -151,8 +151,8 @@ Vue.component('mw-photo', {
             <span style="color: white; font-weight:bold;font-family:inherit; width:30%">&nbsp&nbsp{{name}}</span>
             <div style="display: flex;align-items: center;width:70%;flex-direction: row-reverse;">
                 <div style="margin-right:10px">{{time}} </div>
-                <div style="background-image: url(../resources/images/icons.png);background-position: -344px -409px;background-repeat: no-repeat;
-                    height:100%;height:20px;width: 16px;"></div>
+                <div style="background-image: url(../resources/images/icons.png);background-position: -344px -407px;background-repeat: no-repeat;
+                    height:100%;height:18px;width: 20px;"></div>
             </div>
         </div>
     </article>    
