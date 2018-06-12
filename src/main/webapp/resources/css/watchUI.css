@@ -58,6 +58,7 @@ body{
         transition: transform ease 0.5s;
         position: relative;
         z-index: 10000;
+        cursor: pointer;
         
     }
     .mw-nav-wrapper  .mw-nav-menu{

@@ -39,7 +39,10 @@ Vue.component('mw-nav', {
             console.log("search invoke!");
         },
         create: function () {
-            console.log("create project invoke!")
+            window.open("proCreate.html");
+        },
+        jumptoZone:function(){
+            window.open(this.user.person_zone_url);
         }
     },
     template:
@@ -57,7 +60,7 @@ Vue.component('mw-nav', {
                     </li>
                     <li @mouseenter="ava_over" @mouseleave="ava_out"
                          :class="cs.ava_class" style="padding: 0;">
-                        <div class="nav_avater ava-trans" >
+                        <div @click="jumptoZone" class="nav_avater ava-trans" >
                             <img v-bind:src="user.avater">
                         </div>
                         <div class="mw-nav-menu pf_vis" :style="cs.menu_style" >
@@ -167,8 +170,8 @@ const vue = new Vue({
             name: "HeJiZi",
             model_num: "102",
             project_num: "11",
-            person_data_url: "",
-            person_zone_url: "",
+            person_data_url: "profile.html",
+            person_zone_url: "personalZone.html",
             histrory_url: "",
             message_url: "",
             crete_project_url: "",

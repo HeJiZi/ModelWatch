@@ -1,46 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>模型展览</title>
-    <link rel="stylesheet" type="text/css" href="../resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../resources/js/three.min.js"></script>
-</head>
-
-<body>
-    <div id="nav" @mouseenter="isActive=true" @mouseleave="isActive=false">
-        <div style="z-index: 10000" class="nav-wrapper moveable" :class={active:isActive}>
-            <mw-nav :user="user" :cs="cs"></mw-nav>
-        </div>
-        <div style="height: 60px;opacity:0;position:absolute;width: 100%;"></div>
-    </div>
-    <div id="view" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
-        <div class="leftbar moveable" :style="{transform:transform}">
-            <!-- <div  class="leftbar moveable" > -->
-        </div>
-        <article id="3dcanvas" style="background: rgb(231, 231, 231);" @click="transform=transform==''?'translateX(-300px)':''">
-        </article>
-
-        <!-- <div class="rightbar" :style="{opacity:opacity}" @mouseover="opacity=1" @mouseleave="opacity=0" > -->
-        <div class="rightbar" style="opacity: 1">
-            <a title="切换模式" href="editor.html">
-                <div class="mw-icon transbutton"></div>
-            </a>
-            <div title="收藏">
-                <div class="mw-icon lovebutton"></div>
-            </div>
-            <div title="下载">
-                <div class="mw-icon downloadbutton"></div>
-            </div>
-        </div>
-    </div>
-</body>
-<script src="../resources/js/watchUI.js"></script>
-<!-- <script src="../resources/js/modelControl.js"></script> -->
-<script >const viewapp = new Vue({
+const viewapp = new Vue({
     el: '#view',
     data: {
         width: 0,
@@ -87,7 +46,7 @@
             initScene();
             initLight();
             initObject();
-            renderer.render(scene,camera);
+
         },
         pushControl: function (event) {
             console.log(event.button)
@@ -139,6 +98,4 @@ function initObject() {
     var mesh = new THREE.Mesh(geometry, material);
     mesh.position = new THREE.Vector3(0, 0, 0);
     scene.add(mesh);
-}  </script>
-
-</html>
+}
