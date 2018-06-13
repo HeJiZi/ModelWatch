@@ -21,8 +21,8 @@
         <div class="leftbar moveable" :style="{transform:transform}">
             <!-- <div  class="leftbar moveable" > -->
         </div>
-        <article id="3dcanvas" style="background: rgb(231, 231, 231);" 
-        onmousedown="pushControl(event)" onmouseup="upControl(event)" onmouseleave="moveclean()">
+        <article id="3dcanvas" style="background: rgb(231, 231, 231);"  onmousewheel="mousescale(event)"
+        onmousedown="pushControl(event)" onmouseup="upControl(event)" onmouseleave="moveclean()" >
         </article>
 
         <!-- <div class="rightbar" :style="{opacity:opacity}" @mouseover="opacity=1" @mouseleave="opacity=0" > -->

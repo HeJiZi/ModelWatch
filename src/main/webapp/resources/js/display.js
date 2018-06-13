@@ -26,7 +26,7 @@ const viewapp = new Vue({
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.render(scene, camera)
         }
-        document.oncontextmenu=function(){return false;}
+        document.oncontextmenu = function () { return false; }
     },
     mounted: function () {
         this.init3D();
@@ -127,16 +127,17 @@ function pushControl(event) {
     var bcode = event.button
     console.log(bcode)
     switch (bcode) {
-        case 0: 
+        case 0:
+            temp.onmousemove = function (event) {
+                mouseTranslate(event,mesh)
+            }
+            break;
+        case 2:
             temp.onmousemove = function (event) {
                 mouseSurround(event, mesh)
             }
             break;
-        case 2:
-            temp.onmousemove=function(event){
-                mouseTranslate(event,mesh)
-            }
-        
+
     }
 
 }

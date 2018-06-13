@@ -11,9 +11,25 @@ function mouseSurround(event,target){
 }
 
 function mouseTranslate(event,target){
-    
+    var dx=event.clientX-x;
+    var dy=event.clientY-y;
+    x=event.clientX
+    y=event.clientY
+    // var newz=getLocalZAxis(camera,target.position)
+    camera.translateY(dy)
+    // console.log(newz)
+    camera.translateOnAxis(new THREE.Vector3(1,0,0),-dx*2);
+    renderer.render(scene,camera)
 }
-
+function mousescale(event){
+    var dir=event.wheelDelta
+    if(camera.fov<=10&&dir>0){
+        return
+    }
+    camera.fov-=dir/240.0
+    camera.updateProjectionMatrix()
+    renderer.render(scene,camera)
+}
 
 function SurroundY(obj,target,angle){
 
@@ -51,13 +67,7 @@ function SurroundZ(obj,target,angle){
 }
 function SurroundByObjZ(obj,target,angle){
     turnLocal(obj,target)
-    var newup=new THREE.Vector3()
-    var d=new THREE.Vector3()
-    var newz=new THREE.Vector3()
-    d.subVectors(obj.position,target)
-    newup.copy(obj.up);
-    newz.crossVectors(newup,d);
-    newz.normalize();
+    var newz=getLocalZAxis(obj,target)
     var cos=Math.cos(angle)
     var sin=Math.sin(angle)
     var m=new THREE.Matrix3();
@@ -71,7 +81,16 @@ function SurroundByObjZ(obj,target,angle){
     turnWorld(obj,target)
     obj.lookAt(target)
 }
-
+function getLocalZAxis(obj,target){
+    var newup=new THREE.Vector3()
+    var d=new THREE.Vector3()
+    var newz=new THREE.Vector3()
+    d.subVectors(obj.position,target)
+    newup.copy(obj.up);
+    newz.crossVectors(newup,d);
+    newz.normalize();
+    return newz;
+}
 function turnLocal(obj,target){
     obj.position.x-=target.x;   
     obj.position.y-=target.y;
