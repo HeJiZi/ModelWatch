@@ -10,10 +10,20 @@ function mouseSurround(event,target){
     renderer.render(scene,camera)
 }
 
-function mouseTranslate(event,target){
-    
+function mouseTranslate(event){
+    var dx=event.clientX-x;
+    var dy=event.clientY-y;
+    x=event.clientX
+    y=event.clientY
+    camera.translateY(dy)
+    renderer.render(scene,camera)
 }
-
+function mousescale(event){
+    var dir=event.wheelDelta
+    camera.fov-=dir/120
+    camera.updateProjectionMatrix()
+    renderer.render(scene,camera)
+}
 
 function SurroundY(obj,target,angle){
 
