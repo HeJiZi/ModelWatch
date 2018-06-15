@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目</title>
+    <link href="../resources/css/project.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/watchUI.css"  type="text/css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--滚动条-->
+    <style type="text/css" rel="stylesheet">
+        ::-webkit-scrollbar {
+            width: 14px;
+            height: 14px;
+        }
+        ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            border: 5px solid transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            min-height: 20px;
+            background-clip: content-box;
+            box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;
+        }
+    </style>
+</head>
+<body>
+<nav id="nav">
+    <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+</nav>
+<div class="container">
+    <div id="a-total">
+        <div class="a-left">
+            <!--项目信息-->
+            <!-- 创建者 协作者（添加邀请）更改信息-->
+            <div class="info">
+                <table style="margin-top: 30px;margin-bottom: 30px;">
+                    <tr>
+                        <td>
+                            <div title="创建者">
+                                <div class="mw-icon user"></div>
+                            </div>
+                        </td>
+                        <td class="hh">创建者xxx</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div title="协作者">
+                                <div class="mw-icon co-user"></div>
+                            </div>
+                        </td>
+                        <td class="hh">协作者yyy</td>
+                        <td><input id="btn1" type="button" value="添加"> </td>
+                    </tr>
+                </table>
+                <article class="dis">
+                    <section class="hh">项目描述:</section>
+                    <section class="hhh">xxx项目是一个非常强大的3D模型展示平台，适合...各种行业使用，在这里你可以 ...你可以...你还可以...</section>
+                    <section class="hh" style="margin-top: 15px;">项目背景:</section>
+                    <section class="hhh" style="margin-bottom: 30px;">基于现在....</section>
+                    <a href="change.html"><input id="btn2" type="button" value="修改"></a>
+                </article>
+            </div>
+        </div>
+        <div id="a-middle">
+            <div class="bac">
+                <table>
+                    <tr>
+                        <td><header class="tit">xel项目</header></td>
+                        <td>
+                            <div title="关注">
+                                <div class="mw-icon love"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="projects">
+                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="../html/test.html"></mw-photo>
+            </div>
+        </div>
+
+        <div class="a-right">
+            <!--项目日志-->
+            <div id="diary">
+                <h1 align="center">项目日志</h1>
+                <table>
+                    <tr>
+                        <td>
+                            <div title="日期">
+                                <div class="mw-icon dat"></div>
+                            </div>
+                        </td>
+                        <td><section class="hh">xx年xx月xx日 xx:xx</section></td>
+                    </tr>
+                </table>
+                <section class="hh">负责人 xxx</section>
+                <section class="hh">今日进度：</section>
+                <section class="hhh">修改了...完善了...增加了...</section>
+                <section class="hh">问题及分析：</section>
+                <section class="hhh">出现了...问题，可能是因为...</section>
+                <table>
+                    <tr>
+                        <td>
+                            <div title="日期">
+                                <div class="mw-icon dat"></div>
+                            </div>
+                        </td>
+                        <td><section class="hh">xx年xx月xx日 xx:xx</section></td>
+                    </tr>
+                </table>
+                <section class="hh">负责人 xxx</section>
+                <section class="hh">今日进度：</section>
+                <section class="hhh">修改了...完善了...增加了...</section>
+                <section class="hh">问题及分析：</section>
+                <section class="hhh">出现了...问题，可能是因为...</section>
+                <table>
+                    <tr>
+                        <td>
+                            <div title="日期">
+                                <div class="mw-icon dat"></div>
+                            </div>
+                        </td>
+                        <td><section class="hh">xx年xx月xx日 xx:xx</section></td>
+                    </tr>
+                </table>
+                <section class="hh">负责人 xxx</section>
+                <section class="hh">今日进度：</section>
+                <section class="hhh">修改了...完善了...增加了...</section>
+                <section class="hh">问题及分析：</section>
+                <section class="hhh">出现了...问题，可能是因为...</section>
+                <table>
+                    <tr>
+                        <td>
+                            <div title="日期">
+                                <div class="mw-icon dat"></div>
+                            </div>
+                        </td>
+                        <td><section class="hh">xx年xx月xx日 xx:xx</section></td>
+                    </tr>
+                </table>
+                <section class="hh">负责人 xxx</section>
+                <section class="hh">今日进度：</section>
+                <section class="hhh">修改了...完善了...增加了...</section>
+                <section class="hh">问题及分析：</section>
+                <section class="hhh">出现了...问题，可能是因为...</section>
+                <table>
+                    <tr>
+                        <td>
+                            <div title="日期">
+                                <div class="mw-icon dat"></div>
+                            </div>
+                        </td>
+                        <td><section class="hh">xx年xx月xx日 xx:xx</section></td>
+                    </tr>
+                </table>
+                <section class="hh">负责人 xxx</section>
+                <section class="hh">今日进度：</section>
+                <section class="hhh">修改了...完善了...增加了...</section>
+                <section class="hh">问题及分析：</section>
+                <section class="hhh">出现了...问题，可能是因为...</section>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../resources/js/watchUI.js"></script>
+<script src="../resources/js/project.js"></script>
+</html>
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link href="../resources/css/show.css" type="text/css" rel="stylesheet">
+    <link href="../resources/css/watchUI.css"  type="text/css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--导航栏-->
+    <style type="text/css">
+        .menu{
+            display:block;
+            position:relative;
+            height: 40px;
+        }
+        .menu ul ul,.mega-menu,.mega-menu ol li{
+            opacity:0;
+            visibility:hidden;
+            display:none ! important;
+            -webkit-transition:opacity 150ms ease-in-out;
+            transition:opacity 150ms ease-in-out;;
+        }
+        .menu li:hover>ul, .menu li:hover> .mega-menu, .menu li:hover> .mega-menu ol li{
+            opacity:1;
+            visibility:visible;
+            display:block ! important;
+        }
+        .menu ul:after{
+            display:block;
+            content:"";
+            clear:both;
+        }
+        .menu ul li{
+            float:left;
+            -webkit-transition:all 150ms ease-in-out;
+            transition:all 150ms ease-in-out;
+        }
+        .menu ul li a{
+            display:block;
+            padding:25px 50px 20px 50px;
+            color: #000;
+            font-weight: bolder;
+            text-decoration:none;
+        }
+        .menu .arrow:after{
+            content:"";
+            float:right;
+            text-align:right;
+            width:0;
+            height:0;
+            display:block;
+            position:relative;
+        }
+        .mega-menu{
+            position:absolute;
+            top:100%;
+            margin-top: 5px;
+            background-color:#fff;
+        }
+        .mega-menu ol li{
+            width:100%;
+        }
+        .mega-menu ol li:hover, .mega-menu ol li a{
+            color:#777;
+            line-height: 25px;
+            font-size:14px;
+            padding:0;
+            background-color:#fff;
+        }
+        .mega-menu div h4{
+            font-size:16px;
+            color:#404040;
+            margin-top: -15px;
+            margin-bottom: 5px;
+        }
+        .mega-menu div h4 a{
+            color:#000;
+            margin-left: -30px;
+        }
+        .mega-menu .col-1{
+            width:135px;
+        }
+        .mega-menu.full-width{
+            left:0;width:100%;
+            padding:18px 0;
+        }
+        .full-width .col-1{
+            width:14.1%;
+        }
+        .full-width .col-1{
+            float:left;
+            margin:0 0 0 2.2%;
+        }
+        .style-1 .menu, .style-1 .menu ul li  {
+            background-color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+<nav id="nav">
+    <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+</nav>
+<div id="container">
+    <div id="a-top">
+        <h1>身临其境的3D模型展示</h1>
+    </div>
+    <div id="a-middle">
+        <div class="menu style-1">
+            <ul class="menu">
+                <li><a href="#" class="arrow">热门推荐</a>
+                    <div class="mega-menu full-width">
+                        <div class="col-1">
+                            <h4><a href="#">建筑</a></h4>
+                            <ol>
+                                <li><a href="#">建筑1</a></li>
+                                <li><a href="#">建筑2</a></li>
+                                <li><a href="#">建筑3</a></li>
+                                <li><a href="#">建筑4</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-1">
+                            <h4><a href="#">教育</a></h4>
+                            <ol>
+                                <li><a href="#">教育1</a></li>
+                                <li><a href="#">教育2</a></li>
+                                <li><a href="#">教育3</a></li>
+                                <li><a href="#">教育4</a></li>
+                            </ol>
+                        </div>
+
+                        <div class="col-1">
+                            <h4><a href="#">汽车</a></h4>
+                            <ol>
+                                <li><a href="#">汽车1</a></li>
+                                <li><a href="#">汽车2</a></li>
+                                <li><a href="#">汽车3</a></li>
+                                <li><a href="#">汽车4</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-1">
+                            <h4><a href="#">家具</a></h4>
+                            <ol>
+                                <li><a href="#">家具1</a></li>
+                                <li><a href="#">家具2</a></li>
+                                <li><a href="#">家具3</a></li>
+                                <li><a href="#">家具4</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-1">
+                            <h4><a href="#">设计</a></h4>
+                            <ol>
+                                <li><a href="#">设计1</a></li>
+                                <li><a href="#">设计2</a></li>
+                                <li><a href="#">设计3</a></li>
+                                <li><a href="#">设计4</a></li>
+                            </ol>
+                        </div>
+                        <div class="col-1">
+                            <h4><a href="#">电子产品</a></h4>
+                            <ol>
+                                <li><a href="#">产品1</a></li>
+                                <li><a href="#">产品2</a></li>
+                                <li><a href="#">产品3</a></li>
+                                <li><a href="#">产品4</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div id="a-bottom">
+        <div class="projects" >
+            <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="../html/test.html"></mw-photo>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../resources/js/watchUI.js"></script>
+<script src="../resources/js/show.js"></script>
+</html>

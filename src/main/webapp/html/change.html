@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改项目信息</title>
+    <link href="../resources/css/watchUI.css"  type="text/css" rel="stylesheet" />
+    <link href="../resources/css/change.css" type="text/css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<nav id="nav">
+    <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+</nav>
+<div id="mian">
+    <div id="container" >
+        <form id="form1" name="form1" action="">
+            <center>
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center"><h1>修改项目信息</h1></td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <textarea  placeholder="修改项目描述" ></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <textarea  placeholder="修改项目背景"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align=center>
+                            <input type="submit" class="btn" value="确认修改" />
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </form>
+    </div>
+</div>
+</body>
+<script src="../resources/js/watchUI.js"></script>
+</html>

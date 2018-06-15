@@ -1,0 +1,165 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    font-family: "微软雅黑";
+}
+.container{
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+}
+#a-total{
+    display: flex;
+    flex:1;
+    height: auto;
+}
+.a-left{
+    background: #c3f0ff;
+    text-align: center;
+    width:19%;
+    height: inherit;
+    order: -1;
+    border-right: 3px solid white;
+}
+.info{
+    border: none;
+    width:230px;
+    height: 625px;
+    margin-left: 12px;
+    margin-top: 10px;
+    overflow: auto;
+}
+table{
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+.written{
+    bottom: 0;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top: 10px;
+}
+/*#btn{*/
+    /*background-color: #ff8e47;*/
+    /*color: white;*/
+    /*border: none;*/
+    /*width: 120px;*/
+    /*height: 33px;*/
+    /*font-size: 17px;*/
+    /*font-weight: bolder;*/
+    /*text-align: center;*/
+    /*text-decoration: none;*/
+    /*cursor: pointer;*/
+    /*margin-top: 10px;*/
+    /*margin-bottom: 15px;*/
+/*}*/
+.user{
+    background-position: -83px -84px;
+    margin: 0 auto;
+}
+.co-user{
+    background-position: -85px -467px;
+    margin: 0 auto;
+}
+.hh{
+    font-weight: bold;
+    margin-top: 8px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.dis{
+    text-align: left;
+    text-indent: 5px;
+    margin-bottom: 5px;
+}
+.hhh{
+    text-indent: 25px;
+    margin: 6px;
+    word-wrap:break-word;
+    word-break:break-all;
+}
+#btn1{
+    background-color: #ff8e47;
+    color: white;
+    border: none;
+    height: 27px;
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 3px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+#btn2{
+    background-color: #ff8e47;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 33px;
+    font-size: 17px;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 120px;
+}
+#a-middle{
+    background: #ded4fc;
+    width:60%;
+    height:inherit;
+    display: flex;
+    flex: 1;
+    flex-flow:row wrap;
+    justify-content:flex-start;
+    clear: both;
+}
+#a-middle .bac{
+    background: url("../images/person_cover.jpeg") no-repeat;
+    background-size: 100%;
+    height: 250px;
+    width:100%;
+    text-align: center;
+}
+.bac table{
+    margin: 0 auto;
+}
+.tit{
+    line-height: 250px;
+    font-weight: bolder;
+    font-size: 40px;
+    color: white;
+}
+.love{
+    background-position: -661px -2069px;
+    margin: 0 auto;
+}
+.projects{
+    margin: 20px 30px;
+    max-height: 45em;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    transition: transform ease 1s;
+}
+.a-right{
+    background: #eafff8;
+    border-left: 3px solid white;
+    width: 20%;
+    height: inherit;
+    display: flex;
+    overflow: auto;
+}
+#diary{
+    border: none;
+    width:253px;
+    height: 890px;
+    margin-left: 20px;
+    overflow: auto;
+}
+.dat{
+    background-position: -85px -978px;
+    margin: 0 auto;
+}
