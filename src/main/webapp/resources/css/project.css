@@ -79,19 +79,6 @@ table{
     word-wrap:break-word;
     word-break:break-all;
 }
-#btn1{
-    background-color: #ff8e47;
-    color: white;
-    border: none;
-    height: 27px;
-    font-size: 14px;
-    font-weight: bolder;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 3px;
-    margin-left: 50px;
-    cursor: pointer;
-}
 #btn2{
     background-color: #ff8e47;
     color: white;
@@ -154,12 +141,19 @@ table{
 }
 #diary{
     border: none;
-    width:253px;
+    width:250px;
     height: 890px;
-    margin-left: 20px;
+    margin-left: 15px;
     overflow: auto;
 }
+.blo{
+    margin-bottom: 10px;
+}
+.inner{
+    text-indent: 18px;
+    word-wrap:break-word;
+    word-break:break-all;
+}
 .dat{
-    background-position: -85px -978px;
-    margin: 0 auto;
+    margin-left: 102px;
 }

@@ -1,39 +1,58 @@
 body{
-    background:url("../images/background.jpg") no-repeat;
-    background-size: 100%;
-    font-family: 微软雅黑
+    background: #eee8ff;
 }
 #main{
-    width:500px;
-    height:600px;
+    background: white;
+    width:800px;
+    height:615px;
     margin:0 auto;
     padding-top:10px;
 }
-#container{
-    text-align:center;
-    margin:0px;
-    padding:0px;
+.tit{
+    font-weight: bold;
+    font-size: 27px;
+    text-align: center;
 }
-#container table{
-    background-color: white;
-    align:center;
-    margin-top:150px;
-    width:350px;
-    height: 300px;
+.blo{
+    margin-top: 15px;
+    margin-left: 140px;
+    margin-bottom: 10px;
 }
-h1{
-    margin-bottom: -5px;
-    font-weight: bolder;
+label{
+    display: block;
+    margin-bottom: 5px;
 }
 textarea{
-    margin-bottom: -5px;
+    margin-top: 5px;
+    width: 500px;
+    border-radius: 5px;
+    padding-left: 8px;
+    font-size: 1em;
+    height: 80px;
+}
+.ar{
+    height: 130px;
 }
 .btn{
-    height: 35px;
-    width:180px;
-    font-size: 20px;
-    color: white;
-    background-color: #0099FF;
-    border: none;
+    background:#ff8e47;
+    color:white;
     text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    width: 200px;
+    height: 32px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-left: 140px;
+    margin-bottom: 8px;
+}
+.tex{
+    margin-top: 5px;
+    height: 30px;
+    width:400px;
+    border-radius: 5px;
+    border: 1px solid #ded4fc;
+    padding-left: 8px;
 }
