@@ -147,12 +147,15 @@ table{
     overflow: auto;
 }
 .blo{
+    border: 1.5px solid #c5bfd6;
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 .inner{
     text-indent: 18px;
     word-wrap:break-word;
     word-break:break-all;
+    margin-left: 5px;
 }
 .dat{
     margin-left: 102px;
