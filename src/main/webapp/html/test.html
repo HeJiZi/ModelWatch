@@ -6,7 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>测试</title>
 </head>
+<script type="text/jscript">
+
+
+
+   </script>
+   <script>
+       function test(){
+           var fileObj=document.getElementById("FileUpload").files[0];
+           if(typeof(fileObj)=="undefined"||fileObj.size<=0){
+               alert("请选择图片");
+               return;
+           }
+           var formFile=new FormData();
+           formFile.append("action","/test");
+           formFile.append("file",fileObj);
+           var data=formFile;
+           console.log(data);
+       }
+   </script>
 <body>
     跳转测试
+    <div  >
+        <input type="file" name="FileUpload" id="FileUpload">
+        <input type="button" onclick="test()" value="上传图片"></a>
+    </div>
+
 </body>
 </html>

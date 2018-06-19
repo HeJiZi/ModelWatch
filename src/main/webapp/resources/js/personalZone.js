@@ -1,14 +1,9 @@
 const projects=new Vue({
     el:"#projects",
+    created:function(){
+        this.$resource('/zone/JoinPros/{uId}', { uId:1 });
+    },
     data:{
-        projects:[
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/desk.jpeg'},
-            {name:'完美世界',time:'2018-05-06',preview_url:'../resources/images/star.jpeg'},
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/1.jpeg'},
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/2.jpeg'},
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/3.jpeg'},
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/4.jpeg'},
-            {name:'原生体',time:'2018-05-06',preview_url:'../resources/images/5.jpeg'},
-        ],
+        projects:[],
     }
 })

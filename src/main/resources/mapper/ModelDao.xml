@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ModelDao">
+    <select id="getModelsByMarkUId" resultType="Model">
+        select M_id,M_createTime,M_preview,M_name from model,
+            (select Mark_mid from mark where Mark_uid=#{uid}) ma
+        where ma.Mark_mid=M_id;
+    </select>
+</mapper>

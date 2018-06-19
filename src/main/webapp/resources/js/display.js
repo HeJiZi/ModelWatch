@@ -3,6 +3,10 @@ var camera
 var scene
 var light
 var mesh
+var selectmar;
+var selectObj;
+var raycaster=new THREE.Raycaster()
+var mouse=new THREE.Vector2()
 const viewapp = new Vue({
     el: '#view',
     data: {
@@ -52,6 +56,46 @@ const viewapp = new Vue({
             initObject();
             renderer.render(scene, camera)
         },
+        cast:function(event){
+            mouse.x=(event.clientX/window.innerWidth)*2-1;
+            mouse.y=-(event.clientY/window.innerHeight)*2+1;
+            raycaster.setFromCamera(mouse,camera);
+            var intersects=raycaster.intersectObjects(scene.children)
+            if(selectObj){
+                selectObj.material=selectmar;
+            }
+            if(intersects[0]){
+                selectmar=intersects[0].object.material;
+                selectObj=intersects[0].object;
+                
+                this.transform='';
+                var color3=intersects[0].object.material.color
+                console.log(color3)
+                var color=new THREE.Vector4(color3.r,color3.g,color3.b,0)
+                
+                intersects[0].object.material=new THREE.ShaderMaterial({
+                    uniforms: {
+                        directLight: { type: 'v3', value: light.position },
+                        color:{type:'v4',value:color}
+                    },
+            
+                    //加载顶点着色器程序
+                    vertexShader: document.getElementById('vertexshader').textContent,
+            
+                    //加载片元着色器程序
+                    fragmentShader: document.getElementById('fragmentshader').textContent,
+            
+                });//着色器材质对象
+                
+            }
+            else{
+                selectObj=null;
+                this.transform='translateX(-300px)'
+                
+            }
+            renderer.render(scene,camera)
+            
+        }
     }
 })
 
@@ -88,13 +132,30 @@ function initScene() {
 function initLight() {
     light = new THREE.DirectionalLight(0xFFFFFF, 1);
     // 位置不同，方向光作用于物体的面也不同，看到的物体各个面的颜色也不一样
-    light.position.set(0, 0, 1);
+    ambientLight=new THREE.AmbientLight({color:0xFFFFFF},0.3)
+    light.position.set(400, 300, 200);
     scene.add(light);
+    scene.add(ambientLight)
 }
 
 function initObject() {
-    var geometry = new THREE.CubeGeometry(200, 100, 50);
-    var material = new THREE.MeshLambertMaterial({ color: 0xFF0000 });
+    var geometry = new THREE.SphereGeometry(200, 30, 30);
+    var color=new THREE.Vector4(1.0,0.0,0.0,1.0);
+    // var material = new THREE.ShaderMaterial({
+    //     uniforms: {
+    //         directLight: { type: 'v3', value: light.position },
+    //         color:{type:'v4',value:color}
+    //     },
+
+    //     //加载顶点着色器程序
+    //     vertexShader: document.getElementById('vertexshader').textContent,
+
+    //     //加载片元着色器程序
+    //     fragmentShader: document.getElementById('fragmentshader').textContent,
+
+    // });//着色器材质对象
+
+    var material=new THREE.MeshLambertMaterial({ color: 0xFF0000 })
     mesh = new THREE.Mesh(geometry, material);
     mesh.position.y += 51;
 

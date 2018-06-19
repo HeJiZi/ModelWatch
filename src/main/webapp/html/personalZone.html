@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/pesonnalZone.css"/>
     <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../resources/js/vue-resource.min.js"></script>
 </head>
 
 <body>
@@ -32,7 +33,7 @@
                     <section id="projects">
                         <mw-title title="Projects" url=""></mw-title>
                         <div class="pj-box" >
-                                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="../html/test.html"></mw-photo>
+                                <mw-photo  v-for="project in projects" :name="project.pName" :time="project.pCreatetime" :img_url="project.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
                         </div>
                     </section>
                     <section id="subscribes">
