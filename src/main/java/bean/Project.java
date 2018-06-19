@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 public class Project {
     private Long pId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp pCreateTime;
     private String pName;
     private String pContext;

@@ -24,5 +24,5 @@ insert into subscribe(Sub_uid,Sub_pid) values (2,2);
 
 insert into mark(Mark_mid,Mark_uid) values (1,1);
 insert into mark(Mark_mid,Mark_uid) values (1,3);
-insert into mark(Mark_mid,Mark_uid) values (3,2);
+insert into mark(Mark_mid,Mark_uid) values (2,2);
 insert into mark(Mark_mid,Mark_uid) values (1,2);

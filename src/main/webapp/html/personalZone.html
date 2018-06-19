@@ -15,7 +15,7 @@
     <nav id="nav">
         <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
     </nav>
-    <div class="wrapper">
+    <div id="zone" class="wrapper">
         <div class="content">
             <section class="cover">
                 <div class="wrapper">
@@ -33,12 +33,20 @@
                     <section id="projects">
                         <mw-title title="Projects" url=""></mw-title>
                         <div class="pj-box" >
-                                <mw-photo  v-for="project in projects" :name="project.pName" :time="project.pCreatetime" :img_url="project.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
+                                <mw-photo  v-for="project in projects" :name="project.pName" :time="project.pCreateTime" :img_url="project.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
                         </div>
                     </section>
-                    <section id="subscribes">
+                    <section  id="subscribes">
+                        <mw-title  title="Subscribes" url=""></mw-title>
+                        <div class="pj-box">
+                            <mw-photo v-for="subpro in subPros" :name="subpro.pName" :time="subpro.pCreateTime" :img_url="subpro.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
+                        </div>
                     </section>
-                    <section id="collections">
+                    <section   id="collections">
+                        <mw-title title="Marks" url=""></mw-title>
+                        <div class="pj-box">
+                            <mw-photo v-for="model in markModels" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'../html/display.html/'+model.mId"></mw-photo>
+                        </div>
                     </section>
                 </div>
             </article>

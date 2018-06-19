@@ -10,7 +10,7 @@ public class Model {
     private String mPreview;
     private String mName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp mCreateTime;
 
     private Project project;

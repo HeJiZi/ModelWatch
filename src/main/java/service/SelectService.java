@@ -2,6 +2,7 @@ package service;
 
 import bean.Model;
 import bean.Project;
+import bean.User;
 
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface SelectService {
      * @return
      */
     List<Model> getMarkModels(String uId);
+
+    User getUserData(String uId);
 }

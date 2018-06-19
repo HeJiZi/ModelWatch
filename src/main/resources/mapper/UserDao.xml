@@ -3,5 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
-
+    <select id="selectUserByUid" resultType="User">
+        SELECT U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature FROM User where U_Id=#{uId};
+    </select>
 </mapper>

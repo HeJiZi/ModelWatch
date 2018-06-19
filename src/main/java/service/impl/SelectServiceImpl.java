@@ -2,8 +2,10 @@ package service.impl;
 
 import bean.Model;
 import bean.Project;
+import bean.User;
 import dao.ModelDao;
 import dao.ProjectDao;
+import dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
@@ -18,6 +20,9 @@ public class SelectServiceImpl implements SelectService {
     @Autowired
     private ModelDao modelDao;
 
+    @Autowired
+    private UserDao userDao;
+
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
     }
@@ -28,5 +33,9 @@ public class SelectServiceImpl implements SelectService {
 
     public List<Model> getMarkModels(String uId) {
         return modelDao.getModelsByMarkUId(Integer.parseInt(uId));
+    }
+
+    public User getUserData(String uId) {
+        return userDao.selectUserByUid(Integer.parseInt(uId));
     }
 }
