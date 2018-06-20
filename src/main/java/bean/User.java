@@ -12,7 +12,7 @@ public class User {
     private String uAvater;
     private String uPassword;
     private String uEmail;
-    private char uSex;
+    private String uSex;
 
     @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")
     private Date uBirthday;
@@ -61,11 +61,11 @@ public class User {
         this.uEmail = uEmail;
     }
 
-    public char getuSex() {
+    public String getuSex() {
         return uSex;
     }
 
-    public void setuSex(char uSex) {
+    public void setuSex(String uSex) {
         this.uSex = uSex;
     }
 
@@ -91,5 +91,20 @@ public class User {
 
     public void setuCreateTime(Timestamp uCreateTime) {
         this.uCreateTime = uCreateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uId=" + uId +
+                ", uUsername='" + uUsername + '\'' +
+                ", uAvater='" + uAvater + '\'' +
+                ", uPassword='" + uPassword + '\'' +
+                ", uEmail='" + uEmail + '\'' +
+                ", uSex='" + uSex + '\'' +
+                ", uBirthday=" + uBirthday +
+                ", uSignature='" + uSignature + '\'' +
+                ", uCreateTime=" + uCreateTime +
+                '}';
     }
 }
