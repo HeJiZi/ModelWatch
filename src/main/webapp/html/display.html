@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../resources/js/three.min.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 
 <body>
@@ -20,6 +24,7 @@
     <div id="view" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
         <div class="leftbar moveable" :style="{transform:transform}">
             <!-- <div  class="leftbar moveable" > -->
+            <el-tree :data="components" :props="defaultProps" ></el-tree>
         </div>
         <article id="3dcanvas" style="background: rgb(231, 231, 231);" onmousewheel="mousescale(event)" onmousedown="pushControl(event)"
             onmouseup="upControl(event)" onmouseleave="moveclean()" @click="cast">

@@ -15,6 +15,26 @@ const viewapp = new Vue({
         opacity: 0,
         transform: "translateX(-300px)",
         switch_active: false,
+        components:[{
+            // label: '一级 1',
+            // children: [{
+            //   label: '二级 1-1',
+            //   children: [{
+            //     label: '三级 1-1-1'
+            //   }]
+            // }]
+            label:'球体',
+            children:[{
+                label:'测试样例'
+            }],
+        },
+        {
+            label:'长方体'
+        }],
+        defaultProps: {
+            children: 'children',
+            label: 'label'
+          }
 
     },
     created: function () {
