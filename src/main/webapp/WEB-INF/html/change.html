@@ -6,10 +6,24 @@
     <link href="../resources/css/watchUI.css"  type="text/css" rel="stylesheet" />
     <link href="../resources/css/change.css" type="text/css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../resources/js/jquery-3.3.1.js"></script>
+    <script>
+        function changePro() {
+            var des=$('#des').val();
+            $.post("/project",
+            {
+                des:des,
+                pId:1
+            },
+            function(data,status){
+                alert('修改成功！');
+            });
+        }
+    </script>
 </head>
 <body>
 <nav id="nav">
-    <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+   <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
 </nav>
 <div id="main">
         <center><session class="tit">修改项目信息</session></center>
@@ -22,13 +36,13 @@
         <label for="bacg">项目背景</label>
         <textarea id="bacg" name="bacg" placeholder="修改项目背景"></textarea>
     </section>
-    <input type="button" class="btn" value="确认修改">
+    <input type="submit" class="btn" value="确认修改" onclick="changePro()" >
 <hr>
     <section class="blo">
         <label for="per">添加协作者</label>
         <input class="tex" type="text" id="per" name="per" placeholder="输入要添加的协作者的名字">
     </section>
-    <input type="button" class="btn" value="确认添加">
+    <input type="submit" class="btn" value="确认添加" onclick="addPer()">
 </div>
 </body>
 <script src="../resources/js/watchUI.js"></script>

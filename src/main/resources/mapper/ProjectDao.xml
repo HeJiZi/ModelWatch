@@ -22,4 +22,11 @@
         insert ignore into project(P_name,P_preview,P_context,P_Uid) values
             (#{pName},#{pPreview},#{pContext},#{user.uID})
     </insert>
+    <update id="updateProjectData">
+        update project set P_context=#{pContext} where P_id=#{pId}
+    </update>
+
+    <select id="selectProjectDate">
+        select P_id,P_context,P_name from project where P_id=#{pId}
+    </select>
 </mapper>

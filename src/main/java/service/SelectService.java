@@ -30,4 +30,6 @@ public interface SelectService {
     List<Model> getMarkModels(String uId);
 
     User getUserData(String uId);
+
+    public void selectProject(int pId,String pName,String pContext);
 }

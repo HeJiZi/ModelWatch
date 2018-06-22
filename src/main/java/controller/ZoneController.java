@@ -29,6 +29,7 @@ public class ZoneController {
 
 
     @ResponseBody
+    //设置想要跳转的父路径
     @RequestMapping(value = "/JoinPros/{uId}",method = RequestMethod.GET)
     public  List<Project> joinPro(@PathVariable String uId){
         return selectService.getUserProjects(uId);

@@ -112,7 +112,8 @@ public class User {
         this.uProjectNum = uProjectNum;
     }
 
-    @Override
+
+    @Override          //方法重写
     public String toString() {
         return "User{" +
                 "uId=" + uId +
