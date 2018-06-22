@@ -14,12 +14,15 @@ public class User {
     private String uEmail;
     private String uSex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date uBirthday;
     private String uSignature;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp uCreateTime;
+
+    private int uModelNum;
+    private int uProjectNum;
 
     public int getuId() {
         return uId;
@@ -91,6 +94,22 @@ public class User {
 
     public void setuCreateTime(Timestamp uCreateTime) {
         this.uCreateTime = uCreateTime;
+    }
+
+    public int getuModelNum() {
+        return uModelNum;
+    }
+
+    public void setuModelNum(int uModelNum) {
+        this.uModelNum = uModelNum;
+    }
+
+    public int getuProjectNum() {
+        return uProjectNum;
+    }
+
+    public void setuProjectNum(int uProjectNum) {
+        this.uProjectNum = uProjectNum;
     }
 
     @Override

@@ -25,4 +25,11 @@ public interface ProjectDao {
      * @return
      */
     List<Project> getSubProjects(int uid);
+
+    /**
+     * 添加项目记录
+     * @param project
+     * @return
+     */
+    int addProject(Project project);
 }

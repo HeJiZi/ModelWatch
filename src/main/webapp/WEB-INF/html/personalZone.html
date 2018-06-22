@@ -4,23 +4,23 @@
 <head>
     <meta charset="utf-8" />
     <title>个人空间</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="../resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/pesonnalZone.css"/>
-    <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../../resources/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/pesonnalZone.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/watchUI.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../resources/js/vue-resource.min.js"></script>
+    <script src="../../resources/js/lib/vue-resource.min.js"></script>
 </head>
 
 <body>
     <nav id="nav">
-        <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+        <mw-nav v-bind:user="user" v-bind:cs="cs" :ok="ok"></mw-nav>
     </nav>
     <div id="zone" class="wrapper">
         <div class="content">
             <section class="cover">
                 <div class="wrapper">
                     <div id="avater">
-                        <img src="../resources/images/temp.jpeg" />
+                        <img src="../../resources/images/temp.jpeg" />
                     </div>
                     <section id="simple_data">
                         <h1>HeJiZi</h1>
@@ -33,19 +33,19 @@
                     <section id="projects">
                         <mw-title title="Projects" url=""></mw-title>
                         <div class="pj-box" >
-                                <mw-photo  v-for="project in projects" :name="project.pName" :time="project.pCreateTime" :img_url="project.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
+                                <mw-photo  v-for="project in projects" :name="project.pName" :time="project.pCreateTime" :img_url="project.pPreview" height="300px" :redirect="'/project/'+project.pId"></mw-photo>
                         </div>
                     </section>
                     <section  id="subscribes">
                         <mw-title  title="Subscribes" url=""></mw-title>
                         <div class="pj-box">
-                            <mw-photo v-for="subpro in subPros" :name="subpro.pName" :time="subpro.pCreateTime" :img_url="subpro.pPreview" height="300px" redirect="../html/test.html"></mw-photo>
+                            <mw-photo v-for="subpro in subPros" :name="subpro.pName" :time="subpro.pCreateTime" :img_url="subpro.pPreview" height="300px" :redirect="'/project/'+subpro.pId"></mw-photo>
                         </div>
                     </section>
                     <section   id="collections">
                         <mw-title title="Marks" url=""></mw-title>
                         <div class="pj-box">
-                            <mw-photo v-for="model in markModels" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'../html/display.html/'+model.mId"></mw-photo>
+                            <mw-photo v-for="model in markModels" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'/model/dis/'+model.mId"></mw-photo>
                         </div>
                     </section>
                 </div>
@@ -55,7 +55,7 @@
         </div>
     </div>
 </body>
-<script src="../resources/js/watchUI.js"></script>
-<script src="../resources/js/personalZone.js"></script>
+<script src="../../resources/js/watchUI.js"></script>
+<script src="../../resources/js/personalZone.js"></script>
 
 </html>

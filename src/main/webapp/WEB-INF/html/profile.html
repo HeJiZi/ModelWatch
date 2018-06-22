@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
-    <link rel="stylesheet" href="../resources/css/lib/index.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/watchUI.css" />
+    <link rel="stylesheet" href="../../resources/css/lib/index.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../resources/js/lib/index.js"></script>
-    <script src="../resources/js/lib/vue-resource.min.js"></script>
+    <script src="../../resources/js/lib/index.js"></script>
+    <script src="../../resources/js/lib/vue-resource.min.js"></script>
 
     <title>个人资料</title>
 </head>
@@ -43,12 +43,12 @@
                 </section>
                 <section class="pro-input-box">
                     <label>BirthDay</label>
-                    <el-date-picker value-format="timestamp" v-model="user.uBirthday" type="date" placeholder="Pick a day">
+                    <el-date-picker  value-format="yyyy-MM-dd" v-model="user.uBirthday" type="date" placeholder="Pick a day">
                     </el-date-picker>
                 </section>
                 <section class="pro-input-box">
                     <label for="sig">Signature</label>
-                    <textarea :value="user.uSignature" id="sig"></textarea>
+                    <textarea v-model="user.uSignature" id="sig"></textarea>
                 </section>
                 <section class="pro-input-box">
                     <p class="update-button" @click="updateData">Update Profile</p>
@@ -57,13 +57,21 @@
                 <section style="width:100%;height:1px;background-color:rgb(230, 230, 230);margin-bottom:10px;"></section>
                 <section class="pro-input-box">
                     <label for="password">Password</label>
-                    <input id='password' name="password" placeholder="password" type="password">
-                    <input style="margin-top: 15px;" id='repassword' name="repassword" placeholder="repassword" type="password">
+                    <input v-model="user.uPassword" id='password' name="password" placeholder="password" type="password">
+                    <input @keyup="varifyPass" style="margin-top: 15px;" id='repassword' name="repassword" placeholder="repassword" type="password">
+                    <el-alert style="margin-top: 10px"
+                              :style="{display:aldis}"
+                            :title="alertText"
+                            :type="alType"
+                            show-icon>
+                    </el-alert>
                 </section>
+
                 <section class="pro-input-box">
-                    <p class="update-button">Update Password</p>
+                    <el-button @click="updatePass"  type="success" :disabled="disflag">Update Password</el-button>
                 </section>
             </section>
+
             <section style="width: 30%;">
                 <div style="margin-top: 30px;margin-left: 50px;">
                     <h4>Profile picture</h4>
@@ -73,7 +81,7 @@
                     <label for="fileup" class="upload-text">
                         Upload new picture
                     </label>
-                    <input id="fileup" type="file" class="upload-button">
+                    <input @change="upload" id="fileup" type="file" class="upload-button">
 
                 </div>
             </section>
@@ -81,7 +89,7 @@
         </div>
     </article>
 </body>
-<script src="../resources/js/watchUI.js"></script>
-<script src="../resources/js/profile.js"></script>
+<script src="../../resources/js/watchUI.js"></script>
+<script src="../../resources/js/profile.js"></script>
 
 </html>

@@ -322,11 +322,34 @@ a{
         background: green;
     }
 .up-pre-photo{
-    margin-top: 10px;
-    height: 200px;
-    width: 200px;
-    border-radius: 10px;
-    background: rgb(250, 250, 250);
-    border: 1px solid rgb(221, 221, 221);
-    cursor: pointer;
+
+    /*height: 200px;*/
+    /*width: 200px;*/
+    /*border-radius: 10px;*/
+    /*background: rgb(250, 250, 250);*/
+    /*border: 1px solid rgb(221, 221, 221);*/
+    /*cursor: pointer;*/
+    width: 300px;
+    height: 300px;
+    display: block;
 }
+ .avatar-uploader .el-upload {
+     border: 1px dashed #d9d9d9;
+     border-radius: 6px;
+     cursor: pointer;
+     position: relative;
+     overflow: hidden;
+     margin-top: 10px;
+ }
+ .avatar-uploader .el-upload:hover {
+     border-color: #409EFF;
+ }
+ .avatar-uploader-icon {
+     font-size: 28px;
+     color: #8c939d;
+     width: 300px;
+     height: 300px;
+     line-height: 300px !important;
+     text-align: center;
+
+ }

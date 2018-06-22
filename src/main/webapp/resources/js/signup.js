@@ -59,7 +59,7 @@ function register(){
             }
 		}
 	}
-    xmlhttp.open("POST","/UserRegister.action",true);
+    xmlhttp.open("POST","/user/signup",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("username="+username+"&password="+password);
 }
@@ -73,7 +73,7 @@ function login(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
             if(xmlhttp.responseText=="true"){
-                window.location.href="http://localhost:8080/Home";
+                window.location.href="show";
             }
             else{
                 var label=document.getElementById("username_erro");
@@ -81,7 +81,7 @@ function login(){
             }
 		}
 	}
-    xmlhttp.open("POST","/Login.action",true);
+    xmlhttp.open("POST","/user/login",true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("username="+username+"&password="+password);
 }

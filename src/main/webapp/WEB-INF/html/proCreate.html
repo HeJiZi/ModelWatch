@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>创建项目</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/watchUI.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/main.css"/>
+    <link rel="stylesheet" href="../../resources/css/lib/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../../resources/js/lib/index.js"></script>
+    <script src="../../resources/js/lib/vue-resource.min.js"></script>
+</head>
+
+<body>
+<nav id="nav">
+    <mw-nav v-bind:user="user" v-bind:cs="cs"></mw-nav>
+</nav>
+<article id="profile" class="mw-nav-wrapper">
+    <section class="profile-top">
+        <p style="margin-left:20px;font-weight:bold;font-size: 1.3em;">新建项目</p>
+    </section>
+    <div style="width: 100%;display: flex;flex-flow:row wrap;justify-content: center;  ">
+        <section class="pro-input-box">
+            <label for="name">名字</label>
+            <input v-model="project.pName" @keyup="varifyCanSubmit"
+                   id='name' name="name" placeholder="name" type="text">
+        </section>
+
+        <section class="pro-input-box">
+            <label for="discription">简介</label>
+            <textarea v-model="project.pContext" @keyup="varifyCanSubmit" id="discription"></textarea>
+        </section>
+        <section class="pro-input-box">
+            <label>预览图</label>
+            <div class="avatar-uploader">
+                <label for="test" tabindex="0" class="el-upload el-upload--text">
+                    <img v-if="project.pPreview" :src="project.pPreview" class="up-pre-photo" :style="{width:width+'px'}">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <input @change="upload" id="test" type="file" name="file" class="el-upload__input">
+                </label>
+            </div>
+        </section>
+        <section class="pro-input-box">
+            <el-button @click="submit" type="success" style="width: 100px" :disabled="disFlag">提交</el-button>
+        </section>
+    </div>
+</article>
+</body>
+<script src="../../resources/js/watchUI.js"></script>
+<script src="../../resources/js/proCreate.js"></script>
+
+</html>

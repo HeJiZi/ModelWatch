@@ -1,6 +1,6 @@
 Vue.component('mw-nav', {
     inheritAttrs: false,
-    props: ['user', 'cs'],
+    props: ['user', 'cs','ok'],
     methods: {
         data_over: function () {
             this.cs.da_class = "active";
@@ -33,13 +33,13 @@ Vue.component('mw-nav', {
             this.cs.menu_style.opacity = "0";
         },
         quit: function () {
-            console.log("user_quit");
+            window.open('/sign')
         },
         search: function () {
             console.log("search invoke!");
         },
         create: function () {
-            window.open("proCreate.html");
+            window.open(this.user.create_project_url);
         },
         jumptoZone:function(){
             window.open(this.user.person_zone_url);
@@ -58,41 +58,48 @@ Vue.component('mw-nav', {
                     <li style="width: 60%;cursor: default">
                         <input @keydown.enter="search" type="search" placeholder="搜索" class="searchbox">
                     </li>
-                    <li @mouseenter="ava_over" @mouseleave="ava_out"
-                         :class="cs.ava_class" style="padding: 0;">
-                        <div @click="jumptoZone" class="nav_avater ava-trans" >
-                            <img v-bind:src="user.avater">
-                        </div>
-                        <div class="mw-nav-menu pf_vis" :style="cs.menu_style" >
-                            <div><span> {{user.name}}</span></div>
-                            <div class="mw-profile">
-                                <div title="项目数">
-                                    <div class="title">项目数:</div>
-                                    <span>{{user.project_num}}</span>
-                                </div>
-                                <div title="模型数">
-                                    <div class="title">模型数：</div>
-                                    <span>{{user.model_num}}</span>
-                                </div>
-                                <div class="footer">
-                                    <div class="quit_button">退出</div>
+                    <template v-if="ok">
+                        <li @mouseenter="ava_over" @mouseleave="ava_out"
+                             :class="cs.ava_class" style="padding: 0;">
+                            <div @click="jumptoZone" class="nav_avater ava-trans" >
+                                <img v-bind:src="user.uAvater">
+                            </div>
+                            <div class="mw-nav-menu pf_vis" :style="cs.menu_style" >
+                                <div><span> {{user.uName}}</span></div>
+                                <div class="mw-profile">
+                                    <div title="项目数">
+                                        <div class="title">项目数:</div>
+                                        <span>{{user.uProjectNum}}</span>
+                                    </div>
+                                    <div title="模型数">
+                                        <div class="title">模型数：</div>
+                                        <span>{{user.uModelNum}}</span>
+                                    </div>
+                                    <div class="footer">
+                                        <div class="quit_button">退出</div>
+                                    </div>
                                 </div>
                             </div>
+                        </li>
+                        <li @mouseenter="data_over" @mouseleave="data_out"
+                             :class="cs.da_class">
+                            <a v-bind:href="user.person_data_url">个人资料</a>
+                        </li>
+                        <li @mouseenter="his_over" @mouseleave="his_out"
+                            :class="cs.his_class">
+                            <a v-bind:href="user.history_url">浏览历史</a>
+                        </li>
+                        <li @mouseenter="mes_over" @mouseleave="mes_out"
+                            :class="cs.mes_class">
+                            <a :href="user.message_url">我的消息</a>
+                        </li>
+                        <li class="createBut" @click="create">创建项目</li>
+                    </template>
+                    <template v-else>
+                        <div style="width: 30%;height: 100%;">
+                            <a class="mw-nav-menu-sign" href="/sign">登录/注册</a>
                         </div>
-                    </li>
-                    <li @mouseenter="data_over" @mouseleave="data_out"
-                         :class="cs.da_class">
-                        <a v-bind:href="user.person_data_url">个人资料</a>
-                    </li>
-                    <li @mouseenter="his_over" @mouseleave="his_out"
-                        :class="cs.his_class">
-                        <a v-bind:href="user.history_url">浏览历史</a>
-                    </li>
-                    <li @mouseenter="mes_over" @mouseleave="mes_out"
-                        :class="cs.mes_class">
-                        <a :href="user.message_url">我的消息</a>
-                    </li>
-                    <li class="createBut" @click="create">创建项目</li>
+                    </template>
                 </ul>
             </div>
         </nav>
@@ -166,15 +173,16 @@ const vue = new Vue({
     el: '#nav',
     data: {
         user: {
-            avater: "../resources/images/temp.jpeg",
-            name: "HeJiZi",
-            model_num: "102",
-            project_num: "11",
-            person_data_url: "profile.html",
-            person_zone_url: "personalZone.html",
+            uId:'',
+            uAvater: "../resources/images/temp.jpeg",
+            uName: "HeJiZi",
+            uModelNum: "102",
+            uProjectNum: "11",
+            person_data_url: '',
+            person_zone_url: '',
             histrory_url: "",
             message_url: "",
-            crete_project_url: "",
+            create_project_url: '',
         },
         cs: {
             da_class: "",
@@ -185,7 +193,33 @@ const vue = new Vue({
                 opacity: "0",
             }
         },
+        ok:false,
         isActive:false,
     },
+
+    created:function(){
+        this.$http.get('/user/').then((response)=>{
+
+            var data=response.data
+            var u=this.user;
+            console.log(111)
+            if(data!=''){
+
+                this.ok=true
+                u.uAvater=data.uAvater
+                u.uName=data.uName
+                u.uId=data.uId
+                u.uModelNum=data.uModelNum
+                u.uProjectNum=data.uProjectNum
+                u.person_data_url="/profile/"+u.uId
+                u.person_zone_url="/zone/"+u.uId
+                u.create_project_url="/crePMenu"
+            }
+            else {
+                this.ok=false;
+            }
+
+        })
+    }
 
 })

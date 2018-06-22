@@ -4,10 +4,10 @@ CREATE TABLE `user` (
   `U_avater` varchar(255) DEFAULT NULL,
   `U_password` varchar(150) DEFAULT NULL,
   `U_email` varchar(255) DEFAULT NULL unique ,
-  `U_sex` char(1) DEFAULT NULL,
+  `U_sex` varchar(1) DEFAULT NULL,
   `U_birthday` date DEFAULT NULL,
   `U_signature` varchar(100) DEFAULT NULL,
-  `U_createTime` timestamp NULL DEFAULT NULL,
+  `U_createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`U_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
