@@ -10,11 +10,23 @@
     </select>
 
     <select id="getSubProjects" resultType="Project">
-        select P_id,P_createTime,P_name,P_preview from project,(select Sub_uid from subscribe where Sub_uid=#{uid}) u
-        where u.Sub_uid=project.P_id;
+        select P_id,P_createTime,P_name,P_preview from project,(select Sub_pid from subscribe where Sub_uid=#{uid}) u
+        where u.Sub_pid=project.P_id;
     </select>
 
     <select id="getProjectById" resultType="Project">
         select P_id,P_createTime,P_name,P_preview from project where P_id=#{pid}
+    </select>
+
+    <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="User">
+        insert ignore into project(P_name,P_preview,P_context,P_Uid) values
+            (#{pName},#{pPreview},#{pContext},#{user.uID})
+    </insert>
+    <update id="updateProjectData">
+        update project set P_context=#{pContext} where P_id=#{pId}
+    </update>
+
+    <select id="selectProjectDate">
+        select P_id,P_context,P_name from project where P_id=#{pId}
     </select>
 </mapper>

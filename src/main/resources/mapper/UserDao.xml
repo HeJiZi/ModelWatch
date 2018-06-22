@@ -6,4 +6,29 @@
     <select id="selectUserByUid" resultType="User">
         SELECT U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature FROM User where U_Id=#{uId};
     </select>
+    <select id="selectUserByUNAndPass" resultType="User">
+        select U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature,
+            (select count(*) umn from model,user u where M_pid in
+                   (select P_id from project p where p.P_Uid=u.U_id)) "uModelNum",
+            (select count(*) upn from project p,user u where p.P_Uid=u.U_id) "uProjectNum"
+        from user where U_username=#{username} and U_password=#{password}
+    </select>
+
+    <update id="updateData">
+        update user set U_username=#{uUsername},U_signature=#{uSignature},
+            U_sex=#{uSex},U_email=#{uEmail},U_birthday=#{uBirthday}
+            <if test="uAvater!=null">
+                ,U_avater=#{uAvater}
+            </if>
+        where U_id=#{uId}
+    </update>
+
+    <update id="updatePassword">
+        update user set U_password=#{uPassword} where U_id=#{uId}
+    </update>
+
+    <insert id="addUser">
+        insert ignore into user(U_username,U_password) values (#{username},#{password})
+    </insert>
+
 </mapper>

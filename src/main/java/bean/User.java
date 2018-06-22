@@ -12,14 +12,17 @@ public class User {
     private String uAvater;
     private String uPassword;
     private String uEmail;
-    private char uSex;
+    private String uSex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date uBirthday;
     private String uSignature;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp uCreateTime;
+
+    private int uModelNum;
+    private int uProjectNum;
 
     public int getuId() {
         return uId;
@@ -61,11 +64,11 @@ public class User {
         this.uEmail = uEmail;
     }
 
-    public char getuSex() {
+    public String getuSex() {
         return uSex;
     }
 
-    public void setuSex(char uSex) {
+    public void setuSex(String uSex) {
         this.uSex = uSex;
     }
 
@@ -91,5 +94,37 @@ public class User {
 
     public void setuCreateTime(Timestamp uCreateTime) {
         this.uCreateTime = uCreateTime;
+    }
+
+    public int getuModelNum() {
+        return uModelNum;
+    }
+
+    public void setuModelNum(int uModelNum) {
+        this.uModelNum = uModelNum;
+    }
+
+    public int getuProjectNum() {
+        return uProjectNum;
+    }
+
+    public void setuProjectNum(int uProjectNum) {
+        this.uProjectNum = uProjectNum;
+    }
+
+
+    @Override          //方法重写
+    public String toString() {
+        return "User{" +
+                "uId=" + uId +
+                ", uUsername='" + uUsername + '\'' +
+                ", uAvater='" + uAvater + '\'' +
+                ", uPassword='" + uPassword + '\'' +
+                ", uEmail='" + uEmail + '\'' +
+                ", uSex='" + uSex + '\'' +
+                ", uBirthday=" + uBirthday +
+                ", uSignature='" + uSignature + '\'' +
+                ", uCreateTime=" + uCreateTime +
+                '}';
     }
 }

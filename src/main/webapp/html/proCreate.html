@@ -7,6 +7,22 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/watchUI.css" />
     <link rel="stylesheet" type="text/css" href="../resources/css/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        function test() {
+            var name=$('#name').val();
+            var discription=$('#discription').val();
+            var preview=$('preview').val();
+            $.post("/project",
+                {
+                    name:name,
+                    discription:discription,
+                    preview:preview,
+                },
+                function(data,status){
+                    alert('修改成功！');
+                });
+        }
+    </script>
 </head>
 
 <body>
@@ -35,7 +51,7 @@
                     <input id="preview" type="file" style="position:absolute;z-index:-1;visibility:hidden;">
                 </section>
             <section class="pro-input-box">
-                <p class="update-button">提交</p>
+                <p class="update-button" onclick="test()">提交</p>
             </section>
         </div>
     </article>

@@ -20,7 +20,8 @@ body{
         list-style: none;
         margin: 0;
         padding: 0;
-    }  
+    }
+
 .mw-nav-wrapper{
     max-width: 1280px;
     min-width: 800px;
@@ -166,7 +167,17 @@ body{
         background-color:rgb(230, 144, 118);
         color:white;
     }
+.mw-nav-menu-sign{
+    float: right;
+    height: 100%;
+    padding: 0px 10px;
+}
+    .mw-nav-menu-sign:hover{
 
+        height: 100%;
+        color: white;
+        background-color:rgb(230, 144, 118);
+    }
 
 .mw-button{
     display:flex;
