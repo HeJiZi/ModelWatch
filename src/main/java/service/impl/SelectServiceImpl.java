@@ -38,4 +38,13 @@ public class SelectServiceImpl implements SelectService {
     public User getUserData(String uId) {
         return userDao.selectUserByUid(Integer.parseInt(uId));
     }
+
+    public Project getProjectData(String pId) {
+        return projectDao.getProjectById(Long.parseLong(pId));
+    }
+
+    public void selectProject(int pId,String pName,String pContext){
+        projectDao.selectProjectDate(pId,pName,pContext);
+    }
+
 }

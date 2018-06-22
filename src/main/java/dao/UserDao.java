@@ -49,6 +49,7 @@ public interface UserDao {
      * @param password
      * @return 找不到更改的用户返回0
      */
-    int updatePassword(@Param("uId") int uId,@Param("password") String password);
+    int updatePassword(@Param("uId") int uId,
+                       @Param("password") String password);
 
 }

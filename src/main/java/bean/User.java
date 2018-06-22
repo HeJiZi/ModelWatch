@@ -14,7 +14,7 @@ public class User {
     private String uEmail;
     private String uSex;
 
-    @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd ", timezone = "GMT+8")         //格式化时间
     private Date uBirthday;
     private String uSignature;
 
@@ -93,7 +93,7 @@ public class User {
         this.uCreateTime = uCreateTime;
     }
 
-    @Override
+    @Override          //方法重写
     public String toString() {
         return "User{" +
                 "uId=" + uId +
