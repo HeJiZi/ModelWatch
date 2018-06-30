@@ -51,7 +51,7 @@ const cp=new Vue({
             formdata.append("file",this.file);
             formdata.append("project",JSON.stringify(this.project))
             this.$http.post(
-                '/project/creMenu',
+                '/project',
                 // 请求体中要发送给服务端数据
                 formdata,
                 {
@@ -59,9 +59,10 @@ const cp=new Vue({
                     contentType: false,
                 }
             ).then((response)=>{
-                if (response.data=="true"){
+                if (response.data==true){
                     //页面跳转
                     alert("更改成功")
+                    window.location.href='/zone/'+vue.user.uId;
                 }
                 else
                     alert("服务器异常，发生错误，请稍后提交")

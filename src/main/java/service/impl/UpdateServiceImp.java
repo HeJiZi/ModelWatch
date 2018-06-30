@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import service.UpdateService;
 
 @Service
-public abstract class UpdateServiceImp implements UpdateService {
+public class UpdateServiceImp implements UpdateService {
     @Autowired
     private ProjectDao projectDao;
     public void UpdateProject(int pId, String pContext) {

@@ -4,21 +4,37 @@ function mouseSurround(event,target){
     x=event.clientX
     y=event.clientY
 
-    SurroundY(camera,target.position,dx/200.0)
-    SurroundByObjZ(camera,target.position,dy/300.0)
+    SurroundY(camera,target,dx/200.0)
+    SurroundByObjZ(camera,target,dy/300.0)
 
     renderer.render(scene,camera)
 }
 
 function mouseTranslate(event,target){
+    var m4=new THREE.Matrix4()
+    var v4=new THREE.Vector4()
     var dx=event.clientX-x;
     var dy=event.clientY-y;
     x=event.clientX
     y=event.clientY
-    // var newz=getLocalZAxis(camera,target.position)
-    camera.translateY(dy)
-    // console.log(newz)
-    camera.translateOnAxis(new THREE.Vector3(1,0,0),-dx*2);
+
+    var v3=new THREE.Vector3(1,0,0)
+    v3.applyQuaternion(camera.quaternion)
+    m4.set(
+            1,0,0,v3.x*(-dx*2),
+            0,1,0,v3.y*(-dx*2)+dy,
+            0,0,1,v3.z*(-dx*2),
+            0,0,0,1
+            );
+    v4.set(camera.position.x,camera.position.y,camera.position.z,1)
+
+    v4.applyMatrix4(m4)
+    // console.log(v3)
+    camera.position.set(v4.x,v4.y,v4.z)
+
+    v4.set(center.position.x,center.position.y,center.position.z,1)
+    v4.applyMatrix4(m4)
+    center.position.set(v4.x,v4.y,v4.z)
     renderer.render(scene,camera)
 }
 function mousescale(event){

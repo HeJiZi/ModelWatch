@@ -34,9 +34,9 @@ public class ManageServiceImp implements ManageService {
 
         int res;
         Project pj= (Project) JSONObject.toBean(JSONObject.fromObject(project),Project.class);
-        String fileSaveName=pj.getpName()+System.currentTimeMillis()+"."+suffix;
+        String fileSaveName=user.getuId()+"-"+System.currentTimeMillis()+"."+suffix;
         pj.setUser(user);
-        pj.setpPreview("/resources/upload/useravater/"+fileSaveName);
+        pj.setpPreview("/resources/upload/pjCover/"+fileSaveName);
 
 
         Log log = new Log();

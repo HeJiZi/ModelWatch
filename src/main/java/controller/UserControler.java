@@ -41,4 +41,6 @@ public class UserControler {
     public User getUser(HttpServletRequest request){
         return (User) request.getSession().getAttribute("user");
     }
+
+
 }

@@ -51,8 +51,8 @@ Vue.component('mw-nav', {
             <div class="mw-nav-wrapper">
                 <ul>
                     <li style="padding-left: 0px;">
-                        <img src="../resources/images/small_logo.png" width="30px" height="30px">
-                        <a href="">&nbsp主页</a>
+                        <img src="/resources/images/small_logo.png" width="30px" height="30px">
+                        <a href="/">&nbsp主页</a>
                     </li>
 
                     <li style="width: 60%;cursor: default">
@@ -209,6 +209,7 @@ const vue = new Vue({
                 u.uAvater=data.uAvater
                 u.uName=data.uName
                 u.uId=data.uId
+                u.uSignature=data.uSignature
                 u.uModelNum=data.uModelNum
                 u.uProjectNum=data.uProjectNum
                 u.person_data_url="/profile/"+u.uId

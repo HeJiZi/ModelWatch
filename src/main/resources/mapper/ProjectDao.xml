@@ -20,7 +20,7 @@
 
     <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="User">
         insert ignore into project(P_name,P_preview,P_context,P_Uid) values
-            (#{pName},#{pPreview},#{pContext},#{user.uID})
+            (#{pName},#{pPreview},#{pContext},#{user.uId})
     </insert>
     <update id="updateProjectData">
         update project set P_context=#{pContext} where P_id=#{pId}

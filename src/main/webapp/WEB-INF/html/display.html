@@ -4,20 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>模型展览</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="../../resources/css/watchUI.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="../resources/js/three.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/watchUI.css" />
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="/resources/css/lib/index.css">
+
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/resources/js/lib/index.js"></script>
+    <script src="/resources/js/lib/vue-resource.min.js"></script>
+    <script src="/resources/js/lib/three.min.js"></script>
 </head>
 
 <body>
     <div id="nav" @mouseenter="isActive=true" @mouseleave="isActive=false">
         <div style="z-index: 10000" class="nav-wrapper moveable" :class={active:isActive}>
-            <mw-nav :user="user" :cs="cs"></mw-nav>
+            <mw-nav :user="user" :cs="cs" :ok="ok"></mw-nav>
         </div>
         <div style="height: 60px;opacity:0;position:absolute;width: 100%;"></div>
     </div>
@@ -27,12 +29,12 @@
             <el-tree :data="components" :props="defaultProps" ></el-tree>
         </div>
         <article id="3dcanvas" style="background: rgb(231, 231, 231);" onmousewheel="mousescale(event)" onmousedown="pushControl(event)"
-            onmouseup="upControl(event)" onmouseleave="moveclean()" @click="cast">
+            onmouseup="upControl(event)" onmouseleave="moveclean()" @click="cast" @dblclick="dcast">
         </article>
 
         <!-- <div class="rightbar" :style="{opacity:opacity}" @mouseover="opacity=1" @mouseleave="opacity=0" > -->
         <div class="rightbar" style="opacity: 1">
-            <a title="切换模式" href="editor.html">
+            <a title="切换模式" href="/model/edi/1">
                 <div class="mw-icon transbutton"></div>
             </a>
             <div title="收藏">

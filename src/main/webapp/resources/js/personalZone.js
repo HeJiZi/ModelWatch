@@ -4,11 +4,17 @@ const zone=new Vue({
         projects:[],
         subPros:[],
         markModels:[],
+        user:'',
+    },
+    computed:{
     },
     created:function () {
         var url=window.location.href;
         var id=url.substr(url.lastIndexOf('/')+1,url.length);
         console.log(id)
+        this.$http.get('/zone/data/'+id).then((response)=>{
+            this.user=response.data
+        })
         this.$http.get('/zone/JoinPros/'+id).then((response) => {
 
             this.projects=response.data;

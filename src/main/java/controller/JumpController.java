@@ -13,7 +13,7 @@ public class JumpController {
         return "signup";
     }
 
-    @RequestMapping(value = "/show",method = RequestMethod.GET)
+    @RequestMapping(value = "",method = RequestMethod.GET)
     public String jumpToIndex(){
         return "show";
     }

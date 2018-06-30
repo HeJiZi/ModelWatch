@@ -4,9 +4,12 @@ var scene
 var light
 var mesh
 var selectmar;
+var surroundObj;
 var selectObj;
+var gridHelper;
 var raycaster=new THREE.Raycaster()
 var mouse=new THREE.Vector2()
+var center=new THREE.Object3D()
 const viewapp = new Vue({
     el: '#view',
     data: {
@@ -74,6 +77,7 @@ const viewapp = new Vue({
             initScene();
             initLight();
             initObject();
+            initHelper()
             renderer.render(scene, camera)
         },
         cast:function(event){
@@ -84,13 +88,12 @@ const viewapp = new Vue({
             if(selectObj){
                 selectObj.material=selectmar;
             }
-            if(intersects[0]){
+            if(intersects[0]&&intersects[0].object!=gridHelper){
                 selectmar=intersects[0].object.material;
                 selectObj=intersects[0].object;
                 
                 this.transform='';
                 var color3=intersects[0].object.material.color
-                console.log(color3)
                 var color=new THREE.Vector4(color3.r,color3.g,color3.b,0)
                 
                 intersects[0].object.material=new THREE.ShaderMaterial({
@@ -115,7 +118,51 @@ const viewapp = new Vue({
             }
             renderer.render(scene,camera)
             
+        },
+        dcast:function(event){
+            mouse.x=(event.clientX/window.innerWidth)*2-1;
+            mouse.y=-(event.clientY/window.innerHeight)*2+1;
+            raycaster.setFromCamera(mouse,camera);
+            var intersects=raycaster.intersectObjects(scene.children)
+            if(selectObj){
+                selectObj.material=selectmar;
+            }
+            if(intersects[0]&&intersects[0].object!=gridHelper){
+                selectmar=intersects[0].object.material;
+                selectObj=intersects[0].object;
+
+                this.transform='';
+                var color3=intersects[0].object.material.color
+                var color=new THREE.Vector4(color3.r,color3.g,color3.b,0)
+
+                intersects[0].object.material=new THREE.ShaderMaterial({
+                    uniforms: {
+                        directLight: { type: 'v3', value: light.position },
+                        color:{type:'v4',value:color}
+                    },
+
+                    //加载顶点着色器程序
+                    vertexShader: document.getElementById('vertexshader').textContent,
+
+                    //加载片元着色器程序
+                    fragmentShader: document.getElementById('fragmentshader').textContent,
+
+                });//着色器材质对象
+                surroundObj=intersects[0].object;
+                camera.lookAt(surroundObj.position);
+                center.position.copy(surroundObj.position)
+                camera.fov=20;
+                camera.updateProjectionMatrix()
+            }
+            else{
+                selectObj=null;
+                surroundObj=null;
+                this.transform='translateX(-300px)'
+            }
+            renderer.render(scene,camera)
+
         }
+
     }
 })
 
@@ -179,12 +226,7 @@ function initObject() {
     mesh = new THREE.Mesh(geometry, material);
     mesh.position.y += 51;
 
-    var g2 = new THREE.PlaneGeometry(800, 1000, 3);
-    var ma = new THREE.MeshBasicMaterial({ color: 0xCFCFCF, side: THREE.DoubleSide })
-    ma.transparent = true;
-    ma.opacity = 0.2
-    var plane = new THREE.Mesh(g2, ma)
-    plane.rotateX(3.14 / 2)
+
 
     var g3 = new THREE.CubeGeometry(50, 50, 50);
     var m3 = new THREE.MeshLambertMaterial({ color: 0xFF0000 });
@@ -197,8 +239,17 @@ function initObject() {
     sphere.up.z = 0;
 
     scene.add(mesh);
-    scene.add(plane)
+
     scene.add(sphere)
+
+}
+
+function initHelper() {
+    gridHelper = new THREE.GridHelper( 1000, 20);
+    scene.add( gridHelper );
+
+    // cameraHelper=new THREE.CameraHelper(camera);
+    // scene.add(cameraHelper)
 }
 
 function pushControl(event) {
@@ -206,7 +257,6 @@ function pushControl(event) {
     x = event.clientX
     y = event.clientY
     var bcode = event.button
-    console.log(bcode)
     switch (bcode) {
         case 0:
             temp.onmousemove = function (event) {
@@ -215,7 +265,15 @@ function pushControl(event) {
             break;
         case 2:
             temp.onmousemove = function (event) {
-                mouseSurround(event, mesh)
+                // if(selectObj){
+                //     mouseSurround(event, selectObj.position)
+                // }
+                // else{
+                //     mouseSurround(event,mouse)
+                // }
+
+                mouseSurround(event,center.position)
+
             }
             break;
 

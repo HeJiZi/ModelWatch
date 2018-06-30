@@ -73,7 +73,7 @@ function login(){
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
             if(xmlhttp.responseText=="true"){
-                window.location.href="show";
+                window.location.href="/";
             }
             else{
                 var label=document.getElementById("username_erro");

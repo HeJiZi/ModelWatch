@@ -20,11 +20,11 @@
             <section class="cover">
                 <div class="wrapper">
                     <div id="avater">
-                        <img src="../../resources/images/temp.jpeg" />
+                        <img :src="user.uAvater" />
                     </div>
                     <section id="simple_data">
-                        <h1>HeJiZi</h1>
-                        <p>这个人很懒，没有任何说明</p>
+                        <h1>{{user.uUsername}}</h1>
+                        <p>{{user.uSignature}}</p>
                     </section>
                 </div>
             </section>
