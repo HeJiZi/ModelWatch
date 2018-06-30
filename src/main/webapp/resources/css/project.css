@@ -15,7 +15,7 @@ body,html{
     height: auto;
 }
 .a-left{
-    background: #e1d7ff;
+    /*background: #e7e7e7;*/
     text-align: center;
     width:19%;
     height: inherit;
@@ -24,7 +24,7 @@ body,html{
 }
 .info{
     border: none;
-    width:230px;
+    width:100%;
     height: 625px;
     margin-left: 12px;
     margin-top: 10px;
@@ -64,13 +64,14 @@ table{
 }
 .hh{
     font-weight: bold;
-    margin-top: 8px;
-    margin-left: 5px;
-    margin-bottom: 5px;
+    margin: 8px 5px 5px;
+    /*margin-left: 5px;*/
+    /*margin-bottom: 5px;*/
 }
 .dis{
     text-align: left;
     text-indent: 5px;
+    margin-right: 10px;
     margin-bottom: 5px;
 }
 .hhh{
@@ -94,7 +95,7 @@ table{
     margin-left: 120px;
 }
 #a-middle{
-    background: #dbd1f9;
+    /*background:#e7e7e7;*/
     width:60%;
     height:inherit;
     display: flex;
@@ -132,7 +133,7 @@ table{
     transition: transform ease 1s;
 }
 .a-right{
-    background: #d3caf0;
+    /*background: #cacaca;*/
     border-left: 3px solid white;
     width: 20%;
     height: inherit;
@@ -141,12 +142,14 @@ table{
 }
 #diary{
     border: none;
-    width:250px;
+    width: 100%;
     height: 890px;
-    margin-left: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
     overflow: auto;
 }
 .blo{
+    background: white;
     border: 1.5px solid #c5bfd6;
     border-radius: 5px;
     margin-bottom: 10px;
