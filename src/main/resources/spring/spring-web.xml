@@ -30,6 +30,11 @@
         <property name="templateLoaderPath">
             <value>/WEB-INF/html</value>
         </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
     </bean>
     <bean id="htmlviewResolver"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
