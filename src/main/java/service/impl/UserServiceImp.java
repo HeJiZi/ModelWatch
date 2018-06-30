@@ -54,4 +54,8 @@ public class UserServiceImp implements UserService {
         int res=userDao.addUser(username,password);
         return res==0?false:true;
     }
+
+    public boolean add(int addid) {
+        return false;
+    }
 }

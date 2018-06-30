@@ -9,7 +9,9 @@ const profile=new Vue({
         file:'',
     },
     created:function () {
-        this.$http.get('/zone/data/'+1).then((response) => {
+        var url=window.location.href;
+        var id=url.substr(url.lastIndexOf('/')+1,url.length);
+        this.$http.get('/zone/data/'+id).then((response) => {
 
             this.user=response.data;
         }, (response) => {
@@ -22,7 +24,7 @@ const profile=new Vue({
             var formdata=new FormData();
             formdata.append("file",file);
             formdata.append("user",JSON.stringify(this.user))
-            this.$http.put(
+            this.$http.post(
                 '/zone/data',
                 // 请求体中要发送给服务端数据
                 formdata,

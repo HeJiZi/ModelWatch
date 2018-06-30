@@ -56,7 +56,7 @@ public class ZoneController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/data",method = RequestMethod.PUT)
+    @RequestMapping(value = "/data",method = RequestMethod.POST)
     public boolean UpdateData(@RequestParam("user") String user, HttpServletRequest request){
         MultipartFile file=null;
         if (request instanceof MultipartHttpServletRequest) {

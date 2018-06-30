@@ -15,7 +15,7 @@ body,html{
     height: auto;
 }
 .a-left{
-    /*background: #e7e7e7;*/
+    background: #ebebeb;
     text-align: center;
     width:19%;
     height: inherit;
@@ -40,20 +40,6 @@ table{
     font-weight: bolder;
     margin-top: 10px;
 }
-/*#btn{*/
-    /*background-color: #ff8e47;*/
-    /*color: white;*/
-    /*border: none;*/
-    /*width: 120px;*/
-    /*height: 33px;*/
-    /*font-size: 17px;*/
-    /*font-weight: bolder;*/
-    /*text-align: center;*/
-    /*text-decoration: none;*/
-    /*cursor: pointer;*/
-    /*margin-top: 10px;*/
-    /*margin-bottom: 15px;*/
-/*}*/
 .user{
     background-position: -83px -84px;
     margin: 0 auto;
@@ -95,7 +81,6 @@ table{
     margin-left: 120px;
 }
 #a-middle{
-    /*background:#e7e7e7;*/
     width:60%;
     height:inherit;
     display: flex;
@@ -133,7 +118,7 @@ table{
     transition: transform ease 1s;
 }
 .a-right{
-    /*background: #cacaca;*/
+    background:  #feffd9;
     border-left: 3px solid white;
     width: 20%;
     height: inherit;

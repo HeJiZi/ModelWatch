@@ -33,4 +33,11 @@ public interface UserService {
      */
     boolean register(String username,String password);
 
+    /**
+     * 添加协作者
+     * @param addid
+     * @return
+     */
+    boolean add(int addid);
+
 }
