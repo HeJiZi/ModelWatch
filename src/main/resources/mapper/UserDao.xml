@@ -8,9 +8,10 @@
     </select>
     <select id="selectUserByUNAndPass" resultType="User">
         select U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature,
-            (select count(*) umn from model,user u where M_pid in
-                   (select P_id from project p where p.P_Uid=u.U_id)) "uModelNum",
-            (select count(*) upn from project p,user u where p.P_Uid=u.U_id) "uProjectNum"
+        (select count(*) umn from model,user u where M_pid in (select P_id from project p where p.P_Uid=u.U_id)
+            and u.U_username=#{username} and u.U_password=#{password}) "uModelNum",
+        (select count(*) upn from project p,user u
+            where p.P_Uid=u.U_id and U_username=#{username} and U_password=#{password}) "uProjectNum"
         from user where U_username=#{username} and U_password=#{password}
     </select>
 
