@@ -22,7 +22,7 @@ public class InvitationController {
 
 
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public void add(HttpServletRequest request){
+    public void Add(HttpServletRequest request){
         int addId= Integer.parseInt(request.getParameter("per"));
         userService.add(addId);
     }

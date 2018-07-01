@@ -13,7 +13,7 @@ public interface ProjectDao {
      */
     Project getProjectById(long pid);
 
-    Project selectProjectDate(@Param("pId") int pId,@Param("pName") String pName,@Param("pContext") String pContext);
+
 
     /**
      * 根据uid获取用户创建项目

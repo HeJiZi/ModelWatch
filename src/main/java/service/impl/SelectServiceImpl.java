@@ -43,8 +43,8 @@ public class SelectServiceImpl implements SelectService {
         return projectDao.getProjectById(Long.parseLong(pId));
     }
 
-    public void selectProject(int pId,String pName,String pContext){
-        projectDao.selectProjectDate(pId,pName,pContext);
+    public Project selectProject(long pId){
+        return projectDao.getProjectById(pId);
     }
 
 }

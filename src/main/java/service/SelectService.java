@@ -31,5 +31,5 @@ public interface SelectService {
 
     User getUserData(String uId);
 
-    public void selectProject(int pId,String pName,String pContext);
+    Project selectProject(long pId);
 }

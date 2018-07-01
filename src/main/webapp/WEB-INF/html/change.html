@@ -7,17 +7,28 @@
     <link href="../../resources/css/change.css" type="text/css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../../resources/js/jquery-3.3.1.js"></script>
+    <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
+        // $(document).ready(function () {
+        //     var per=$('#per').val();
+        //     $.post("/invitation",
+        //         {
+        //             per:per,
+        //         },
+        //         function(data,status){
+        //             alert('修改成功！');
+        //         });
+        // })
+
         $(document).ready(function () {
-            var per=$('#per').val();
-            $.post("/invitation",
-                {
-                    per:per,
-                },
-                function(data,status){
-                    alert('修改成功！');
-                });
-        })
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length);
+            $.get("/project/data/"+id,function (data,status) {
+                alert(data+"\n"+status);
+                $("#des").val(data.pContext);
+            })
+
+        });
     </script>
 </head>
 <body>
@@ -35,14 +46,14 @@
         <label for="bacg">项目背景</label>
         <textarea id="bacg" name="bacg" placeholder="修改项目背景"></textarea>
     </section>
-    <input type="submit" class="btn" value="确认修改" onclick="changePro()" >
+    <input type="submit" class="btn" id="btn" value="确认修改" onclick="changePro()" >
 <hr>
     <form>
         <section class="blo">
             <label for="per">添加协作者</label>
             <input class="tex" type="text" id="per" name="per" placeholder="输入要添加的协作者的名字">
         </section>
-        <input type="submit" id="btn" class="btn" value="确认添加" >
+        <input type="submit"  class="btn" value="确认添加" >
     </form>
 </div>
 </body>

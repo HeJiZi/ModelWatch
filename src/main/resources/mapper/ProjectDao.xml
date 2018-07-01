@@ -15,7 +15,7 @@
     </select>
 
     <select id="getProjectById" resultType="Project">
-        select P_id,P_createTime,P_name,P_preview from project where P_id=#{pid}
+        select P_id,P_createTime,P_name,P_preview,P_context from project where P_id=#{pid}
     </select>
 
     <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="User">
@@ -29,4 +29,6 @@
     <select id="selectProjectDate">
         select P_id,P_context,P_name from project where P_id=#{pId}
     </select>
+
+
 </mapper>

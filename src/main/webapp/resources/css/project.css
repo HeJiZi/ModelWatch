@@ -15,7 +15,7 @@ body,html{
     height: auto;
 }
 .a-left{
-    background: #ebebeb;
+    background: #f7f7f7;
     text-align: center;
     width:19%;
     height: inherit;
@@ -81,6 +81,7 @@ table{
     margin-left: 120px;
 }
 #a-middle{
+    /*background:  #f7f7f7;*/
     width:60%;
     height:inherit;
     display: flex;
@@ -118,7 +119,7 @@ table{
     transition: transform ease 1s;
 }
 .a-right{
-    background:  #feffd9;
+    background:  #f7f7f7;
     border-left: 3px solid white;
     width: 20%;
     height: inherit;
