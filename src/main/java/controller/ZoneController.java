@@ -63,8 +63,8 @@ public class ZoneController {
             file=MyFileUtil.getFile(request);
         }
 
-        userService.updateUserProfile(user,file);
-
+        User us= userService.updateUserProfile(user,file);
+        request.getSession().setAttribute("user",us);
         return true;
     }
 

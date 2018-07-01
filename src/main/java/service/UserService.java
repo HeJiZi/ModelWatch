@@ -9,7 +9,7 @@ public interface UserService {
      * 更新用户资料
      * @param user
      */
-    void updateUserProfile(String user, MultipartFile file);
+    User updateUserProfile(String user, MultipartFile file);
 
     /**
      * 更新用户密码

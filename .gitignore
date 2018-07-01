@@ -5,3 +5,4 @@ ModelWatch.iml
 src/.DS_Store
 .DS_Store
 target/
+src/main/resources/jdbc.properties

@@ -21,7 +21,7 @@ public class UserServiceImp implements UserService {
     private UserDao userDao;
 
 
-    public void updateUserProfile(String user, MultipartFile file) {
+    public User updateUserProfile(String user, MultipartFile file) {
         JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[] {"yyyy-MM-dd"}) );
         User us=(User) JSONObject.toBean(JSONObject.fromObject(user),User.class);
 
@@ -40,6 +40,7 @@ public class UserServiceImp implements UserService {
             }
         }
         userDao.updateData(us);
+        return us;
     }
 
     public void updateUserPass(User user) {
