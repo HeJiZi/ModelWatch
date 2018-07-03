@@ -19,11 +19,13 @@ function mouseTranslate(event,target){
     y=event.clientY
 
     var v3=new THREE.Vector3(1,0,0)
+    var vy3=new THREE.Vector3(0,1,0)
     v3.applyQuaternion(camera.quaternion)
+    vy3.applyQuaternion(camera.quaternion)
     m4.set(
-            1,0,0,v3.x*(-dx*2),
-            0,1,0,v3.y*(-dx*2)+dy,
-            0,0,1,v3.z*(-dx*2),
+            1,0,0,v3.x*(-dx*0.02)+vy3.x*dy*0.01,
+            0,1,0,v3.y*(-dx*0.02)+vy3.y*dy*0.01,
+            0,0,1,v3.z*(-dx*0.02)+vy3.z*dy*0.01,
             0,0,0,1
             );
     v4.set(camera.position.x,camera.position.y,camera.position.z,1)
