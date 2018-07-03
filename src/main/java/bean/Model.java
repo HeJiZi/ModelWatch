@@ -71,4 +71,17 @@ public class Model {
     public void setaClass(Class aClass) {
         this.aClass = aClass;
     }
+
+    @Override
+    public String toString() {
+        return "Model{" +
+                "mId=" + mId +
+                ", mData='" + mData + '\'' +
+                ", mPreview='" + mPreview + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mCreateTime=" + mCreateTime +
+                ", project=" + project +
+                ", aClass=" + aClass +
+                '}';
+    }
 }

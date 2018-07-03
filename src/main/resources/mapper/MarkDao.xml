@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MarkDao">
+    <select id="selectMark" resultType="int">
+        select count(*)
+        from mark
+        where Mark_mid=#{mid}
+        and Mark_uid=#{uid}
+    </select>
+    <insert id="addMark">
+        insert into mark (Mark_uid, Mark_mid) values (#{uid},#{mid})
+    </insert>
+    <delete id="deleteMark">
+        delete from mark where Mark_uid=#{uid} and Mark_mid=#{mid}
+    </delete>
+</mapper>

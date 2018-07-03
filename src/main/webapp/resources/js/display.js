@@ -13,6 +13,12 @@ var center=new THREE.Object3D()
 const viewapp = new Vue({
     el: '#view',
     data: {
+        model:{
+            mId:1,
+            mData: 'pp.json'
+        },
+        markInfo: false,
+        uId: 1,
         width: 0,
         height: 0,
         opacity: 0,
@@ -54,9 +60,11 @@ const viewapp = new Vue({
             renderer.render(scene, camera)
         }
         document.oncontextmenu = function () { return false; }
+
     },
     mounted: function () {
         this.init3D();
+        this.getMarkInfo()
     },
     computed: {
         switch_h: function () {
@@ -69,6 +77,52 @@ const viewapp = new Vue({
     methods: {
         jump: function () {
             window.location.href = '../';
+        },
+        mark: function(){
+            if (this.markInfo) {
+                this.$http.post('/mark/deleteMark',{
+                    uid:vue.user.uId ,
+                    mid: this.model.mId
+                },
+                {
+                    emulateJSON:true
+                }).then((response)=>{
+                    if (response.data==1){
+                        this.markInfo = false
+                        console.log('取消收藏成功！')
+                    }
+                })
+            }
+            else {
+                this.$http.post('/mark/addMark',{
+                    uid:vue.user.uId ,
+                    mid: this.model.mId
+                },
+                {
+                    emulateJSON:true
+                }).then((response)=>{
+                    if (response.data==1){
+                        this.markInfo = true
+                        console.log('收藏成功！')
+                    }
+                })
+            }
+        },
+        getMarkInfo: function(){
+            this.$http.get('/user').then((response)=>{
+                this.uId = response.data.uId
+                console.log(this.uId)
+            })
+            this.$http.post('/mark/selectMark',{
+                uid: this.uId ,
+                mid: this.model.mId
+            },
+            {
+                emulateJSON:true
+            }).then((response)=>{
+                this.markInfo = response.data==1? true:false
+                console.log(this.markInfo)
+            })
         },
         init3D: function () {
 
@@ -289,3 +343,4 @@ function moveclean() {
     var target = document.getElementById('3dcanvas')
     target.onmousemove = null;
 }
+
