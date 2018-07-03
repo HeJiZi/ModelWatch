@@ -8,4 +8,8 @@
             (select Mark_mid from mark where Mark_uid=#{uid}) ma
         where ma.Mark_mid=M_id;
     </select>
+    <select id="getAllModels" resultType="Model">
+        select M_id,M_data,M_preview,M_name,M_createTime
+        from model
+    </select>
 </mapper>

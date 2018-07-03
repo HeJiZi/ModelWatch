@@ -10,15 +10,17 @@
     <script src="../../resources/js/lib/index.js"></script>
     <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
-        // $.ajax({
-        //     url : "/project",
-        //     type : "get",
-        //     data:{desShow:$("#desShow").val()},
-        //     async : false,
-        //     success : function(data) {
-        //         $('#desShow').html(data);
-        //     },
-        // })
+        $(document).ready(function () {
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length);
+            $.get("/project/data/"+id,function (data,status) {
+                alert(data+"\n"+status);
+                // $("#creater").val(data.pContext);
+                // $("#adder").val(data.pName);
+                $("#desShow").val(data.pContent);
+                $("#proname").val(data.pName);
+            })
+        });
     </script>
     <!--滚动条-->
     <style type="text/css" rel="stylesheet">
@@ -54,7 +56,7 @@
                                 <div class="mw-icon user"></div>
                             </div>
                         </td>
-                        <td class="hh">创建者xxx</td>
+                        <td class="hh" id="creater">创建者xxx</td>
                     </tr>
                     <tr>
                         <td>
@@ -62,14 +64,12 @@
                                 <div class="mw-icon co-user"></div>
                             </div>
                         </td>
-                        <td class="hh">协作者yyy</td>
+                        <td class="hh" id="adder">协作者yyy</td>
                     </tr>
                 </table>
                 <article class="dis">
                     <section class="hh">项目描述:</section>
                     <section id="desShow" class="hhh">xxx项目是一个非常强大的3D模型展示平台，适合...各种行业使用，在这里你可以 ...你可以...你还可以...</section>
-                    <section class="hh" style="margin-top: 15px;">项目背景:</section>
-                    <section id="bacgShow" class="hhh" style="margin-bottom: 30px;">基于现在....</section>
                     <a href="/proData/1"><input id="btn2" type="button" value="修改" ></a>
                 </article>
             </div>
@@ -78,7 +78,7 @@
             <div class="bac">
                 <table>
                     <tr>
-                        <td><header class="tit">xel项目</header></td>
+                        <td><header class="tit" id="proname">xel项目</header></td>
                         <td>
                             <div title="关注">
                                 <div class="mw-icon love"></div>

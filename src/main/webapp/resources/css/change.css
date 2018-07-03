@@ -4,7 +4,7 @@ body{
 #main{
     background: white;
     width:800px;
-    height:615px;
+    height:auto;
     margin:0 auto;
     padding-top:10px;
 }
@@ -29,6 +29,15 @@ textarea{
     padding-left: 8px;
     font-size: 1em;
     height: 80px;
+}
+#pro_view{
+    margin-top: 5px;
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+    padding-left: 8px;
+    font-size: 1em;
+
 }
 .ar{
     height: 130px;
@@ -55,4 +64,37 @@ textarea{
     border-radius: 5px;
     border: 1px solid #ded4fc;
     padding-left: 8px;
+}
+.pro-input-box{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 50%;
+}
+.pro-input-box>label{
+    display: block;
+    font-size: 1em;
+}
+.pro-input-box>input{
+    margin-top: 5px;
+    height: 30px;
+    width: 80%;
+    background: rgb(250, 250, 250);
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
+    padding-left: 8px;
+    font-size: 1em;
+}
+.pro-input-box>input:active{
+    border: 1px black solid;
+}
+.pro-input-box>textarea{
+    margin-top: 5px;
+    width: 100%;
+    max-width: 100%;;
+    background: rgb(250, 250, 250);
+    border-radius: 5px;
+    border: 1px solid rgb(221, 221, 221);
+    padding-left: 8px;
+    font-size: 1em;
+    height: 80px;
 }

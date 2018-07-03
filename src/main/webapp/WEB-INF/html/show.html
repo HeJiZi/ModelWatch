@@ -176,7 +176,7 @@
     </div>
     <div id="a-bottom">
         <div class="projects" >
-            <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="/model/dis/1"></mw-photo>
+            <mw-photo  v-for="model in models" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'/model/dis/'+model.mId"></mw-photo>
         </div>
     </div>
 </div>

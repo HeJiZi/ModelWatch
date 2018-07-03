@@ -5,30 +5,36 @@
     <title>修改项目信息</title>
     <link href="../../resources/css/watchUI.css"  type="text/css" rel="stylesheet" />
     <link href="../../resources/css/change.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../resources/css/lib/index.css">
+    <link rel="stylesheet" href="../../resources/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../../resources/js/jquery-3.3.1.js"></script>
     <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
-        // $(document).ready(function () {
-        //     var per=$('#per').val();
-        //     $.post("/invitation",
-        //         {
-        //             per:per,
-        //         },
-        //         function(data,status){
-        //             alert('修改成功！');
-        //         });
-        // })
-
         $(document).ready(function () {
             var url=window.location.href;
             var id=url.substr(url.lastIndexOf('/')+1,url.length);
             $.get("/project/data/"+id,function (data,status) {
                 // alert(data+"\n"+status);
                 $("#des").val(data.pContext);
+                $("#pro_name").val(data.pName);
             })
-
         });
+ 
+        $(document).ready(function () {
+            var formdata=new FormData();
+            formdata.append("file",this.file);
+            formdata.append("project",JSON.stringify(this.project))
+            $.post('/project', formdata,
+                {
+                    processData: false,       //必不可缺
+                    contentType: false,
+                },
+            function(data,status){
+                alert("Data: " + data + "Status: " + status);
+            });
+
+        })
     </script>
 </head>
 <body>
@@ -39,14 +45,25 @@
         <center><session class="tit">修改项目信息</session></center>
 <hr>
     <section class="blo">
+        <label for="pro_name">项目名</label>
+        <input class="tex" id="pro_name" placeholder="修改项目名">
+    </section>
+    <section class="blo">
         <label for="des">项目描述</label>
         <textarea class="ar" id="des" name="des" placeholder="修改项目描述"></textarea>
     </section>
     <section class="blo">
-        <label for="bacg">项目背景</label>
-        <textarea id="bacg" name="bacg" placeholder="修改项目背景"></textarea>
+        <label>预览图</label>
+        <div class="avatar-uploader">
+            <label for="test" tabindex="0" class="el-upload el-upload--text">
+                <!--<img  src="project.pPreview" class="up-pre-photo" :style="{width:width+'px'}">-->
+                <img  src="" class="up-pre-photo" id="image">
+                <!--<input @change="upload" id="test" type="file" name="file" class="el-upload__input" onchange="upload(this)">-->
+                <input id="test" type="file" name="file" class="el-upload__input" onchange="upload(this)">
+            </label>
+        </div>
     </section>
-    <input type="submit" class="btn" id="btn" value="确认修改" onclick="changePro()" >
+    <a href="/proData/{pId}"><input type="submit" class="btn" id="btn" value="确认修改" ></a>
 <hr>
     <form>
         <section class="blo">
@@ -56,6 +73,29 @@
         <input type="submit"  class="btn" value="确认添加" >
     </form>
 </div>
+<script>
+    var image = '';
+    function upload(file) {
+        if (!file.files || !file.files[0]) {
+            return;
+        }
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+            document.getElementById('image').src = event.target.result;
+            var image=new Image();
+            image.src = event.target.result;
+            image.onload=function () {
+                console.log(image.width/image.height)
+                $('#image').attr('style','width:'+300*(image.width/image.height)+'px')
+            }
+
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+    
+</script>
 </body>
 <script src="../resources/js/watchUI.js"></script>
+
 </html>

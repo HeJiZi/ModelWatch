@@ -10,9 +10,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.ManageService;
 import service.SelectService;
 import service.UpdateService;
+import service.impl.SelectServiceImpl;
+import service.impl.UpdateServiceImp;
 import util.MyFileUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/project")
@@ -52,4 +55,6 @@ public class ProjectController {
     public Project getData(@PathVariable Long pId){
         return  selectService.selectProject(pId);
     }
+
+
 }

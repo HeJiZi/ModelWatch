@@ -37,12 +37,18 @@
             <a title="切换模式" href="/model/edi/1">
                 <div class="mw-icon transbutton"></div>
             </a>
-            <div title="收藏">
-                <div class="mw-icon lovebutton"></div>
+            <div title="收藏" @click="mark">
+                <div class="mw-icon" :class="{lovebutton:!markInfo,dislovebutton:markInfo}"></div>
             </div>
-            <div title="下载">
-                <div class="mw-icon downloadbutton"></div>
-            </div>
+            <!--<div title="下载" @click="downloadModel">-->
+                <!--<div class="mw-icon downloadbutton"></div>-->
+            <!--</div>-->
+            <a :href="'/resources/upload/model/'+model.mData" download="model">
+                <div title="下载">
+                    <div class="mw-icon downloadbutton"></div>
+                </div>
+            </a>
+
         </div>
     </div>
 </body>
