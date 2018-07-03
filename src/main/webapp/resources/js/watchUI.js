@@ -202,7 +202,7 @@ const vue = new Vue({
 
             var data=response.data
             var u=this.user;
-            console.log(111)
+
             if(data!=''){
 
                 this.ok=true

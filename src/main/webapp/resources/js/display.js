@@ -94,12 +94,10 @@ const viewapp = new Vue({
                 
                 this.transform='';
                 var color3=intersects[0].object.material.color
-                var color=new THREE.Vector4(color3.r,color3.g,color3.b,0)
                 
                 intersects[0].object.material=new THREE.ShaderMaterial({
                     uniforms: {
                         directLight: { type: 'v3', value: light.position },
-                        color:{type:'v4',value:color}
                     },
             
                     //加载顶点着色器程序
@@ -132,13 +130,10 @@ const viewapp = new Vue({
                 selectObj=intersects[0].object;
 
                 this.transform='';
-                var color3=intersects[0].object.material.color
-                var color=new THREE.Vector4(color3.r,color3.g,color3.b,0)
 
                 intersects[0].object.material=new THREE.ShaderMaterial({
                     uniforms: {
                         directLight: { type: 'v3', value: light.position },
-                        color:{type:'v4',value:color}
                     },
 
                     //加载顶点着色器程序
@@ -181,9 +176,9 @@ function initThree(obj) {
 
 function initCamera() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.x = 1500;
-    camera.position.y = 500;
-    camera.position.z = 1000;
+    camera.position.x = 15;
+    camera.position.y = 5;
+    camera.position.z = 10;
     camera.up.x = 0;
     camera.up.y = 1;
     camera.up.z = 0;
@@ -205,43 +200,32 @@ function initLight() {
     scene.add(ambientLight)
 }
 
-function initObject() {
-    var geometry = new THREE.SphereGeometry(200, 30, 30);
-    var color=new THREE.Vector4(1.0,0.0,0.0,1.0);
-    // var material = new THREE.ShaderMaterial({
-    //     uniforms: {
-    //         directLight: { type: 'v3', value: light.position },
-    //         color:{type:'v4',value:color}
-    //     },
+function initObject(){
+    // instantiate a loader
+    var loader = new THREE.JSONLoader();
 
-    //     //加载顶点着色器程序
-    //     vertexShader: document.getElementById('vertexshader').textContent,
+    // load a resource
+    loader.load(
+        // resource URL
+        '/resources/upload/model/marmelab.json',
 
-    //     //加载片元着色器程序
-    //     fragmentShader: document.getElementById('fragmentshader').textContent,
+        // onLoad callback
+        function ( geometry, materials ) {
+            var object = new THREE.Mesh( geometry ,materials);
+            scene.add( object );
+            renderer.render(scene,camera)
+        },
 
-    // });//着色器材质对象
+        // onProgress callback
+        function ( xhr ) {
+            console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+        },
 
-    var material=new THREE.MeshLambertMaterial({ color: 0xFF0000 })
-    mesh = new THREE.Mesh(geometry, material);
-    mesh.position.y += 51;
-
-
-
-    var g3 = new THREE.CubeGeometry(50, 50, 50);
-    var m3 = new THREE.MeshLambertMaterial({ color: 0xFF0000 });
-    sphere = new THREE.Mesh(g3, m3);
-    sphere.position.x = 240
-    sphere.position.z = 200;
-    sphere.position.y = 80
-    sphere.up.x = 0;
-    sphere.up.y = 1;
-    sphere.up.z = 0;
-
-    scene.add(mesh);
-
-    scene.add(sphere)
-
+        // onError callback
+        function( err ) {
+            console.log( 'An error happened' );
+        }
+    );
 }
 
 function initHelper() {
@@ -271,7 +255,6 @@ function pushControl(event) {
                 // else{
                 //     mouseSurround(event,mouse)
                 // }
-
                 mouseSurround(event,center.position)
 
             }
