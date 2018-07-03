@@ -10,10 +10,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.ManageService;
 import service.SelectService;
 import service.UpdateService;
+import service.impl.SelectServiceImpl;
 import service.impl.UpdateServiceImp;
 import util.MyFileUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/project")
@@ -43,17 +45,6 @@ public class ProjectController {
         String des=request.getParameter("des");
         String bacg=request.getParameter("bacg");
         updateService.UpdateProject(pId,des);
-    }
-
-    @Autowired
-    UpdateServiceImp alterService;
-    @RequestMapping(value = "/proData/{pId}",method = RequestMethod.POST)
-    public void alterProject(HttpServletRequest request){
-        //从前端获取要传入的值
-        int pId= Integer.parseInt(request.getParameter("pId"));
-        String pro_name=request.getParameter("pro_name") ;
-        String des=request.getParameter("des");
-        alterService.AlterProject(pId,pro_name,des);
     }
 
     @Autowired

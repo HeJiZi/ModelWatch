@@ -12,7 +12,7 @@ public class UpdateServiceImp implements UpdateService {
     public void UpdateProject(int pId, String pContext) {
         projectDao.updateProjectData(pId,pContext);
     }
-    public void AlterProject(int pId, String pName,String pContext) {
-        projectDao.alterProjectData(pId,pName,pContext);
-    }
+
+
+
 }
