@@ -10,15 +10,14 @@
     <script src="../../resources/js/lib/index.js"></script>
     <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
-        // $.ajax({
-        //     url : "/project",
-        //     type : "get",
-        //     data:{desShow:$("#desShow").val()},
-        //     async : false,
-        //     success : function(data) {
-        //         $('#desShow').html(data);
-        //     },
-        // })
+        $(document).ready(function(){
+            var url=window.location.href;
+            $get("/project/1"),function(data,status){
+                alert(data+"\n"+status);
+                $("#desShow").val(data.pContext);
+
+            }
+        })
     </script>
     <!--滚动条-->
     <style type="text/css" rel="stylesheet">

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.ManageService;
 import service.SelectService;
 import service.UpdateService;
+import service.impl.UpdateServiceImp;
 import util.MyFileUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,17 @@ public class ProjectController {
     }
 
     @Autowired
+    UpdateServiceImp alterService;
+    @RequestMapping(value = "/proData/{pId}",method = RequestMethod.POST)
+    public void alterProject(HttpServletRequest request){
+        //从前端获取要传入的值
+        int pId= Integer.parseInt(request.getParameter("pId"));
+        String pro_name=request.getParameter("pro_name") ;
+        String des=request.getParameter("des");
+        alterService.AlterProject(pId,pro_name,des);
+    }
+
+    @Autowired
     SelectService selectService;
 
     @ResponseBody
@@ -52,4 +64,6 @@ public class ProjectController {
     public Project getData(@PathVariable Long pId){
         return  selectService.selectProject(pId);
     }
+
+
 }
