@@ -52,6 +52,11 @@ public interface ProjectDao {
      */
     int alterProjectData(@Param("pId") int pId,@Param("pPname") String pPname,@Param("pContext") String pContext);
 
-
+    /**
+     * 删除项目
+     * @param pId
+     * @return
+     */
+    int deleteProject(@Param("pId") int pId);
 }
 

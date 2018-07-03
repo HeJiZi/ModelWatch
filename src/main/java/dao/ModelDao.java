@@ -19,4 +19,11 @@ public interface ModelDao {
      * @return
      */
     List<Model> getAllModels();
+
+    /**
+     * 添加模型
+     * @param model
+     * @return
+     */
+    int addModel(Model model);
 }
