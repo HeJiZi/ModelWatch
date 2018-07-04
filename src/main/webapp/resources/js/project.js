@@ -3,14 +3,7 @@ const projects=new Vue({
     data:{
         dialogVisible: false,
         modelName: '',
-        projects:[
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/9.jpeg'},
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/5.jpeg'},
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/12.jpeg'},
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/temp.jpeg'},
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/10.jpeg'},
-            {name:'预览',time:'2018/04/06',preview_url:'../../resources/images/11.jpeg'},
-
+        models:[
         ],
     },
     methods: {
@@ -37,6 +30,16 @@ const projects=new Vue({
                     done();
                 })
                 .catch(_ => {});
+        },
+        getProjectModels(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length);
+            this.$http.get('/project/model/'+id).then((response)=>{
+                this.models = response.data
+            })
         }
+    },
+    created(){
+        this.getProjectModels()
     }
 })

@@ -3,6 +3,7 @@ package controller;
 import bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import dao.invitationDao;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class InvitationController {
 
     @Autowired
-    dao.invitationDao invitationDao;
+    private invitationDao invitationDao;
 
     @PostMapping(value = "/addInvitation")
     public int addInvitation(@RequestParam("pid") int pid,

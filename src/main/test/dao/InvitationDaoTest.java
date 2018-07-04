@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class InvitationDaoTest {
 
     @Autowired
-    InvitationDao invitationDao;
+    invitationDao invitationDao;
 
     @Test
     public void addInvitation() {

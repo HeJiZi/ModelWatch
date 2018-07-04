@@ -25,7 +25,7 @@
             var id=url.substr(url.lastIndexOf('/')+1,url.length)
             $.get("/user/data/"+id,function (data,status) {
                 // alert(data+"\n"+status);
-                $("#creater").text(data.uUsername);
+                $("#creater").text('项目作者：'+data.uUsername);
                 // $("#adder").text(data.uId);
             })
         })
@@ -41,20 +41,15 @@
             var url=window.location.href;
             var id=url.substr(url.lastIndexOf('/')+1,url.length)
             $.get("/project/diary/"+id,function (data,status) {
-                // alert(data+"\n"+status);
                 for(var i=0;i<data.length;i++){
-                    // alert(data[i].lContext);
-                    // $(".inner").text(data.lContext);
-                    // $(".dat").text(data.lTime);
+                    var date = new Date()
+                    date.setTime(data[i].lTime)
+
                     var str = "<section class=\"blo\">\n" +
                         "                        <section class=\"inner\">"+data[i].lContext+"</section>\n" +
-                        "                    <section class=\"dat\">"+data[i].lTime+"</section>\n" +
+                        "                    <section class=\"dat\">"+date.toLocaleString()+"</section>\n" +
                         "                    </section>";
                     $("#diary").append(str);
-                // <section class="blo">
-                //         <section class="inner">内容......完成了.......增加了......修改了........</section>
-                //     <section class="dat">xx年xx月xx日 xx:xx</section>
-                //     </section>
                 }
             })
         })
@@ -125,7 +120,7 @@
                 </table>
             </div>
             <div class="projects">
-                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="/model/dis/1"></mw-photo>
+                <mw-photo  v-for="model in models" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'/model/dis/'+model.mId"></mw-photo>
                 <div class="addModel">
                     <div class="add" @click="dialogVisible = true">
                         <span>+</span>
@@ -137,7 +132,6 @@
                     :visible.sync="dialogVisible"
                     width="30%"
                     :before-close="handleClose">
-                <!--<input type="text" :model="modelName" placeholder="请输入模型名字">-->
                 <el-form label-width="80px">
                     <el-form-item label="模型名字">
                         <el-input v-model="modelName" placeholder="请输入模型名字"></el-input>
