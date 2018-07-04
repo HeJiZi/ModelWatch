@@ -58,5 +58,12 @@ public interface ProjectDao {
      * @return
      */
     int deleteProject(@Param("pId") int pId);
+
+    /**
+     * 通过项目id获取用户和项目信息
+     * @param pId
+     * @return
+     */
+    Project getProjectAndUserByPid(@Param("pId") long pId);
 }
 

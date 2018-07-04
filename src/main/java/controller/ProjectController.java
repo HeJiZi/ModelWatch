@@ -4,6 +4,7 @@ import bean.Log;
 import bean.Project;
 import bean.User;
 import bean.Model;
+import dao.ProjectDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     ManageService manageService;
+
+    @Autowired
+    ProjectDao projectDao;
 
     @ResponseBody
     @RequestMapping(value = "",method = RequestMethod.POST)
@@ -68,5 +72,11 @@ public class ProjectController {
     @RequestMapping(value = "/model/{pId}",method = RequestMethod.GET)
     public List<Model> getModel(@PathVariable long pId){
         return  selectService.selectModel(pId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/{pId}",method = RequestMethod.GET)
+    public Project getProjectUser(@PathVariable("pId") long pId){
+        return projectDao.getProjectAndUserByPid(pId);
     }
 }
