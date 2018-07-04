@@ -17,13 +17,14 @@ const projects=new Vue({
         addModel(){
             var url=window.location.href;
             var id=url.substr(url.lastIndexOf('/')+1,url.length);
+            console.log(this.modelName)
             this.$http.post('/model',{
                     mName: this.modelName,
                     project:{
                         pId:id
                     }
                 }).then((response)=>{
-                if (response.data==1){
+                if (response.data){
                     this.dialogVisible = false
                     console.log('添加模型成功！')
 

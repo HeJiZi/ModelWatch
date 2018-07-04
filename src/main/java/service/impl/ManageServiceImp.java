@@ -78,7 +78,7 @@ public class ManageServiceImp implements ManageService {
         Project project = new Project();
         project.setpId(pId);
         log.setProject(project);
-        log.setlContext("用户" + user.getuUsername() + "创建了项目");
+        log.setlContext("用户" + user.getuUsername() + "创建了模型："+ model.getmName());
         try {
             if (modelDao.addModel(model)==0){
                 return false;
