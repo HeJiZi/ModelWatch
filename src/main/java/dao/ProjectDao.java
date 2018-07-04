@@ -44,13 +44,13 @@ public interface ProjectDao {
     int updateProjectData(@Param("pId") int pId,@Param("pContext") String pContext);
 
     /**
-     * 项目更改
+     * 项目显示
      * @param pId
      * @param pPname
      * @param pContext
      * @return
      */
-    int alterProjectData(@Param("pId") int pId,@Param("pPname") String pPname,@Param("pContext") String pContext);
+    int showProjectData(@Param("pId") int pId,@Param("pPname") String pPname,@Param("pContext") String pContext);
 
 
 }

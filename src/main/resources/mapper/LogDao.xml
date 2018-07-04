@@ -6,4 +6,7 @@
     <insert id="addLog">
         insert into log(L_pid,L_context) values (#{project.pId},#{lContext})
     </insert>
+    <select id="getLogByPid" resultType="Log">
+        select L_context,L_Time from log where L_pid=#{pid};
+    </select>
 </mapper>

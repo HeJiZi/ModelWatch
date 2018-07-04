@@ -27,6 +27,8 @@ public interface UserDao {
      */
     User selectUserByUid(int uId);
 
+
+
     /**
      * 添加用户
      * @param username
@@ -50,5 +52,7 @@ public interface UserDao {
      * @return 找不到更改的用户返回0
      */
     int updatePassword(@Param("uId") int uId,@Param("uPassword") String password);
+
+
 
 }

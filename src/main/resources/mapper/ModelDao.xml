@@ -12,4 +12,7 @@
         select M_id,M_data,M_preview,M_name,M_createTime
         from model
     </select>
+    <select id="getProjectModelByPid" resultType="Mosel">
+        select M_id,M_data,M_preview,M_name,M_createTime from model where M_pid=#{pid}
+    </select>
 </mapper>

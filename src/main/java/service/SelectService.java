@@ -3,6 +3,7 @@ package service;
 import bean.Model;
 import bean.Project;
 import bean.User;
+import bean.Log;
 
 
 import java.util.List;
@@ -32,4 +33,7 @@ public interface SelectService {
     User getUserData(String uId);
 
     Project selectProject(long pId);
+
+    List<Log> selectLog(long pId);
+    List<Model> selectModel(long pId);
 }

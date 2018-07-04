@@ -3,6 +3,7 @@ package controller;
 import bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +41,13 @@ public class UserControler {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public User getUser(HttpServletRequest request){
         return (User) request.getSession().getAttribute("user");
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/data/{uId}",method = RequestMethod.GET)
+    public User getData(@PathVariable int uId){
+        return  userService.selectUser(uId);
     }
 
 

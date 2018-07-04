@@ -112,6 +112,14 @@ public class User {
         this.uProjectNum = uProjectNum;
     }
 
+//    private int inId;
+//    public void setInId(int inId){
+//        this.inId=inId;
+//    }
+//    public int getInId(){
+//        return inId;
+//    }
+
 
     @Override          //方法重写
     public String toString() {
