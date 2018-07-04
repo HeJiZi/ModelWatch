@@ -7,6 +7,7 @@
     <link href="../../resources/css/watchUI.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/css/lib/index.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../../resources/js/jquery-3.3.1.js"></script>
     <script src="../../resources/js/lib/index.js"></script>
     <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
@@ -14,13 +15,49 @@
             var url=window.location.href;
             var id=url.substr(url.lastIndexOf('/')+1,url.length);
             $.get("/project/data/"+id,function (data,status) {
-                alert(data+"\n"+status);
-                // $("#creater").val(data.pContext);
-                // $("#adder").val(data.pName);
-                $("#desShow").val(data.pContent);
-                $("#proname").val(data.pName);
+                // alert(data+"\n"+status);
+                $("#desShow").text(data.pContext);
+                $("#proname").text(data.pName);
             })
         });
+        $(document).ready(function(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length)
+            $.get("/user/data/"+id,function (data,status) {
+                // alert(data+"\n"+status);
+                $("#creater").text(data.uUsername);
+                // $("#adder").text(data.uId);
+            })
+        })
+        // $(document).ready(function(){
+        //     var url=window.location.href;
+        //     var id=url.substr(url.lastIndexOf('/')+1,url.length)
+        //     $.get("/invitation/"+id,function (data,status) {
+        //         // alert(data+"\n"+status);
+        //         $("#adder").text(data.pId);
+        //     })
+        // })
+        $(document).ready(function(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length)
+            $.get("/project/diary/"+id,function (data,status) {
+                // alert(data+"\n"+status);
+                for(var i=0;i<data.length;i++){
+                    // alert(data[i].lContext);
+                    // $(".inner").text(data.lContext);
+                    // $(".dat").text(data.lTime);
+                    var str = "<section class=\"blo\">\n" +
+                        "                        <section class=\"inner\">"+data[i].lContext+"</section>\n" +
+                        "                    <section class=\"dat\">"+data[i].lTime+"</section>\n" +
+                        "                    </section>";
+                    $("#diary").append(str);
+                // <section class="blo">
+                //         <section class="inner">内容......完成了.......增加了......修改了........</section>
+                //     <section class="dat">xx年xx月xx日 xx:xx</section>
+                //     </section>
+                }
+            })
+        })
     </script>
     <!--滚动条-->
     <style type="text/css" rel="stylesheet">
@@ -58,14 +95,14 @@
                         </td>
                         <td class="hh" id="creater">创建者xxx</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div title="协作者">
-                                <div class="mw-icon co-user"></div>
-                            </div>
-                        </td>
-                        <td class="hh" id="adder">协作者yyy</td>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div title="协作者">-->
+                                <!--<div class="mw-icon co-user"></div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--<td class="hh" id="adder">协作者yyy</td>-->
+                    <!--</tr>-->
                 </table>
                 <article class="dis">
                     <section class="hh">项目描述:</section>
@@ -117,22 +154,22 @@
             <!--项目日志-->
             <div id="diary">
                 <h1 align="center">项目日志</h1>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
             </div>
         </div>
     </div>

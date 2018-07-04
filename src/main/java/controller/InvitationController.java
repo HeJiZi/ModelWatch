@@ -1,16 +1,9 @@
 package controller;
 
 import bean.User;
-import dao.InvitationDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import service.UserService;
-import util.MyFileUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -18,7 +11,7 @@ import java.util.List;
 public class InvitationController {
 
     @Autowired
-    InvitationDao invitationDao;
+    dao.invitationDao invitationDao;
 
     @PostMapping(value = "/addInvitation")
     public int addInvitation(@RequestParam("pid") int pid,

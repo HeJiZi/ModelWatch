@@ -40,4 +40,8 @@ public interface UserService {
      */
     boolean add(int addid);
 
+    User selectUser(int uId);
+
+
+
 }

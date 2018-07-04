@@ -59,4 +59,6 @@ public class UserServiceImp implements UserService {
     public boolean add(int addid) {
         return false;
     }
+
+    public  User selectUser(int uId){return userDao.selectUserByUid(uId);}
 }
