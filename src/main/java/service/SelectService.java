@@ -29,6 +29,8 @@ public interface SelectService {
      */
     List<Model> getMarkModels(String uId);
 
+    Model selectModelByMId(String mId);
+
     User getUserData(String uId);
 
     Project selectProject(long pId);

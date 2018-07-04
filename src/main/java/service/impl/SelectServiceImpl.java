@@ -35,6 +35,10 @@ public class SelectServiceImpl implements SelectService {
         return modelDao.getModelsByMarkUId(Integer.parseInt(uId));
     }
 
+    public Model selectModelByMId(String mId) {
+        return modelDao.getModelById(Long.valueOf(mId));
+    }
+
     public User getUserData(String uId) {
         return userDao.selectUserByUid(Integer.parseInt(uId));
     }

@@ -25,20 +25,10 @@ const viewapp = new Vue({
         transform: "translateX(-300px)",
         switch_active: false,
         components:[{
-            // label: '一级 1',
-            // children: [{
-            //   label: '二级 1-1',
-            //   children: [{
-            //     label: '三级 1-1-1'
-            //   }]
-            // }]
-            label:'球体',
+            label:'logo',
             children:[{
-                label:'测试样例'
+                label:'inner'
             }],
-        },
-        {
-            label:'长方体'
         }],
         defaultProps: {
             children: 'children',
@@ -60,10 +50,10 @@ const viewapp = new Vue({
             renderer.render(scene, camera)
         }
         document.oncontextmenu = function () { return false; }
-
+        this.getModel();
     },
     mounted: function () {
-        this.init3D();
+
         this.getMarkInfo()
     },
     computed: {
@@ -75,13 +65,48 @@ const viewapp = new Vue({
         }
     },
     methods: {
+        initObject:function(){
+            // instantiate a loader
+            var loader = new THREE.JSONLoader();
+
+            // load a resource
+            loader.load(
+                // resource URL
+                this.model.mData,
+
+                // onLoad callback
+                function ( geometry, materials ) {
+                    var object = new THREE.Mesh( geometry ,materials);
+                    scene.add( object );
+                    renderer.render(scene,camera)
+                },
+
+                // onProgress callback
+                function ( xhr ) {
+                    console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+                },
+
+                // onError callback
+                function( err ) {
+                    console.log( 'An error happened' );
+                }
+                );
+        },
         jump: function () {
             window.location.href = '../';
+        },
+        getModel:function(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length);
+            this.$http.get('/model/'+id).then((response)=>{
+                this.model=response.data;
+                this.init3D();
+            })
         },
         mark: function(){
             if (this.markInfo) {
                 this.$http.post('/mark/deleteMark',{
-                    uid:vue.user.uId ,
+                    uid:this.uId ,
                     mid: this.model.mId
                 },
                 {
@@ -95,7 +120,7 @@ const viewapp = new Vue({
             }
             else {
                 this.$http.post('/mark/addMark',{
-                    uid:vue.user.uId ,
+                    uid:this.uId ,
                     mid: this.model.mId
                 },
                 {
@@ -111,7 +136,6 @@ const viewapp = new Vue({
         getMarkInfo: function(){
             this.$http.get('/user').then((response)=>{
                 this.uId = response.data.uId
-                console.log(this.uId)
             })
             this.$http.post('/mark/selectMark',{
                 uid: this.uId ,
@@ -130,7 +154,7 @@ const viewapp = new Vue({
             initCamera();
             initScene();
             initLight();
-            initObject();
+            this.initObject();
             initHelper()
             renderer.render(scene, camera)
         },
@@ -254,33 +278,7 @@ function initLight() {
     scene.add(ambientLight)
 }
 
-function initObject(){
-    // instantiate a loader
-    var loader = new THREE.JSONLoader();
 
-    // load a resource
-    loader.load(
-        // resource URL
-        '/resources/upload/model/marmelab.json',
-
-        // onLoad callback
-        function ( geometry, materials ) {
-            var object = new THREE.Mesh( geometry ,materials);
-            scene.add( object );
-            renderer.render(scene,camera)
-        },
-
-        // onProgress callback
-        function ( xhr ) {
-            console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-        },
-
-        // onError callback
-        function( err ) {
-            console.log( 'An error happened' );
-        }
-    );
-}
 
 function initHelper() {
     gridHelper = new THREE.GridHelper( 1000, 20);

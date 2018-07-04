@@ -12,4 +12,12 @@
         select M_id,M_data,M_preview,M_name,M_createTime
         from model
     </select>
+    <select id="getModelById" resultType="Model">
+        select M_id,M_data,M_preview,M_name,p_Id "project.pId" ,p_Name "project.pName"
+        from model m,project p where m_id=#{mId} AND p_id=m_Pid
+    </select>
+
+    <update id="updateModel">
+        UPDATE model SET m_data=#{mData},m_preview=#{mPreview},m_name=#{mName} where m_id=#{mId}
+    </update>
 </mapper>

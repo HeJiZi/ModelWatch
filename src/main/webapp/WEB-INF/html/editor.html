@@ -14,30 +14,43 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="/resources/js/lib/vue-resource.min.js"></script>
     <script src="/resources/js/lib/index.js"></script>
+    <script src="/resources/js/lib/three.min.js"></script>
     <title>编辑模式</title>
 </head>
-
-<body style="min-width:1080px">
+<body  style="min-width:1080px">
+<div id="editor">
     <nav class="normalnav">
-        <a title="切换模式" href="/model/dis/1" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px "></a>
-        <a title="项目名" href="/project/1" style="margin-left: 5px">
-            <h3>原生体</h3>
+        <a title="切换模式" href="'/model/dis/'+model.mId" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px "></a>
+        <a title="项目名" :href="'/project/'+model.project.pId" style="margin-left: 5px">
+            <h3>{{model.project.pName}}</h3>
         </a>
         <h3 style="cursor: default;margin-right:10px"> -></h3>
-        <a title="模型名" href="">
-            <h3>小女孩</h3>
-        </a>
-        <div class="submitButton">上传模型</div>
+        <h3>
+            <el-input
+                    class="input-new-tag"
+                    v-if="inputVisible"
+                    v-model="model.mName"
+                    ref="saveTagInput"
+                    size="small"
+                    @keyup.enter.native="handleInputConfirm"
+                    @blur="handleInputConfirm"
+            >
+            </el-input>
+            <el-button v-else class="button-new-tag" size="small" @click="showInput"
+                       style="border:none;font-size: 1em;font-weight: bold"
+            >{{model.mName}}</el-button>
+        </h3>
+        <div class="submitButton" @click="upload">上传模型</div>
     </nav>
     <ul class="menubar">
-        <li>文件</li>
-        <li>设置</li>
-        <li>工具</li>
-        <li>渲染</li>
-        <li>视图</li>
-        <li>动画</li>
-        <li>物理模拟</li>
-        <li>帮助</li>
+        <label for="temp">文件</label>
+        <label>设置</label>
+        <label>工具</label>
+        <label>渲染</label>
+        <label>视图</label>
+        <label>动画</label>
+        <label>物理模拟</label>
+        <label>帮助</label>
     </ul>
     <div class="toolbar">
         <div class="tool">
@@ -61,8 +74,7 @@
             <li>{{label_dire}}组件</li>
         </ul>
 
-        <section :style="{height:vheight+'px',width:cwidth+'px'}">
-
+        <section id="3dcanvas" :style="{height:vheight+'px',width:cwidth+'px'}">
         </section>
         <section class="creatComp" >
                 <el-tabs :style="{height:vheight+'px',width:rwidth+'px'}" type="border-card">
@@ -78,68 +90,18 @@
                                 <el-button size="mini" >胶囊体</el-button>
                                 <el-button size="mini" >棱台体</el-button>
                             </el-row>
+                            <input type="file" id="temp" style="visibility: hidden" @change="upObject">
                             
                         </el-tab-pane>
                         <el-tab-pane label="修改">修改</el-tab-pane>
                         <el-tab-pane label="动画">动画</el-tab-pane>
                         <el-tab-pane label="工具">工具</el-tab-pane>
-                </el-tabs>    
+                </el-tabs>
         </section>
     </article>
+</div>
 </body>
-<script>
-    const app = new Vue({
-        el: '#view',
-        data: {
-            ltrans: "translateX(-300px)",
-            label_dire: '>',
-            vheight: '',
-            cwidth: '',
-            rwidth: '',
-            components: [{
-                label: '球体',
-                children: [{
-                    label: '测试样例'
-                }],
-            },
-            {
-                label: '长方体'
-            }],
-            defaultProps: {
-                children: 'children',
-                label: 'label'
-            }
-        },
-        created: function () {
-
-            var obj = this;
-            obj.cwidth = window.innerWidth * 0.8;
-            obj.rwidth = window.innerWidth * 0.2
-            console.log(window.innerHeight)
-            obj.vheight = window.innerHeight - 87;
-
-            window.onresize = function () {
-                obj.cwidth = window.innerWidth * 0.8;
-                obj.rwidth = window.innerHeight * 0.2
-                obj.vheight = window.innerHeight - 87;
-                // camera.aspect = window.innerWidth / window.innerHeight;
-                // camera.updateProjectionMatrix();
-
-                // renderer.setSize(window.innerWidth, window.innerHeight);
-                // renderer.render(scene, camera)
-            }
-            document.oncontextmenu = function () { return false; }
-        },
-        methods: {
-            label_click: function () {
-                var lt = this.ltrans;
-                this.ltrans = lt == '' ? 'translateX(-300px)' : '';
-                var ld = this.label_dire;
-
-                this.label_dire = ld == '<' ? '>' : '<';
-            }
-        }
-    })
-</script>
+<script src="/resources/js/modelControl.js"></script>
+<script src="/resources/js/editor.js"></script>
 
 </html>

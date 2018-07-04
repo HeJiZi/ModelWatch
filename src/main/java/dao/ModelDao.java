@@ -19,4 +19,18 @@ public interface ModelDao {
      * @return
      */
     List<Model> getAllModels();
+
+    /**
+     * 根据id获得模型
+     * @param mId
+     * @return
+     */
+    Model getModelById(Long mId);
+
+    /**
+     *
+     * @param model
+     * @return
+     */
+    int updateModel(Model model);
 }
