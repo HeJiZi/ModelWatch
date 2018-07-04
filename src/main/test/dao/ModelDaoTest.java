@@ -1,6 +1,7 @@
 package dao;
 
 import bean.Model;
+import bean.Project;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,16 @@ public class ModelDaoTest {
     public void getAllModels() {
         List<Model> modelList = modelDao.getAllModels();
         System.out.println(modelList.toString());
+    }
+
+    @Test
+    public void addModel(){
+        Model model = new Model();
+        Project project = new Project();
+        project.setpId(1);
+        model.setProject(project);
+        model.setmName("中国");
+        model.setmPreview("/resources/images/5.jpeg");
+        System.out.println(modelDao.addModel(model));
     }
 }

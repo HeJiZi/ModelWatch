@@ -30,5 +30,8 @@
         select P_id,P_context,P_name from project where P_id=#{pId}
     </select>
 
-
+    <delete id="deleteProject">
+        delete from project
+        where P_id=#{pId}
+    </delete>
 </mapper>

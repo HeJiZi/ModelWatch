@@ -22,4 +22,11 @@ public interface ModelDao {
     List<Model> getModelByPid(long pId);
 
     List<Model> getProjectModelByPid(long pId);
+
+    /**
+     * 添加模型
+     * @param model
+     * @return
+     */
+    int addModel(Model model);
 }
