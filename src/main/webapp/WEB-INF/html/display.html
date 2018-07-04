@@ -34,7 +34,7 @@
 
         <!-- <div class="rightbar" :style="{opacity:opacity}" @mouseover="opacity=1" @mouseleave="opacity=0" > -->
         <div class="rightbar" style="opacity: 1">
-            <a title="切换模式" href="/model/edi/1">
+            <a title="切换模式" :href="'/model/edi/'+model.mId">
                 <div class="mw-icon transbutton"></div>
             </a>
             <div title="收藏" @click="mark">

@@ -93,7 +93,8 @@ const app = new Vue({
         initObject:function(){
             // instantiate a loader
             var loader = new THREE.JSONLoader();
-
+            if (this.model.mData == undefined)
+                return
             // load a resource
             loader.load(
                 // resource URL

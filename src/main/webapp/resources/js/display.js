@@ -52,10 +52,6 @@ const viewapp = new Vue({
         document.oncontextmenu = function () { return false; }
         this.getModel();
     },
-    mounted: function () {
-
-        this.getMarkInfo()
-    },
     computed: {
         switch_h: function () {
             return this.height - 50;
@@ -68,7 +64,8 @@ const viewapp = new Vue({
         initObject:function(){
             // instantiate a loader
             var loader = new THREE.JSONLoader();
-
+            if(this.model.mData==undefined)
+                return
             // load a resource
             loader.load(
                 // resource URL
@@ -101,6 +98,7 @@ const viewapp = new Vue({
             this.$http.get('/model/'+id).then((response)=>{
                 this.model=response.data;
                 this.init3D();
+                this.getMarkInfo()
             })
         },
         mark: function(){
