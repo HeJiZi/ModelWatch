@@ -50,8 +50,9 @@ public class ModelController {
         return updateService.updateModel(user, model, files);
     }
     @PostMapping(value = "/model")
-    public Boolean addModel(HttpServletRequest request, @RequestBody Model model){
+    public long addModel(HttpServletRequest request, @RequestBody Model model){
         User user=(User)request.getSession().getAttribute("user");
-        return manageService.addModel(user, model, model.getProject().getpId());
+        manageService.addModel(user, model, model.getProject().getpId());
+        return model.getmId();
     }
 }

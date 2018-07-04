@@ -112,8 +112,8 @@
                     <tr>
                         <td><header class="tit" id="proname">xel项目</header></td>
                         <td>
-                            <div title="关注">
-                                <div class="mw-icon love"></div>
+                            <div title="关注" @click="subscribeProject" class="subscribe">
+                                <div class="mw-icon" :class="{love:!subscribe,dislove:subscribe}"></div>
                             </div>
                         </td>
                     </tr>

@@ -106,8 +106,15 @@ table{
     font-size: 40px;
     color: white;
 }
+.subscribe{
+    cursor: pointer;
+}
 .love{
     background-position: -661px -2069px;
+    margin: 0 auto;
+}
+.dislove{
+    background-position: -725px -2069px;
     margin: 0 auto;
 }
 .projects{
