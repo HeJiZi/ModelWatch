@@ -1,5 +1,6 @@
 package service;
 
+import bean.Model;
 import bean.Project;
 import bean.User;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,4 +16,6 @@ public interface ManageService {
      * @return 创建成功返回true，创建失败返回false
      */
     boolean createProject(User user, String project, MultipartFile multipartFile);
+
+    boolean addModel(User user, Model model, long pId);
 }

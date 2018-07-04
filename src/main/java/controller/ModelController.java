@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.SelectService;
 import service.UpdateService;
 import util.MyFileUtil;
+import service.ManageService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,6 +26,9 @@ public class ModelController {
     @Autowired
     UpdateService updateService;
 
+    @Autowired
+    ManageService manageService;
+
     @GetMapping(value = "/model")
     public List<Model> getAllModel(){
         return modelDao.getAllModels();
@@ -37,12 +41,17 @@ public class ModelController {
     }
 
     @PostMapping(value = "/upmodel")
-    public boolean upDateModel(@RequestParam("model") String model, HttpServletRequest request){
-        MultipartFile[] files=null;
+    public boolean upDateModel(@RequestParam("model") String model, HttpServletRequest request) {
+        MultipartFile[] files = null;
         if (request instanceof MultipartHttpServletRequest) {
-            files=MyFileUtil.getFiles(request);
+            files = MyFileUtil.getFiles(request);
         }
+        User user = (User) request.getSession().getAttribute("user");
+        return updateService.updateModel(user, model, files);
+    }
+    @PostMapping(value = "/model")
+    public Boolean addModel(HttpServletRequest request, @RequestBody Model model){
         User user=(User)request.getSession().getAttribute("user");
-        return updateService.updateModel(user,model,files);
+        return manageService.addModel(user, model, model.getProject().getpId());
     }
 }

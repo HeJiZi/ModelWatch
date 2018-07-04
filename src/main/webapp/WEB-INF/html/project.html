@@ -7,6 +7,7 @@
     <link href="../../resources/css/watchUI.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="../../resources/css/lib/index.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../../resources/js/jquery-3.3.1.js"></script>
     <script src="../../resources/js/lib/index.js"></script>
     <script src="../../resources/js/lib/vue-resource.min.js"></script>
     <script>
@@ -14,13 +15,44 @@
             var url=window.location.href;
             var id=url.substr(url.lastIndexOf('/')+1,url.length);
             $.get("/project/data/"+id,function (data,status) {
-                alert(data+"\n"+status);
-                // $("#creater").val(data.pContext);
-                // $("#adder").val(data.pName);
-                $("#desShow").val(data.pContent);
-                $("#proname").val(data.pName);
+                // alert(data+"\n"+status);
+                $("#desShow").text(data.pContext);
+                $("#proname").text(data.pName);
             })
         });
+        $(document).ready(function(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length)
+            $.get("/project/user/"+id,function (data,status) {
+                // alert(data+"\n"+status);
+                $("#creater").text('项目作者：'+data.user.uUsername);
+                // $("#adder").text(data.uId);
+            })
+        })
+        // $(document).ready(function(){
+        //     var url=window.location.href;
+        //     var id=url.substr(url.lastIndexOf('/')+1,url.length)
+        //     $.get("/invitation/"+id,function (data,status) {
+        //         // alert(data+"\n"+status);
+        //         $("#adder").text(data.pId);
+        //     })
+        // })
+        $(document).ready(function(){
+            var url=window.location.href;
+            var id=url.substr(url.lastIndexOf('/')+1,url.length)
+            $.get("/project/diary/"+id,function (data,status) {
+                for(var i=0;i<data.length;i++){
+                    var date = new Date()
+                    date.setTime(data[i].lTime)
+
+                    var str = "<section class=\"blo\">\n" +
+                        "                        <section class=\"inner\">"+data[i].lContext+"</section>\n" +
+                        "                    <section class=\"dat\">"+date.toLocaleString()+"</section>\n" +
+                        "                    </section>";
+                    $("#diary").append(str);
+                }
+            })
+        })
     </script>
     <!--滚动条-->
     <style type="text/css" rel="stylesheet">
@@ -58,14 +90,14 @@
                         </td>
                         <td class="hh" id="creater">创建者xxx</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div title="协作者">
-                                <div class="mw-icon co-user"></div>
-                            </div>
-                        </td>
-                        <td class="hh" id="adder">协作者yyy</td>
-                    </tr>
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<div title="协作者">-->
+                                <!--<div class="mw-icon co-user"></div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--<td class="hh" id="adder">协作者yyy</td>-->
+                    <!--</tr>-->
                 </table>
                 <article class="dis">
                     <section class="hh">项目描述:</section>
@@ -88,29 +120,50 @@
                 </table>
             </div>
             <div class="projects">
-                <mw-photo  v-for="project in projects" :name="project.name" :time="project.time" :img_url="project.preview_url" height="300px" redirect="/model/dis/1"></mw-photo>
+                <mw-photo  v-for="model in models" :name="model.mName" :time="model.mCreateTime" :img_url="model.mPreview" height="300px" :redirect="'/model/dis/'+model.mId"></mw-photo>
+                <div class="addModel">
+                    <div class="add" @click="dialogVisible = true">
+                        <span>+</span>
+                    </div>
+                </div>
             </div>
+            <el-dialog
+                    title="新建一个模型"
+                    :visible.sync="dialogVisible"
+                    width="30%"
+                    :before-close="handleClose">
+                <el-form label-width="80px">
+                    <el-form-item label="模型名字">
+                        <el-input v-model="modelName" placeholder="请输入模型名字"></el-input>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="addModel">确 定</el-button>
+                </span>
+            </el-dialog>
+
         </div>
         <div class="a-right">
             <!--项目日志-->
             <div id="diary">
                 <h1 align="center">项目日志</h1>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
-                <section class="blo">
-                    <section class="inner">内容......完成了.......增加了......修改了........</section>
-                    <section class="dat">xx年xx月xx日 xx:xx</section>
-                </section>
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
+                <!--<section class="blo">-->
+                    <!--<section class="inner">内容......完成了.......增加了......修改了........</section>-->
+                    <!--<section class="dat">xx年xx月xx日 xx:xx</section>-->
+                <!--</section>-->
             </div>
         </div>
     </div>

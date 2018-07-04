@@ -2,7 +2,6 @@ package dao;
 
 
 import bean.Model;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import java.util.List;
 
@@ -33,4 +32,15 @@ public interface ModelDao {
      * @return
      */
     int updateModel(Model model);
+    
+    List<Model> getModelByPid(long pId);
+
+    List<Model> getProjectModelByPid(long pId);
+
+    /**
+     * 添加模型
+     * @param model
+     * @return
+     */
+    int addModel(Model model);
 }

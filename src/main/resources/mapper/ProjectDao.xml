@@ -4,6 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ProjectDao">
 
+    <resultMap id="user" type="User">
+        <result property="uId" column="U_id" />
+        <result property="uUsername" column="U_username" />
+    </resultMap>
+
+    <resultMap id="project" type="Project">
+      <result property="pId" column="P_id" />
+      <result property="pName" column="P_name" />
+      <result property="pContext" column="P_context" />
+      <result property="pPreview" column="P_preview" />
+      <collection property="user" resultMap="dao.ProjectDao.user" />
+    </resultMap>
+
     <select id="getProjectsByCreateUid" resultType="Project">
         select P_id,P_createTime,P_name,P_preview from project,(select U_id from user where U_id=#{uid}) u
         where u.U_id=project.P_Uid;
@@ -30,5 +43,15 @@
         select P_id,P_context,P_name from project where P_id=#{pId}
     </select>
 
+    <delete id="deleteProject">
+        delete from project
+        where P_id=#{pId}
+    </delete>
 
+    <select id="getProjectAndUserByPid" resultMap="project">
+        select P_id,P_createTime,P_name,P_preview,P_context,U_id,U_username
+        from project,user
+        where project.P_id=#{pId}
+        and project.P_Uid=user.U_id
+    </select>
 </mapper>

@@ -44,14 +44,26 @@ public interface ProjectDao {
     int updateProjectData(@Param("pId") int pId,@Param("pContext") String pContext);
 
     /**
-     * 项目更改
+     * 项目显示
      * @param pId
      * @param pPname
      * @param pContext
      * @return
      */
-    int alterProjectData(@Param("pId") int pId,@Param("pPname") String pPname,@Param("pContext") String pContext);
+    int showProjectData(@Param("pId") int pId,@Param("pPname") String pPname,@Param("pContext") String pContext);
 
+    /**
+     * 删除项目
+     * @param pId
+     * @return
+     */
+    int deleteProject(@Param("pId") int pId);
 
+    /**
+     * 通过项目id获取用户和项目信息
+     * @param pId
+     * @return
+     */
+    Project getProjectAndUserByPid(@Param("pId") long pId);
 }
 

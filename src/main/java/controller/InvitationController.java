@@ -2,28 +2,38 @@ package controller;
 
 import bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import service.UserService;
-import util.MyFileUtil;
+import org.springframework.web.bind.annotation.*;
+import dao.invitationDao;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/invitation")
 public class InvitationController {
+
     @Autowired
-    UserService userService;
+    private invitationDao invitationDao;
 
+    @PostMapping(value = "/addInvitation")
+    public int addInvitation(@RequestParam("pid") int pid,
+                             @RequestParam("uid") int uid){
+        return invitationDao.addInvitation(pid,uid);
+    }
 
-    @RequestMapping(value = "",method = RequestMethod.POST)
-    public void Add(HttpServletRequest request){
-        int addId= Integer.parseInt(request.getParameter("per"));
-        userService.add(addId);
+    @PostMapping(value = "/{pid}/{uUsername}")
+    public int addInvitationByUNameAndPid(@PathVariable("pid") int pid,
+                                          @PathVariable("uUsername") String uUsername){
+        return invitationDao.addInvitationByUNameAndPid(pid, uUsername);
+    }
+
+    @DeleteMapping(value = "/{pid}/{uid}")
+    public int deleteInvitation(@PathVariable("pid") int pid,
+                                @PathVariable("uid") int uid){
+        return invitationDao.deleteInvitation(pid,uid);
+    }
+
+    @GetMapping(value = "/{pid}")
+    public List<User> selectInvitation(@PathVariable int pid){
+        return invitationDao.selectInvitationByPid(pid);
     }
 }

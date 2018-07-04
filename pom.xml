@@ -130,6 +130,12 @@
             <artifactId>spring-context-support</artifactId>
             <version>4.1.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

@@ -20,4 +20,11 @@
     <update id="updateModel">
         UPDATE model SET m_data=#{mData},m_preview=#{mPreview},m_name=#{mName} where m_id=#{mId}
     </update>
+    <select id="getProjectModelByPid" resultType="Model">
+        select M_id,M_data,M_preview,M_name,M_createTime from model where M_pid=#{pid}
+    </select>
+    <insert id="addModel" parameterType="Model">
+        insert into model (M_data, M_preview, M_name, M_pid)
+                values (#{mData},#{mPreview},#{mName},#{project.pId})
+    </insert>
 </mapper>

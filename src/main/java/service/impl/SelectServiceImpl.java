@@ -3,6 +3,8 @@ package service.impl;
 import bean.Model;
 import bean.Project;
 import bean.User;
+import bean.Log;
+import dao.LogDao;
 import dao.ModelDao;
 import dao.ProjectDao;
 import dao.UserDao;
@@ -22,6 +24,9 @@ public class SelectServiceImpl implements SelectService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private LogDao logDao;
 
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
@@ -50,5 +55,10 @@ public class SelectServiceImpl implements SelectService {
     public Project selectProject(long pId){
         return projectDao.getProjectById(pId);
     }
-
+    public List<Log> selectLog(long pId){
+        return logDao.getLogByPid(pId);
+    }
+    public List<Model> selectModel(long pId){
+        return modelDao.getProjectModelByPid(pId);
+    }
 }
