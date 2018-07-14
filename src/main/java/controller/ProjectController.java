@@ -44,13 +44,16 @@ public class ProjectController {
     @Autowired
     UpdateService updateService;
 
-    @RequestMapping(value = "/proData",method = RequestMethod.PUT)
-    public void updateProject(HttpServletRequest request){
+    @ResponseBody
+    @RequestMapping(value = "/proData",method = RequestMethod.POST)
+    public boolean updateProject(HttpServletRequest request,@RequestParam("project") String project){
         //从前端获取要传入的值
-        int pId= Integer.parseInt(request.getParameter("pId"));
-        String des=request.getParameter("des");
-        String bacg=request.getParameter("bacg");
-        updateService.UpdateProject(pId,des);
+        MultipartFile file=null;
+        if (request instanceof MultipartHttpServletRequest) {
+            file=MyFileUtil.getFile(request);
+        }
+        updateService.UpdateProject(project,file);
+        return true;
     }
 
     @Autowired

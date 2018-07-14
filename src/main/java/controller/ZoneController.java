@@ -26,8 +26,6 @@ public class ZoneController {
     @Autowired
     UserService userService;
 
-
-
     @ResponseBody
     //设置想要跳转的父路径
     @RequestMapping(value = "/JoinPros/{uId}",method = RequestMethod.GET)
@@ -64,7 +62,13 @@ public class ZoneController {
         }
 
         User us= userService.updateUserProfile(user,file);
-        request.getSession().setAttribute("user",us);
+        User sus= (User) request.getSession().getAttribute("user");
+        sus.setuAvater(us.getuAvater());
+        sus.setuBirthday(us.getuBirthday());
+        sus.setuEmail(us.getuEmail());
+        sus.setuSex(us.getuSex());
+        sus.setuUsername(us.getuUsername());
+
         return true;
     }
 

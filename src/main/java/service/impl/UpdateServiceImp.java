@@ -32,8 +32,15 @@ public class UpdateServiceImp implements UpdateService {
     @Autowired
     private LogDao logDao;
 
-    public void UpdateProject(int pId, String pContext) {
-        projectDao.updateProjectData(pId,pContext);
+
+    /**
+     * 更改项目资料
+     *
+     * @param project
+     * @param file
+     */
+    public void UpdateProject(String project, MultipartFile file) {
+
     }
 
     public boolean updateModel(User user, String model, MultipartFile[] files) {

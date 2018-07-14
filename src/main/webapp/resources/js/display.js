@@ -252,9 +252,9 @@ function initThree(obj) {
 
 function initCamera() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.x = 15;
-    camera.position.y = 5;
-    camera.position.z = 10;
+    camera.position.x = 1500;
+    camera.position.y = 500;
+    camera.position.z = 1000;
     camera.up.x = 0;
     camera.up.y = 1;
     camera.up.z = 0;

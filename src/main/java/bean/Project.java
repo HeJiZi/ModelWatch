@@ -19,7 +19,7 @@ public class Project {
         return pId;
     }
 
-    public void setpId(long pId) {
+    public void setpId(Long pId) {
         this.pId = pId;
     }
 

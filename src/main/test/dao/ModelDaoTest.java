@@ -34,7 +34,7 @@ public class ModelDaoTest {
     public void addModel(){
         Model model = new Model();
         Project project = new Project();
-        project.setpId(1);
+        project.setpId((long) 1);
         model.setProject(project);
         model.setmName("中国");
         model.setmPreview("/resources/images/5.jpeg");

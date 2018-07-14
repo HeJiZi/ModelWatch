@@ -1,15 +1,17 @@
 package service;
 
+import bean.Project;
 import bean.User;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UpdateService {
+
     /**
      * 更改项目资料
-     * @param pId
-     * @param pContext
+     * @param project
+     * @param file
      */
-    public void UpdateProject(int pId,String pContext);
+    public void UpdateProject(String project, MultipartFile file);
 
     public boolean updateModel(User user, String model, MultipartFile[] multipartFile);
 

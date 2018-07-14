@@ -1,3 +1,9 @@
+var renderer
+var camera
+var scene
+var light
+var mesh
+var center=new THREE.Object3D()
 const app = new Vue({
     el: '#editor',
     data: {
@@ -176,9 +182,9 @@ function initThree(obj) {
 
 function initCamera() {
     camera = new THREE.PerspectiveCamera(45, width/ height, 1, 10000);
-    camera.position.x = 15;
-    camera.position.y = 5;
-    camera.position.z = 10;
+    camera.position.x = 1500;
+    camera.position.y = 500;
+    camera.position.z = 100;
     camera.up.x = 0;
     camera.up.y = 1;
     camera.up.z = 0;
@@ -217,4 +223,41 @@ function dataURLtoFile(dataurl, filename) {//将base64转换为文件
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], filename, {type:mime});
+}
+
+function pushControl(event) {
+    var temp = document.getElementById('3dcanvas')
+    x = event.clientX
+    y = event.clientY
+    var bcode = event.button
+    switch (bcode) {
+        case 0:
+            temp.onmousemove = function (event) {
+                mouseTranslate(event,mesh)
+            }
+            break;
+        case 2:
+            temp.onmousemove = function (event) {
+                // if(selectObj){
+                //     mouseSurround(event, selectObj.position)
+                // }
+                // else{
+                //     mouseSurround(event,mouse)
+                // }
+                mouseSurround(event,center.position)
+
+            }
+            break;
+
+    }
+
+}
+function upControl(event) {
+    var temp = document.getElementById('3dcanvas')
+    temp.onmousemove = null;
+
+}
+function moveclean() {
+    var target = document.getElementById('3dcanvas')
+    target.onmousemove = null;
 }

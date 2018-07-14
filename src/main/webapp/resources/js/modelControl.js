@@ -41,7 +41,7 @@ function mouseTranslate(event,target){
 }
 function mousescale(event){
     var dir=event.wheelDelta
-    if(camera.fov<=10&&dir>0){
+    if(camera.fov<=1&&dir>0){
         return
     }
     camera.fov-=dir/240.0

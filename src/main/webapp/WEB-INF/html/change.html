@@ -19,6 +19,12 @@
                 // alert(data+"\n"+status);
                 $("#des").val(data.pContext);
                 $("#pro_name").val(data.pName);
+                var image=new Image();
+                image.src = data.pPreview;
+                image.onload=function () {
+                    $("#image").attr('src',data.pPreview)
+                    $('#image').attr('style','width:'+300*(image.width/image.height)+'px')
+                }
             })
         });
  

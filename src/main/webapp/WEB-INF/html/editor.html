@@ -20,7 +20,7 @@
 <body  style="min-width:1080px">
 <div id="editor">
     <nav class="normalnav">
-        <a title="切换模式" href="'/model/dis/'+model.mId" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px "></a>
+        <a title="切换模式" :href="'/model/dis/'+model.mId" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px "></a>
         <a title="项目名" :href="'/project/'+model.project.pId" style="margin-left: 5px">
             <h3>{{model.project.pName}}</h3>
         </a>
@@ -74,7 +74,9 @@
             <li>{{label_dire}}组件</li>
         </ul>
 
-        <section id="3dcanvas" :style="{height:vheight+'px',width:cwidth+'px'}">
+        <section id="3dcanvas" :style="{height:vheight+'px',width:cwidth+'px'}"
+                 onmousewheel="mousescale(event)" onmousedown="pushControl(event)"
+                 onmouseup="upControl(event)" onmouseleave="moveclean()">
         </section>
         <section class="creatComp" >
                 <el-tabs :style="{height:vheight+'px',width:rwidth+'px'}" type="border-card">
