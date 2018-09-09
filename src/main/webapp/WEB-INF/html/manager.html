@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../../resources/css/lib/index.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="../../resources/js/lib/index.js"></script>
+  <script src="../../resources/js/lib/vue-resource.min.js"></script>
+  <style>
+    .demo-table-expand {
+      font-size: 0;
+    }
+
+     label {
+      width: 90px;
+      color: #99a9bf;
+    }
+    
+    .demo-table-expand .el-form-item {
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 50%;
+    }
+
+    .el-table .warning-row {
+      background: oldlace;
+    }
+
+
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='manager' style="display:flex;height:940px;">
+    <el-menu default-active="1" class="el-menu-vertical-demo" style="width:12%;border:0;" background-color="#545c64" text-color="#fff"
+      active-text-color="#ffd04b" @select="onSelect">
+      <h4 style="padding-left:20px;color:white;">欢迎您，管理员<span style="font-size:10px;margin-left:10px;"> 退出</span></h4>
+      <el-menu-item index="1">
+        <i class="el-icon-setting"></i>
+        <span slot="title">用户管理</span>
+      </el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-document"></i>
+          审核
+        </template>
+        <el-menu-item index="2-1">
+          <span slot="title">模型审核</span>
+        </el-menu-item>
+        <el-menu-item index="2-2">
+          <span slot="title">评论审核</span>
+        </el-menu-item>
+      </el-submenu>
+      <el-menu-item index="3">
+        <i class="el-icon-menu"></i>
+        <span slot="title">管理员</span>
+      </el-menu-item>
+    </el-menu>
+    <div style="height:100%;width:88%;">
+
+      <template v-if="selectIndex==1">
+        <div style="width:100%">
+          <el-input style="width:20%;margin-left:5px;" placeholder="id / 姓名" prefix-icon="el-icon-search" v-model="searchContent">
+          </el-input>
+        </div>
+        <el-table key="users" :data="users" style="width: 100%" :row-class-name="tableRowClassName">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="头像">
+                  <div class="profile-photo">
+                    <img width="200px" height="200px" :src="props.row.uAvater">
+                  </div>
+                </el-form-item>
+                <el-form-item label="用户名">
+                  <span>{{ props.row.uUsername }}</span>
+                </el-form-item>
+                <el-form-item label="用户ID">
+                  <span>{{ props.row.uId }}</span>
+                </el-form-item>
+                <el-form-item label="个性签名">
+                  <span>{{ props.row.uSignature }}</span>
+                </el-form-item>
+                <el-form-item label="出生日期">
+                  <span>{{ props.row.uBirthday }}</span>
+                </el-form-item>
+                <el-form-item label="电子邮箱">
+                  <span>{{ props.row.uEmail }}c</span>
+                </el-form-item>
+                <el-form-item label="性别">
+                  <span>{{ props.row.uSex }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column label="用户ID" prop="uId">
+          </el-table-column>
+          <el-table-column label="用户名" prop="uUsername">
+          </el-table-column>
+          <el-table-column label="个人签名" prop="uSignature">
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button v-if="scope.row.uState=='1'" size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)">加入黑名单</el-button>
+              <el-button v-if="scope.row.uState=='0'" type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">恢复</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+
+      <template v-if="selectIndex=='2-1'">
+        <el-table key="models" :data="models" style="width: 100%">
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-form label-position="left" inline class="demo-table-expand">
+                
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column label="模型ID" prop="mId">
+          </el-table-column>
+          <el-table-column label="模型名" prop="mName">
+          </el-table-column>
+          <el-table-column label="创建时间" prop="mCreateTime">
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">通过</el-button>
+              <el-button type="danger" size="mini" @click="handleEdit(scope.$index, scope.row)">不通过</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+
+      <template v-if="selectIndex=='2-2'">
+          <el-table key="comments" ref="singleTable" :data="comments" style="width: 100%">
+            <el-table-column type="expand" >
+                <template slot-scope="props" >
+                    <el-form label-position="left" inline class="demo-table-expand">
+                        <!--<el-form-item label="评论模型id">-->
+                            <!--<span>{{ props.row.comMId }}</span>-->
+                        <!--</el-form-item>-->
+                        <el-form-item label="内容">
+                            <span>{{ props.row.comContent }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column label="用户名" prop="comUsername">
+            </el-table-column>
+            <el-table-column label="评论内容">
+                <template slot-scope="props2">
+                  <span> {{subContent(props2.row.comContent)}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="评论时间" prop="comCreateTime">
+            </el-table-column>
+            <el-table-column label="操作">
+              <template slot-scope="scope">
+                <el-button type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">通过</el-button>
+                <el-button type="danger" size="mini" @click="handleEdit(scope.$index, scope.row)">不通过</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+      </template>
+
+      <template v-if="selectIndex=='3'">
+        <div style="width:90%;margin-left:20px;" >
+          <h2 style="margin-left:20px;">你的信息</h2>
+          <hr/>
+          <div style="margin-left:50px;">
+              <label>用户名:</label>
+              <span>{{admin.aUsername}}</span>
+          </div>
+          <div style="margin:30px 50px;">
+              <label>创建时间:</label>
+              <span>{{admin.aCreateTime}}</span>
+          </div>
+          <h2 style="margin-left:20px;">修改密码</h2>
+          <hr/>
+          <div style="margin:30px 50px;">
+            <el-input style="display: block;width:20%; margin-top:20px;" placeholder="密码"  v-model="admin.aPassword"></el-input>
+            <el-input style="display: block;width:20%; margin-top:20px;" placeholder="确认密码"  v-model="admin.aRePassword"></el-input>
+            <el-button :disabled="admin.aRePassword!=admin.aPassword||admin.aPassword==''" 
+            style="margin-top:20px;width:20%;" 
+            type="info" 
+            size="mini" 
+            @click="handleDelete(scope.$index, scope.row)">提交</el-button>
+          </div>
+          <h2 style="margin-left:20px;">添加管理员</h2>
+          <hr/>
+          <div style="margin:30px 50px;">
+            <el-input style="display: block;width:20%; margin-top:20px;" placeholder="用户名"  v-model="newAdmin.aUsername"></el-input>
+            <el-input style="display: block;width:20%; margin-top:20px;" placeholder="密码"  v-model="newAdmin.aPassword"></el-input>
+            <el-input style="display: block;width:20%; margin-top:20px;" placeholder="确认密码"  v-model="newAdmin.aRePassword"></el-input>
+            <el-button :disabled="admin.aRePassword!=admin.aPassword||admin.aPassword==''" 
+            style="margin-top:20px;width:20%;" 
+            type="info" 
+            size="mini" 
+            @click="handleDelete(scope.$index, scope.row)">提交</el-button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+</body>
+<script>
+  const manager = new Vue({
+    el: '#manager',
+    data: {
+      searchContent: '',
+      selectIndex: 1,
+      users: [{
+        uId: '12987125',
+        uUsername: '好滋好味鸡蛋仔',
+        uAvater: '江浙小吃、小吃零食',
+        uSignature: '荷兰优质淡奶，奶香浓而不腻',
+        uEmail: '上海市普陀区真北路',
+        uSex: '王小虎夫妻店',
+        uBirthday: '10333',
+        uState: '0',
+      }, {
+        uId: '12987126',
+        uUsername: '好滋好味鸡蛋仔',
+        uAvater: '江浙小吃、小吃零食',
+        uSignature: '荷兰优质淡奶，奶香浓而不腻',
+        uEmail: '上海市普陀区真北路',
+        uSex: '王小虎夫妻店',
+        uBirthday: '10333',
+        uState: '1',
+      }],
+      models: [{
+        mId: '1223',
+        mName: '哒啦啦',
+        mCreateTime: '2018.1.1',
+      }],
+      comments:[{
+        comId:'123',
+        comUId:'1',
+        comMId:'123',
+        comUsername:'王虎',
+        comContent:'这模型做得真精致11111111111111111111111111111222223432',
+        comCreateTime:'2011-1-1',
+      }],
+      admin:{
+        aUsername:'hejizi',
+        aCreateTime:'2018/10/05',
+        aPassword:'',
+        aRePassword:'',
+      },
+      newAdmin:{
+        aUsername:'',
+        aPassword:'',
+        aRePassword:'',
+      }
+    },
+
+    methods: {
+      onSelect: function (index, Path) {
+        this.selectIndex = index;
+      },
+      tableRowClassName: function ({ row, rowIndex }) {
+        if (row.uState == 0) return "warning-row";
+        return '';
+      },
+      subContent:function(str){
+        return str.length>15?str.substr(0,14)+"...":str;
+      }
+    },
+  })
+</script>
+
+</html>

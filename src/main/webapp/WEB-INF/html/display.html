@@ -4,18 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <title>模型展览</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/watchUI.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../resources/css/watchUI.css" />
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="/resources/css/lib/index.css">
+    <link rel="stylesheet" href="../../resources/css/lib/index.css">
 
     <!-- 引入组件库 -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="/resources/js/lib/index.js"></script>
-    <script src="/resources/js/lib/vue-resource.min.js"></script>
-    <script src="/resources/js/lib/three.min.js"></script>
+    <script src="../../resources/js/lib/index.js"></script>
+    <script src="../../resources/js/lib/vue-resource.min.js"></script>
+    <script src="../../resources/js/lib/three.min.js"></script>
 </head>
 
+<style>
+    .tempAvater{
+        width: 60px;
+        height: 60px;
+        float: left;
+        border-radius: 50%;
+        border: 2px solid white;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 10000;
+    }
+    #comments>div{
+        border-bottom: 1px solid #e1e1e1;
+        padding-bottom: 20px;
+    }
+    #comments div{
+        margin: 10px 20px;
+    }
+</style>
 <body>
     <div id="nav" @mouseenter="isActive=true" @mouseleave="isActive=false">
         <div style="z-index: 10000" class="nav-wrapper moveable" :class={active:isActive}>
@@ -48,8 +67,35 @@
                     <div class="mw-icon downloadbutton"></div>
                 </div>
             </a>
-
         </div>
+    </div>
+    <div id='comments' style="background: #ffffff;">
+        <div style="display: flex;padding-top: 20px;padding-left: 20px;width: 80%;margin: 0 auto;align-items: center;justify-content: center">
+            <div  class="tempAvater" >
+                <img :src="user.uAvater" width="60px" height="60px">
+            </div>
+            <el-input
+                    style="width: 50%;"
+                    type="textarea"
+                    :rows="3"
+                    placeholder="请输入内容"
+                    v-model="newComments">
+            </el-input>
+            <el-button style="height: 80px;" type="primary" plain>发表评论</el-button>
+        </div>
+        <!--<div style="display: flex;padding-left: 20px;width: 80%;margin: 0 auto;align-items: center;justify-content: center">-->
+            <!--<div  class="tempAvater"  >-->
+                <!--<img :src="user.uAvater" width="60px" height="60px">-->
+            <!--</div>-->
+            <!--<div style="width: 50%;">-->
+                <!--<h5 style="margin: 10px 0px;">大锅<span style="color: #b9b9b9;">&nbsp;&nbsp;2011-11-01</span></h5>-->
+                <!--<p>真实和精彩</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <mw-comment v-for="comment in comments" :name="comment.comUsername"
+                    :avater="comment.comUAvater" :time="comment.comCreateTime"
+                    :content="comment.comContent">
+        </mw-comment>
     </div>
 </body>
 <!-- 顶点着色器 -->
@@ -95,6 +141,24 @@
 <script src="../../resources/js/watchUI.js"></script>
 <script src="../../resources/js/modelControl.js"></script>
 <script src="../../resources/js/display.js"></script>
-
+<script>
+    const comments = new Vue({
+        el:'#comments',
+        data:{
+            newComments:'',
+            user:{
+                uAvater:'/resources/upload/useravater/1.jpeg',
+                uId:'',
+            },
+            comments:[{
+                comUId:'1',
+                comUAvater:'/resources/upload/useravater/1.jpeg',
+                comUsername:'王虎',
+                comContent:'这模型做得真精致',
+                comCreateTime:'2011-1-1',
+            }]
+        }
+    })
+</script>
 
 </html>
