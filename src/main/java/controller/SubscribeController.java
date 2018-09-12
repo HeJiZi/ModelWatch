@@ -26,6 +26,6 @@ public class SubscribeController {
     @GetMapping(value = "/{pid}/{uid}")
     public int selectSubscribe(@PathVariable("pid") int pid,
                                @PathVariable("uid") int uid){
-        return subscribeDao.deleteSubscribe(pid, uid);
+        return subscribeDao.selectSubscribe(pid, uid);
     }
 }

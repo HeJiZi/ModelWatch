@@ -66,8 +66,8 @@
     <div style="height:100%;width:88%;">
 
       <template v-if="selectIndex==1">
-        <div style="width:100%">
-          <el-input style="width:20%;margin-left:5px;" placeholder="id / 姓名" prefix-icon="el-icon-search" v-model="searchContent">
+        <div style="width:100%" @keydown.enter="search">
+          <el-input   style="width:20%;margin-left:5px;" placeholder="id / 姓名" prefix-icon="el-icon-search" v-model="searchContent">
           </el-input>
         </div>
         <el-table key="users" :data="users" style="width: 100%" :row-class-name="tableRowClassName">
@@ -349,6 +349,12 @@
           this.$http.post('/managers/admin',this.newAdmin).then((response)=>{
               if(response.data == true) alert("添加成功");
               else alert("添加失败");
+          });
+      },
+      search(){
+          console.log('serach')
+          this.$http.get('/managers/users/'+this.searchContent).then((response)=>{
+              this.users=response.data
           });
       },
       checkUser(index,row,state){

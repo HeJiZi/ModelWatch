@@ -41,7 +41,7 @@ const projects=new Vue({
                 this.$http.delete('/subscribe/'+id+'/'+this.uId).then((response)=>{
                     if (response.data){
                         this.subscribe = false
-                        console.log('删除项目成功！')
+                        console.log('取消关注成功！')
                     }
                 })
             }

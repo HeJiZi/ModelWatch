@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.SubscribeDao">
-  <select id="selectSubscribe">
+  <select id="selectSubscribe" resultType="java.lang.Integer">
       select count(*)
       from subscribe
       where Sub_pid=#{pid}
