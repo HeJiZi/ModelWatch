@@ -8,6 +8,7 @@ CREATE TABLE `user` (
   `U_birthday` date DEFAULT NULL,
   `U_signature` varchar(100) DEFAULT NULL,
   `U_createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP(),
+  `U_state` tinyint(3) unsigned  DEFAULT 1,
   PRIMARY KEY (`U_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -46,6 +47,7 @@ CREATE TABLE `model` (
   `M_createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `M_pid` bigint(20) DEFAULT NULL,
   `M_cid` int(11) DEFAULT NULL,
+  `M_state` tinyint(3) unsigned  DEFAULT 0,
   PRIMARY KEY (`M_id`),
   foreign key (M_pid) references project(P_id),
   foreign key (M_cid) references class(C_id)
@@ -77,4 +79,22 @@ CREATE TABLE `mark` (
   primary key (Mark_uid,Mark_mid),
   foreign key (Mark_mid) references model(M_id),
   foreign key (Mark_uid) references user(U_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `comments` (
+  `com_id` int(11) NOT NULL auto_increment,
+  `com_content` varchar(255) DEFAULT NULL,
+  `com_mid` bigint(20) NOT NULL,
+  `com_uid` int(10) NOT NULL,
+  `com_create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP(),
+  `com_state` tinyint(3) unsigned DEFAULT 0,
+  PRIMARY KEY (`com_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `administrators` (
+  `a_id` int(11) NOT NULL auto_increment,
+  `a_username` varchar(255) DEFAULT NULL,
+  `a_password` varchar(255) DEFAULT NULL,
+  `a_create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`a_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

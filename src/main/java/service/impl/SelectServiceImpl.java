@@ -1,13 +1,7 @@
 package service.impl;
 
-import bean.Model;
-import bean.Project;
-import bean.User;
-import bean.Log;
-import dao.LogDao;
-import dao.ModelDao;
-import dao.ProjectDao;
-import dao.UserDao;
+import bean.*;
+import dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
@@ -28,6 +22,9 @@ public class SelectServiceImpl implements SelectService {
     @Autowired
     private LogDao logDao;
 
+    @Autowired
+    private CommentsDao commentsDao;
+
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
     }
@@ -40,12 +37,18 @@ public class SelectServiceImpl implements SelectService {
         return modelDao.getModelsByMarkUId(Integer.parseInt(uId));
     }
 
+    public List<Comment> getCommentsInModel(String mId){return commentsDao.SelectCommentsByMId(Integer.parseInt(mId));}
+
     public Model selectModelByMId(String mId) {
         return modelDao.getModelById(Long.valueOf(mId));
     }
 
     public User getUserData(String uId) {
         return userDao.selectUserByUid(Integer.parseInt(uId));
+    }
+
+    public List<User> selectUser(String content) {
+        return userDao.selectUsersByContent(content);
     }
 
     public Project getProjectData(String pId) {

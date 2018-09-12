@@ -1,5 +1,6 @@
 package controller;
 
+import bean.Comment;
 import bean.Model;
 import bean.User;
 import dao.ModelDao;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.SelectService;
 import service.UpdateService;
+import service.UserService;
 import util.MyFileUtil;
 import service.ManageService;
 
@@ -28,6 +30,9 @@ public class ModelController {
 
     @Autowired
     ManageService manageService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping(value = "/model")
     public List<Model> getAllModel(){
@@ -55,4 +60,15 @@ public class ModelController {
         manageService.addModel(user, model, model.getProject().getpId());
         return model.getmId();
     }
+
+    @GetMapping(value = "/model/{mId}/comments")
+    public List<Comment> getComments(@PathVariable String mId){
+        return selectService.getCommentsInModel(mId);
+    }
+
+    @PostMapping(value = "model/comment")
+    public boolean addComment(@RequestBody Comment comment){
+        return userService.addComment(comment);
+    }
+
 }

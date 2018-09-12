@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CommentsDao">
+    <select id="SelectComments" resultType="Comment">
+        select com_Id,com_content,com_create_time,
+        u_username "user.uUsername"
+        from comments c, user u
+        WHERE c.com_uId = u.u_id
+        and com_state = 0
+    </select>
+
+    <select id="SelectCommentsByMId" resultType="Comment">
+        select com_Id,com_content,com_create_time,
+        u_avater "user.uAvater",u_username "user.uUsername"
+        from comments c, user u
+        where com_mId = #{comMId}
+        and c.com_uId = u.u_id
+        and com_state = 1
+    </select>
+
+    <update id="UpdateCommentState">
+        UPDATE comments SET com_state=#{comState} where com_id=#{comId}
+    </update>
+
+    <insert id="AddComment">
+        insert into comments (com_mid, com_content,com_uid) VALUES(#{comMId},#{comContent},#{comUId})
+    </insert>
+    <delete id="DeleteComment">
+        delete from comments
+         where com_id = #{comId}
+    </delete>
+</mapper>

@@ -3,6 +3,8 @@ package dao;
 import bean.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserDao {
     /**
      * 根据用户名与密码查询用户
@@ -27,7 +29,9 @@ public interface UserDao {
      */
     User selectUserByUid(int uId);
 
+    List<User> selectUsers();
 
+    List<User> selectUsersByContent(String content);
 
     /**
      * 添加用户
@@ -53,6 +57,6 @@ public interface UserDao {
      */
     int updatePassword(@Param("uId") int uId,@Param("uPassword") String password);
 
-
+    int updateState(User user);
 
 }

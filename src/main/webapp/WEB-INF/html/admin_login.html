@@ -25,13 +25,13 @@
         <div class="input">
           <el-input v-model="username" placeholder="用户名"></el-input>
           <el-input v-model="password" type="password" placeholder="密码"></el-input>
-          <el-button round size="mini">登录</el-button>
+          <el-button @click="login" round size="mini">登录</el-button>
         </div>
       </div>
     </div>
     <div id="info" style="width:60%;height:940px;">
         <span id="birds"></span>
-        <span id="options">
+        <span id="options"></span>
     </div>
   </div>
 </body>
@@ -41,7 +41,18 @@
     data: {
       username: '',
       password: '',
-    }
+    },
+      methods:{
+        login(){
+            this.$http.post('/admin',{
+                aUsername:this.username,
+                aPassword:this.password,
+            }).then((response)=>{
+                if (response.data == true) window.location.href = '/managers';
+                else alert("用户名或密码错误");
+            })
+        }
+      }
   })
 
   var rightRenderer;
@@ -536,7 +547,7 @@
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
-				stats.update();
+				// stats.update();
 			}
 			function render() {
 				var now = performance.now();

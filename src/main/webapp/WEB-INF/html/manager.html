@@ -74,9 +74,9 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="头像">
+                <el-form-item >
                   <div class="profile-photo">
-                    <img width="200px" height="200px" :src="props.row.uAvater">
+                    <img width="100px" height="100px" :src="props.row.uAvater">
                   </div>
                 </el-form-item>
                 <el-form-item label="用户名">
@@ -108,8 +108,8 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button v-if="scope.row.uState=='1'" size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)">加入黑名单</el-button>
-              <el-button v-if="scope.row.uState=='0'" type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">恢复</el-button>
+              <el-button v-if="scope.row.uState=='1'" size="mini" type="danger" @click="checkUser(scope.$index, scope.row,0)">加入黑名单</el-button>
+              <el-button v-if="scope.row.uState=='0'" type="success" size="mini" @click="checkUser(scope.$index, scope.row,1)">恢复</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -120,7 +120,7 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                
+                <photo :img_url="props.row.mPreview" height="500px"></photo>
               </el-form>
             </template>
           </el-table-column>
@@ -132,8 +132,8 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">通过</el-button>
-              <el-button type="danger" size="mini" @click="handleEdit(scope.$index, scope.row)">不通过</el-button>
+              <el-button type="success" size="mini" @click="checkModel(scope.$index, scope.row,1)">通过</el-button>
+              <el-button type="danger" size="mini" @click="checkModel(scope.$index, scope.row,0)">不通过</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -153,7 +153,7 @@
                     </el-form>
                 </template>
             </el-table-column>
-            <el-table-column label="用户名" prop="comUsername">
+            <el-table-column label="用户名" prop="user.uUsername">
             </el-table-column>
             <el-table-column label="评论内容">
                 <template slot-scope="props2">
@@ -164,8 +164,8 @@
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-button type="success" size="mini" @click="handleDelete(scope.$index, scope.row)">通过</el-button>
-                <el-button type="danger" size="mini" @click="handleEdit(scope.$index, scope.row)">不通过</el-button>
+                <el-button type="success" size="mini" @click="checkComment(scope.$index, scope.row,1)">通过</el-button>
+                <el-button type="danger" size="mini" @click="checkComment(scope.$index, scope.row,0)">不通过</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -192,7 +192,7 @@
             style="margin-top:20px;width:20%;" 
             type="info" 
             size="mini" 
-            @click="handleDelete(scope.$index, scope.row)">提交</el-button>
+            @click="updatePassword">提交</el-button>
           </div>
           <h2 style="margin-left:20px;">添加管理员</h2>
           <hr/>
@@ -204,7 +204,7 @@
             style="margin-top:20px;width:20%;" 
             type="info" 
             size="mini" 
-            @click="handleDelete(scope.$index, scope.row)">提交</el-button>
+            @click="addAdmin">提交</el-button>
           </div>
         </div>
       </template>
@@ -213,6 +213,41 @@
 
 </body>
 <script>
+    Vue.component('photo', {
+        inheritAttrs: false,
+        props: ['height','img_url',],
+        data: function () {
+            return {
+                aspect:0,
+            }
+        },
+        computed:{
+            width:function(){
+                return this.aspect*parseFloat(this.height);
+            }
+        },
+        methods:{
+            jump:function(){
+                var obj=this;
+                window.open(this.redirect);
+            }
+        },
+        created:function(){
+            var img=new Image();
+            var obj=this;
+            img.src=obj.img_url;
+            img.onload=function(){
+                obj.aspect=(img.width/img.height);
+            }
+        },
+        template:
+            `
+    <article style="margin-right: 10px;margin-bottom: 10px;overflow: hidden;cursor: pointer;" :style="{height:height}">
+        <img :height="height" :width="width" :src="img_url">
+    </article>
+    `
+    })
+
   const manager = new Vue({
     el: '#manager',
     data: {
@@ -241,14 +276,17 @@
         mId: '1223',
         mName: '哒啦啦',
         mCreateTime: '2018.1.1',
+        mPreview:'E:\\repositories\\ModelWatch\\target\\ModelWatch-1.0-SNAPSHOT\\resources\\upload\\mPreview\\2.png',
+        mState:0,
       }],
       comments:[{
         comId:'123',
-        comUId:'1',
-        comMId:'123',
+        comUid:'1',
+        comMid:'123',
         comUsername:'王虎',
         comContent:'这模型做得真精致11111111111111111111111111111222223432',
         comCreateTime:'2011-1-1',
+        comState:0,
       }],
       admin:{
         aUsername:'hejizi',
@@ -262,10 +300,37 @@
         aRePassword:'',
       }
     },
+      created:function(){
+          this.$http.get('/managers/users').then((response)=>{
+              this.users=response.data
+          })
+      },
 
     methods: {
       onSelect: function (index, Path) {
         this.selectIndex = index;
+        switch (index) {
+            case '1':
+                this.$http.get('/managers/users').then((response)=>{
+                    this.users=response.data
+                });
+                break;
+            case '2-1':
+                this.$http.get('/managers/models').then((response)=>{
+                    this.models=response.data
+                });
+                break;
+            case '2-2':
+                this.$http.get('/managers/comments').then((response)=>{
+                    this.comments=response.data
+                });
+                break;
+            case '3':
+                this.$http.get('/admin/session').then((response)=>{
+                    this.admin=response.data
+                });
+                break;
+        }
       },
       tableRowClassName: function ({ row, rowIndex }) {
         if (row.uState == 0) return "warning-row";
@@ -273,6 +338,46 @@
       },
       subContent:function(str){
         return str.length>15?str.substr(0,14)+"...":str;
+      },
+      updatePassword:function () {
+          this.$http.post('/managers/password',this.admin).then((response)=>{
+              if(response.data == true) alert("更改成功");
+              else alert("更改失败");
+          });
+      },
+      addAdmin:function () {
+          this.$http.post('/managers/admin',this.newAdmin).then((response)=>{
+              if(response.data == true) alert("添加成功");
+              else alert("添加失败");
+          });
+      },
+      checkUser(index,row,state){
+          row.uState = state;
+          this.check("/managers/user",row);
+      },
+      checkModel(index,row,state){
+          row.mState = state;
+          var obj = this;
+          this.check("/managers/model",row,()=>{
+              obj.models.splice(index,1);
+          });
+      },
+      checkComment(index,row,state){
+          row.comState = state;
+          var obj = this;
+          this.check("/managers/comment",row,()=>{
+              obj.comments.splice(index,1);
+          });
+      },
+
+      check:function (url,row,action) {
+          this.$http.post(url, row).then((response) => {
+              if (response.data == true) {
+                  alert("更改成功");
+                  action();
+              }
+              else alert("更改失败");
+          });
       }
     },
   })

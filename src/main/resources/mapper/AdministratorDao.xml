@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AdministratorDao">
+    <select id="SelectAdminByUsernameAndPassword" resultType="Administrator">
+        select a_id,a_username,a_create_time
+        from administrators
+        where a_username = #{aUsername}
+        and a_password = #{aPassword}
+    </select>
+    <insert id="AddAdministrator">
+        insert ignore into administrators (a_username, a_password) VALUES(#{aUsername},#{aPassword})
+    </insert>
+    <update id="UpdatePassword">
+        UPDATE administrators SET a_password=#{aPassword} where a_id=#{aId}
+    </update>
+</mapper>

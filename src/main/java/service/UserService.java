@@ -1,5 +1,6 @@
 package service;
 
+import bean.Comment;
 import bean.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +42,8 @@ public interface UserService {
     boolean add(int addid);
 
     User selectUser(int uId);
+
+    boolean addComment(Comment comment);
 
 
 

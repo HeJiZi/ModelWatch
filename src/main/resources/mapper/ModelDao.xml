@@ -10,8 +10,14 @@
     </select>
     <select id="getAllModels" resultType="Model">
         select M_id,M_data,M_preview,M_name,M_createTime
-        from model
+        from model where M_State = 1
     </select>
+
+    <select id="GetUnCheckModels" resultType="Model">
+        select M_id,M_data,M_preview,M_name,M_createTime
+        from model where M_State = 0
+    </select>
+
     <select id="getModelById" resultType="Model">
         select M_id,M_data,M_preview,M_name,p_Id "project.pId" ,p_Name "project.pName"
         from model m,project p where m_id=#{mId} AND p_id=m_Pid
@@ -20,11 +26,21 @@
     <update id="updateModel">
         UPDATE model SET m_data=#{mData},m_preview=#{mPreview},m_name=#{mName} where m_id=#{mId}
     </update>
+
+    <update id="updateModelState">
+        UPDATE model SET m_state=#{mState} where m_id=#{mId}
+    </update>
+
     <select id="getProjectModelByPid" resultType="Model">
         select M_id,M_data,M_preview,M_name,M_createTime from model where M_pid=#{pid}
     </select>
+
     <insert id="addModel" keyProperty="mId" useGeneratedKeys="true" parameterType="Model">
         insert into model (M_data, M_preview, M_name, M_pid)
                 values (#{mData},#{mPreview},#{mName},#{project.pId})
     </insert>
+
+    <delete id="deleteModel">
+        delete FROM model where m_id = #{mId}
+    </delete>
 </mapper>

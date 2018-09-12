@@ -9,6 +9,7 @@ public class Model {
     private String mData;
     private String mPreview;
     private String mName;
+    private int mState;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp mCreateTime;
@@ -70,6 +71,14 @@ public class Model {
 
     public void setaClass(Class aClass) {
         this.aClass = aClass;
+    }
+
+    public int getmState() {
+        return mState;
+    }
+
+    public void setmState(int mState) {
+        this.mState = mState;
     }
 
     @Override

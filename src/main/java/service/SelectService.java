@@ -1,9 +1,6 @@
 package service;
 
-import bean.Model;
-import bean.Project;
-import bean.User;
-import bean.Log;
+import bean.*;
 
 
 import java.util.List;
@@ -33,6 +30,10 @@ public interface SelectService {
     Model selectModelByMId(String mId);
 
     User getUserData(String uId);
+
+    List<User>  selectUser(String content);
+
+    List<Comment> getCommentsInModel(String mId);
 
     Project selectProject(long pId);
 

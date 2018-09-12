@@ -1,6 +1,8 @@
 package service.impl;
 
+import bean.Comment;
 import bean.User;
+import dao.CommentsDao;
 import dao.UserDao;
 import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
@@ -19,6 +21,9 @@ import java.io.IOException;
 public class UserServiceImp implements UserService {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CommentsDao commentsDao;
 
 
     public User updateUserProfile(String user, MultipartFile file) {
@@ -61,4 +66,8 @@ public class UserServiceImp implements UserService {
     }
 
     public  User selectUser(int uId){return userDao.selectUserByUid(uId);}
+
+    public boolean addComment(Comment comment) {
+        return commentsDao.AddComment(comment) == 1 ?true:false;
+    }
 }

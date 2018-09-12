@@ -13,6 +13,7 @@ public class User {
     private String uPassword;
     private String uEmail;
     private String uSex;
+    private int uState;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date uBirthday;
@@ -112,7 +113,15 @@ public class User {
         this.uProjectNum = uProjectNum;
     }
 
-//    private int inId;
+    public int getuState() {
+        return uState;
+    }
+
+    public void setuState(int uState) {
+        this.uState = uState;
+    }
+
+    //    private int inId;
 //    public void setInId(int inId){
 //        this.inId=inId;
 //    }

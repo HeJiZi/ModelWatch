@@ -15,6 +15,14 @@
         from user where U_username=#{username} and U_password=#{password}
     </select>
 
+    <select id="selectUsers" resultType="User">
+        select * FROM User
+    </select>
+
+    <select id="selectUsersByContent" resultType="User">
+        select * FROM User WHERE u_id=#{content} OR u_username LIKE '%' #{content} '%'
+    </select>
+
     <update id="updateData">
         update user set U_username=#{uUsername},U_signature=#{uSignature},
             U_sex=#{uSex},U_email=#{uEmail},U_birthday=#{uBirthday}
@@ -26,6 +34,10 @@
 
     <update id="updatePassword">
         update user set U_password=#{uPassword} where U_id=#{uId}
+    </update>
+
+    <update id="updateState">
+        update user set U_state=#{uState} where U_id=#{uId}
     </update>
 
     <insert id="addUser">

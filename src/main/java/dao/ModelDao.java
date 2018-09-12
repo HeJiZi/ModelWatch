@@ -19,6 +19,8 @@ public interface ModelDao {
      */
     List<Model> getAllModels();
 
+    List<Model> GetUnCheckModels();
+
     /**
      * 根据id获得模型
      * @param mId
@@ -32,6 +34,8 @@ public interface ModelDao {
      * @return
      */
     int updateModel(Model model);
+
+    int updateModelState(Model model);
     
     List<Model> getModelByPid(long pId);
 
@@ -43,4 +47,6 @@ public interface ModelDao {
      * @return
      */
     int addModel(Model model);
+
+    int deleteModel(long mId);
 }

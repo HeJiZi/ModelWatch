@@ -53,4 +53,10 @@ public class JumpController {
         return "editor";
     }
 
+    @RequestMapping(value = "/admin",method = RequestMethod.GET)
+    public String toAdminLogin(){ return "admin_login";}
+
+    @RequestMapping(value = "/managers",method = RequestMethod.GET)
+    public String toManager(){ return "manager";}
+
 }
