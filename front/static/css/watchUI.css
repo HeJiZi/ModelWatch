@@ -1,0 +1,200 @@
+body{
+    margin:0;
+}
+.mw-nav{
+    font-family: fantasy;
+    box-shadow:3px 3px 1px rgba(151, 143, 143, 0.774);
+    font-size: 15px;
+    position: relative;
+    z-index: 10000;
+    background-color: white;
+}
+    .mw-nav nav,div,ul,li,img{
+        border: none;
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        font:inherit;
+    }
+    .mw-nav ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+.mw-nav-wrapper{
+    max-width: 1280px;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+    .mw-nav-wrapper ul{
+        font-size: 13px;
+        font-weight: bold;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+        .mw-nav-wrapper ul>li{
+            padding: 0 13px;
+            cursor: pointer;
+            min-width: 60px;
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+            .mw-nav-wrapper li:first-child:hover{
+                color: rgb(193, 193, 248);
+            }
+    .mw-nav-wrapper .nav_avater{
+        width:30px;
+        height: 30px;
+        float: left;
+        border-radius: 50%;
+        border: 2px solid white;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        transition: transform ease 0.5s;
+        position: relative;
+        z-index: 10000;
+        cursor: pointer;
+        
+    }
+    .mw-nav-wrapper  .mw-nav-menu{
+        font-family: 'Courier New', Courier, monospace;
+        background-color: white;
+        padding: 50px 0 0 0;
+        width: 200px;
+        border: 1px solid rgb(226, 225, 225);
+        border-radius: 0 0 5px 5px;
+        box-shadow:0px 0px 1px rgba(151, 143, 143, 0.774);
+        position: absolute;
+        text-align: center;
+        z-index: 0;
+        top:40px;
+        transform: translateX(3px);
+        transition: opacity ease 1.5s;
+        cursor: default;
+    }
+    .mw-nav-menu .mw-profile{
+        margin-top: 5px;
+        display: flex;
+        flex-flow: row wrap;
+        
+    }
+        .mw-nav-menu span{
+            cursor: text;
+        }
+        .mw-profile>div{
+            padding: 2px 0;
+            display: flex;
+            width: 50%;
+            align-items: center;
+            flex-flow: row wrap;
+                
+        }
+        .mw-profile span{
+            margin-left: 2px;
+            cursor: text;
+        }
+        .mw-profile .title{
+            text-align: center;
+            height: 20px;
+            width: 55px;
+            background-color: rgb(176, 176, 245);
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            padding: 2px;
+            margin:0 2px;
+        }
+        .mw-profile .footer{
+            background: rgb(241, 240, 240);
+            height: 20px;
+            width: 100%;
+        }
+        .mw-profile .quit_button{
+            position: relative;
+            left: 80%; 
+            font-weight: normal
+        }
+        .mw-profile .quit_button:hover{
+            color: rgb(174, 174, 235);
+            cursor: pointer;
+        }
+
+        /* 动画 */
+        .na_active .ava-trans{
+            transform: matrix(2.2,0,0,2.2,0,30);
+        }
+        .na_unactive .pf_vis{
+            display:none;
+        }
+        .mw-nav-wrapper .nav_avater img{
+            width: inherit;
+            height: inherit;
+        }
+    .mw-nav-wrapper .searchbox{
+        border: 1px solid #d8d7d7;
+        display: block;
+        border-radius: 10px;
+        font-size: 14px;
+        width: 200px;
+        height: 30px;
+        margin:0 auto;
+    }
+    .mw-nav-wrapper .createBut{
+        background-color:rgb(233, 117, 81);
+        color: white;
+        height: 55px;
+        border-radius: 10px;
+
+    }
+        .mw-nav-wrapper .createBut:hover{
+            background: rgb(230, 144, 118);
+        }
+    .mw-nav-wrapper a{
+        text-decoration: none;
+        color: black;
+        height: inherit;
+        display:flex;
+        align-items: center;
+        color: inherit;
+    }
+    .mw-nav-wrapper ul> .active{
+        background-color:rgb(230, 144, 118);
+        color:white;
+    }
+.mw-nav-menu-sign{
+    float: right;
+    height: 100%;
+    padding: 0px 10px;
+}
+    .mw-nav-menu-sign:hover{
+
+        height: 100%;
+        color: white;
+        background-color:rgb(230, 144, 118);
+    }
+
+.mw-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:50px;
+    width:60px;
+    
+}
+.mw-button:hover{
+    background-color: orange;
+}
+
+.mw-icon{
+    background-image: url(/static/images/icons.png);
+    
+    background-repeat: no-repeat;
+    height:24px;
+    width: 24px;
+}

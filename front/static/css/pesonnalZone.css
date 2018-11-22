@@ -1,0 +1,63 @@
+.wrapper{
+    max-width: 1280px;
+    min-width: 800px;
+    margin: 0 auto;
+}
+
+ .cover{
+     
+     display: flex;
+     justify-content: center;
+     flex-flow: row wrap;
+     height: 30em;
+     background-image: url("../images/person_cover.jpeg");
+     background-position-y: -5em;
+ }
+    .cover .wrapper{
+        margin-top:14.5em;
+        width: 10em;
+        text-align: center;
+    }
+    .cover #avater{
+        margin: 0 auto;
+        width: 6em;
+        height: 6em;
+        border-radius: 50%;
+        border: 3px solid rgb(231, 230, 230);
+        overflow: hidden;
+    }
+        .cover #avater>img{
+            width: inherit;
+            height: inherit;
+        }
+        .cover #simple_data>h1{
+            font-weight: bold;
+            font-size: 2em;
+            color: white;
+            opacity: 0.9;
+        }
+        .cover #simple_data>p{
+            color: white;
+            margin-top: 0.5em;
+            font-size: 0.8em;
+            font-family: "宋体";
+            opacity: 0.7;
+        }
+.preview{
+    background: white;
+    
+}
+.pv_wrapper{
+ font-family: 'Times New Roman', Times, serif;
+ text-decoration: none;
+ color: black;
+}
+
+.pj-box{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: 1em;
+    min-height: 310px;
+    overflow: hidden;
+}

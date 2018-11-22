@@ -1,0 +1,363 @@
+ body,p,div,section,nav，ul,li,img,p{
+     border: none;
+     margin: 0;
+     padding: 0;
+     font-size: 100%;
+     font:inherit;
+ }
+ body{
+     background-color:rgb(241, 241, 241);
+     font-size: 15px;
+ }
+ h1,h2,h3,h4{
+     margin: 0;
+     padding: 0;
+ }
+ ul{
+     list-style: none;
+     margin: 0;
+     padding: 0;
+ }
+a{
+    text-decoration: none;
+}
+
+
+.transbutton{
+    background-position: -534px -85px;
+    transform: scale(1.3);
+    margin: 0 auto;
+}
+.lovebutton{
+    background-position: -661px -2069px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.dislovebutton{
+    background-position: -725px -2069px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.downloadbutton{
+    background-position: -1364px -1108px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.nav-wrapper{
+   
+    width: 100%;
+    
+    transform: translateY(-50px);
+}
+    .nav-wrapper.active{
+        transform: translateY(0px);
+    }
+
+.leftbar{
+    height: 80%;
+    top: 10%;
+    width: 300px;
+    background-color:white;
+    
+    overflow: auto;
+}
+
+.rightbar{
+    position: absolute;
+    z-index: 1;
+    right: 0%;
+    top: 25%;
+    width: 50px;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.418);
+    transition: opacity ease 0.5s;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+    .rightbar>*:hover{
+        background-color: rgba(255, 166, 0, 0.616);
+    }
+    .rightbar>*{
+        width: 100%;padding: 10px 0;
+    }
+
+
+.moveable{
+    position: absolute;
+    z-index: 2;
+    transition: transform ease 0.5s;
+}
+
+
+
+.normalnav{
+    position: relative;
+    z-index: 1000;
+    
+    /* background: rgb(22, 56, 156); */
+    background: white;
+    color: black;
+    height: 40px;
+    width: 100%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    
+}
+    .normalnav a{
+        color: black;
+        text-decoration: none;
+        margin-right: 10px;
+        border: 1px rgba(255, 255, 255, 0) solid;
+    }
+    .normalnav a h3{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .normalnav a:hover{
+        border-bottom:  2px solid black;
+    }
+
+.submitButton{
+    border-radius: 5px;
+   
+    color: rgb(136, 136, 136);
+    position: absolute;
+    z-index: 2;
+    right: 20px;
+    padding: 1px 5px;
+    cursor: pointer;
+}
+    .submitButton:hover{
+        border: 1px black solid;
+        color: black;
+        background: white;
+    }
+.menubar{
+    width: 100%;
+    height: 25px;
+    background-color: white;
+    display: flex;
+    color: black;
+}
+.menubar>label{
+    display: flex;
+    align-items: center;  
+    height: 100%;
+    padding: 0px 10px;
+    
+    cursor: pointer;
+}
+    .menubar>label:hover{
+        border-top: 2px solid rgb(52, 41, 211);
+    }
+.toolbar{
+    width: 100%;
+    height: 20px;
+    background-color: white;
+    /* border:1px solid rgb(219, 219, 219); */
+    display: flex;
+    
+    border-top: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+.tool{
+    width: 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 2px;
+    cursor: pointer;    
+}
+    .tool img{
+        height:15px;
+        width: 15px;
+        
+    }
+    .tool:hover{
+        background: rgb(206, 206, 206);
+    }
+.operation-view{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.component{
+    position: absolute;
+    transition: transform ease 0.5s;
+    /* display: flex; */
+    /* align-items: flex-start; */
+    width:300px;
+    height: 500px;
+    /* background: rgb(22, 56, 156); */
+    background:white;
+}
+
+.labels{
+    border-left:1px solid white;
+    position: absolute;
+    left: 300px;
+    transition: transform ease 0.5s;
+    display: flex;
+    flex-flow: column wrap;
+}
+    .labels li{
+        cursor: pointer;
+        padding: 2px 2px;
+        width: 15px;
+        height: 4em;
+        text-align: center;
+        background: orangered;
+        color: white;
+    }
+        .labels li:hover{
+            padding-left: 15px;
+            
+        }
+/* .view{
+    width: 1400px;
+    height: 1000px;
+} */
+.creatComp{
+    /* width: 480px;
+    height: 1000px; */
+    background: white;
+    
+}
+
+
+/*个人资料部分*/
+#profile {
+    
+    background: white;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+.profile-top{
+    width: 100%;
+    height: 60px;
+    /* background: black; */
+    color: black;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-photo{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+.upload-text{
+    margin-top: 10px;
+    width: 200px;
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: gray;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 5px;
+    cursor: pointer;
+}
+    .upload-text:hover{
+        color: black;
+        border: 1px solid black;
+    }
+    .upload-text:active{
+        border: 1px royalblue solid;
+        background: royalblue;
+        color: white;
+    }
+.upload-button{
+    position: relative;
+    z-index: -1;
+}
+.pro-input-box{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 50%;
+}
+    .pro-input-box>label{
+        display: block;
+        font-size: 1em;
+    }
+    .pro-input-box>input{
+        margin-top: 5px;
+        height: 30px;
+        width: 80%;
+        background: rgb(250, 250, 250);
+        border-radius: 5px;
+        border: 1px solid rgb(221, 221, 221);
+        padding-left: 8px;
+        font-size: 1em;
+    }
+        .pro-input-box>input:active{
+            border: 1px black solid;
+        }
+    .pro-input-box>textarea{
+        margin-top: 5px;
+        width: 100%;
+        max-width: 100%;;
+        background: rgb(250, 250, 250);
+        border-radius: 5px;
+        border: 1px solid rgb(221, 221, 221);
+        padding-left: 8px;
+        font-size: 1em;
+        height: 80px;
+    }
+.update-button{
+    padding:5px 0;
+    background:rgb(72, 218, 72);
+    color:white;
+    text-align: center;
+    font-weight: bold;
+    width: 250px;
+    border-radius: 5px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+    .update-button:hover{
+        background: rgb(160, 255, 160);
+    }
+    .update-button:active{
+        background: green;
+    }
+.up-pre-photo{
+
+    /*height: 200px;*/
+    /*width: 200px;*/
+    /*border-radius: 10px;*/
+    /*background: rgb(250, 250, 250);*/
+    /*border: 1px solid rgb(221, 221, 221);*/
+    /*cursor: pointer;*/
+    width: 300px;
+    height: 300px;
+    display: block;
+}
+ .avatar-uploader .el-upload {
+     border: 1px dashed #d9d9d9;
+     border-radius: 6px;
+     cursor: pointer;
+     position: relative;
+     overflow: hidden;
+     margin-top: 10px;
+ }
+ .avatar-uploader .el-upload:hover {
+     border-color: #409EFF;
+ }
+ .avatar-uploader-icon {
+     font-size: 28px;
+     color: #8c939d;
+     width: 300px;
+     height: 300px;
+     line-height: 300px !important;
+     text-align: center;
+
+ }

@@ -1,0 +1,36 @@
+#login{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    
+    background: rgb(0, 11, 41);
+    flex-flow: row wrap;
+}
+.title{
+    font-size: 40px;
+    color: white;
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+}
+.input{
+    width: 400px;
+}
+
+input{
+    margin: 10px;
+}
+
+button{
+    margin: 20px 10px !important;
+    width: 100%;
+    font-size: 20px !important;
+    color: rgb(1, 1, 19);
+}
+
+#titleCanvas{
+    width: 80%;
+    height: 200px;
+    margin: 0 auto;
+}

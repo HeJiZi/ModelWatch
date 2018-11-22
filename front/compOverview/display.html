@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>display</title>
+  </head>
+  <body>
+    <div id="display"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <!-- 顶点着色器 -->
+<script type="x-shader/x-vertex" id="vertexshader">
+  varying vec3 fragNormal;
+  varying vec3 rimNormal;
+  uniform vec3 directLight;
+  
+      void main() {
+          fragNormal=normalize(normalMatrix*normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+          vec3 viewNormal=normalize(cameraPosition);
+          rimNormal=normal;
+      }
+</script>
+
+<!--片元着色器程序-->
+<script type="x-shader/x-fragment" id="fragmentshader">
+  uniform vec3 directLight;
+  uniform mat3 normalMatrix;
+  varying vec3 rimNormal;
+
+  varying vec3 fragNormal;
+  void main()
+  {
+      vec3 normalDLight=normalize(normalMatrix*directLight);
+
+      float diffuseStrength=dot(normalDLight,fragNormal);
+      diffuseStrength=clamp(diffuseStrength,0.0,1.0);
+
+      vec3 ambient=vec3(0.1);
+      vec4 finalLightStrength=vec4(ambient+diffuseStrength,1.0);
+
+      vec3 cnorml=normalize(cameraPosition);
+      float rim=1.0-max(dot(rimNormal,cnorml),0.0);
+      vec4 rimColor=vec4(vec3(0.9,0.9,0.0)*pow(rim,1.4),1.0);
+      
+
+      vec4 color=vec4(0.5,0,0.5,0.8);
+      gl_FragColor=finalLightStrength*color+rimColor;
+  }
+</script>
+</html>

@@ -1,0 +1,59 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+ul{
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#container{
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+}
+#a-top{
+    position: relative;
+    background: url("../images/show.jpg") no-repeat;
+    background-size: 100%;
+    /*max-width:100%;*/
+    /*overflow:hidden;*/
+    width: 100%;
+    height: 350px;
+    /*display:table-cell;*/
+    /*text-align:center;*/
+    /*vertical-align:middle;*/
+}
+h1{
+    font-size: 40px;
+    color: #fff;
+    line-height: 350px;
+    letter-spacing: 10px;
+    text-align: center;
+}
+#a-middle{
+    height:50px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    clear: both;
+}
+#a-bottom{
+    display: flex;
+    background-color:#fff;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content:flex-start;
+    clear: both;
+}
+.projects{
+    margin: 20px 30px;
+    max-height: 45em;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    transition: transform ease 1s;
+}
