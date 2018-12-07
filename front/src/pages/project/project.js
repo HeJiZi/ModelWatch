@@ -3,14 +3,13 @@
 import Vue from 'vue'
 import Project from './ProjectOv'
 import router from './router'
-import { Button,MenuItem,Menu } from 'element-ui'
+import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
 
 Vue.config.productionTip = false
-Vue.use(Button)
-Vue.use(MenuItem)
-Vue.use(Menu)
+Vue.use(ElementUI) 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#project',
