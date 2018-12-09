@@ -1,66 +1,80 @@
 <template>
   <div class="tw-wrapper">
-    <el-row style="font-size: 15px;padding: 5px 10px;font-weight: bold;background: rgb(242, 246, 252);height: 30px;color: #606d79;">
-      协作者
+    <el-row style="font-size: 15px;padding: 10px 10px;font-weight: bold;height: 40px;color: #606d79;">
+      协作者 <strong id="addIcon" @click="inputBoxHeight=inputBoxHeight=='0px'?'80px':'0px'" >{{inputBoxHeight=='0px'?'+':'-'}}</strong>
     </el-row>
-    <el-row style="margin:0px;" >
-        <el-autocomplete style="width:600px;"
-          v-model="state"
-          :fetch-suggestions="querySearch"
-          placeholder="请输入关键词"
-          :trigger-on-focus="false">    
-        </el-autocomplete>
-        <el-button type="primary" @click="addCollaborators">添加邀请</el-button>
+    <el-row id="userSearchBox" style="background-color: white;border:1px solid rgb(232, 236, 242);" :style="{height:inputBoxHeight}" >
+      <div style="width:800px;margin:20px auto;" >
+          <el-autocomplete style="width:600px;"
+            v-model="name"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入关键词"
+            :trigger-on-focus="false">
+            <template slot-scope="{item}">
+              <div style="margin:10px 0px;">
+                <div class="avatar" style="width:30px;height:30px">
+                  <img :src='item.uAvater' width="30px" height="30px" >
+                </div>
+                <span style="color: #564545;margin-left: 5px;font-size: 10px;">{{item.uUsername}}</span>
+              </div>
+            </template> 
+          </el-autocomplete>
+          <el-button type="primary" @click="addCollaborators">添加邀请</el-button>
+      </div>
     </el-row>
     <el-table
-      :data="tableData"
+      :data="collaborators"
       :show-header="false"
       style="width:100%;text-align:center;">
 
-        <el-table-column width="500">
+        <el-table-column >
             <template slot-scope="scope">
-              <!-- <el-popover trigger="hover" placement="top">
-                <el-upload
-                  class="avatar-uploader"
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload" style="display:inline-block;vertical-align: middle;" >
-                    <img :src="scope.row.imageUrl" class="avatar" style="width:90px;height:90px;line-height:90px">
-                </el-upload>
+              <article>
+                <el-popover trigger="hover" placement="left-start">
                 <span style="display: inline-block;vertical-align: middle;">
-                  <b>{{ scope.row.name }}</b><br>
-                  <span>{{ scope.row.address }}</span>
+                  <b>邮箱：{{ scope.row.uEmail }}</b><br>
+                  <br>
+                  <b>生日：{{ scope.row.uBirthday }}</b><br>
                 </span>
-                <div slot="reference" class="name-wrapper" style="margin-left:100px">
-                  <el-upload
-                    class="avatar-uploader"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload" style="display:inline-block;vertical-align:top" >
-                      <img :src='scope.row.imageUrl' class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                  </el-upload>
-                  <el-tag size="medium" style="margin-top:10px" v-if="awaitingValidate()">{{scope.row.name}}</el-tag>
-                  <span v-else style="margin-left:20px;">{{validation}}</span>
+                <div slot="reference" class="name-wrapper" >
+                  <div class="avatar">
+                    <img :src='scope.row.uAvater' width="60px" height="60px" >
+                  </div>
                 </div>
-              </el-popover> -->
+              </el-popover>
+              <div style="margin:0px 0px 0px 70px;cursor: pointer;" >
+                <strong>{{scope.row.uUsername}}</strong>
+                <p style="margin:10px 0px 0px 0px">{{scope.row.uSignature}}</p>
+              </div>
+              </article>
+
             </template>
         </el-table-column>
-        <el-table-column width="180" >
-            <template slot-scope="scope">
-              <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ scope.row.date }}</span>
-            </template>
-        </el-table-column>
+    
         <el-table-column >
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <div style="display:flex;justify-content: flex-end;margin-right:20px;">
+              <template v-if="scope.row.invState == 1">
+                <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              </template>
+              <template v-else>
+                <span style="padding-top:2px;margin-right:20px;">正在等待该用户的回应...</span>
+                <el-button size="mini">复制链接</el-button>
+                <el-button size="mini" type="danger">取消邀请</el-button>
+              </template>
+
+            </div>
+
           </template>
+        </el-table-column>
+        <el-table-column width="200px">
+            <template slot-scope="scope">
+              <i class="el-icon-time"></i>
+              <span style="margin-left: 10px">{{ scope.row.invTime }}</span>
+            </template>
         </el-table-column>
     </el-table>
 
@@ -77,31 +91,34 @@
   </div>
 </template>
 <style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #cfd5dd;
-    width: 70px;
-    height: 70px;
-    line-height: 70px;
-    text-align: center;
-  }
-  .avatar {
-    width: 70px;
-    height: 70px;
-    display: block;
+  .avatar{
+    
+      width: 60px;
+      height: 60px;
+      float: left;
+      border-radius: 5px;
+      border: 2px solid white;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 10000;
   }
   .tw-wrapper{
     margin: 5px;
     border: 1px solid rgb(204, 210, 230);
     border-radius: 5px;
+    background: rgb(242, 246, 252);
+  }
+  #addIcon{
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+  }
+  #addIcon:hover{
+    color: black;
+  }
+
+  #userSearchBox{
+    transition: height ease 0.4s;
   }
 
 </style>
@@ -109,41 +126,48 @@
   export default {
     data() {
       return {
-        restaurants: [],
-        state: '',
+        users: [],
+        name: '',
+        inputBoxHeight:'0px',
         page:1,
-        validation:'等待验证...',
         focusState:false,
-        tableData: [{
-          date:'2018-12-07',
-          imageUrl:'/static/images/1.jpg',
-          name: '王虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+        collaborators: [{
+          uId:1,
+          uUsername: 'HeJiZi',
+          uSignature:'太阳照常升起',
+          invTime:'2018-12-07 12:00:00',
+          uAvater:'/static/images/temp.jpeg',
+          uEmail:"129312398@qq.com",
+          uBirthday:'2018-07-05',
+          invState: '0'
         }, {
-          date:'2018-12-01',
-          imageUrl:'/static/images/1.jpg',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
+          uId:2,
+          uUsername: 'LiAn',
+          uSignature:'这是一段个性签名',
+          invTime:'2018-12-07 14:00:00',
+          uAvater:'/static/images/small_logo.png',
+          uBirthday:'2018-07-05',
+          uEmail:"129312398@qq.com",
+          invState: '1'
         }]
       };
     },
     methods:{
       querySearch(queryString, cb) {
-        var restaurants = this.restaurants;
-        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        var users = this.users;
+        var results = queryString ? users.filter(this.createFilter(queryString)) : users;
         cb(results);
       },
       createFilter(queryString) {
-        return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (users) => {
+          return (users.uUsername.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
       loadAll() {
         return [
-          { "value": "三全鲜食（北新泾店）", "address": "长宁区新渔路144号" },
-          { "value": "Hot honey 首尔炸鸡（仙霞路）", "address": "上海市长宁区淞虹路661号" },
-          { "value": "新旺角茶餐厅", "address": "上海市普陀区真北路988号创邑金沙谷6号楼113" },
-          { "value": "泷千家(天山西路店)", "address": "天山西路438号" }
+          { uAvater: "/static/images/small_logo.png", uUsername: "LiAn" },
+          { uAvater: "/static/images/temp.jpeg", uUsername: "HeJiZi" },
+          { uAvater: "/static/images/temp.jpeg", uUsername: "Haha" },
         ];
       },
 
@@ -162,25 +186,7 @@
         console.log("changePage"+this.page);
       },
 
-      // handleAvatarSuccess(res, file) {
-      //     this.imageUrl = URL.createObjectURL(file.raw);
-      // },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      //等待验证
-      awaitingValidate(){
-        var result=false;
-        return result;
-      },
+
       // 按钮添加协作者
       addCollaborators(){
         if(this.state){
@@ -199,8 +205,8 @@
       }
     },
     mounted() {
-      this.restaurants = this.loadAll();
-      console.log(this.restaurants);
+      this.users = this.loadAll();
+      console.log(this.users);
     }
   }
 </script>
