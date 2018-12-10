@@ -1,14 +1,14 @@
 <template>
     <article style="margin-right: 10px;margin-bottom: 10px;overflow: hidden;cursor: pointer;" 
         @mouseenter="transform='translateY(-40px)'" @mouseleave="transform='translateY(0px)'" 
-        @click="jump" :style="{height:height}">
+        @click="jump" :style="{height:height,width:width}">
         <img :height="height" :width="width" :src="img_url">
         <div :style="{transform: transform}" style="width: 100%;height: 35px;background: rgba(0, 0, 0, 0.253);color:white;
         position: relative;z-index: 1;display: flex;align-items: center;font-family: fantasy; transition: transform ease 0.5s;">
             <span style="color: white; font-weight:bold;font-family:inherit; width:30%">&nbsp;&nbsp;{{name}}</span>
             <div style="display: flex;align-items: center;width:70%;flex-direction: row-reverse;">
                 <div style="margin-right:10px">{{time}} </div>
-                <div style="background-image: url(../resources/images/icons.png);background-position: -344px -407px;background-repeat: no-repeat;
+                <div style="background-image: url(/static/images/icons.png);background-position: -344px -407px;background-repeat: no-repeat;
                     height:100%;height:18px;width: 20px;"></div>
             </div>
         </div>
@@ -29,7 +29,7 @@ export default {
     },
     computed:{
         width:function(){
-            return this.aspect*parseFloat(this.height);
+            return this.aspect*parseFloat(this.height) + 'px';
         }
     },
     methods:{
