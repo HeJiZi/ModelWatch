@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -60,6 +61,9 @@ public class SelectServiceImpl implements SelectService {
     }
     public List<Log> selectLog(long pId){
         return logDao.getLogByPid(pId);
+    }
+    public List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName){
+        return logDao.filterLog(beginTime,endTime,uUsername,mName);
     }
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);

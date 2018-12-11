@@ -5,6 +5,7 @@ import bean.Project;
 import bean.User;
 import bean.Model;
 import dao.ProjectDao;
+import dto.LogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import service.ManageService;
 import service.SelectService;
 import service.UpdateService;
+import util.DtoListUtil;
 import util.MyFileUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 //import jdk.incubator.http.HttpResponse;
@@ -66,9 +69,11 @@ public class ProjectController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/diary/{pId}",method = RequestMethod.GET)
-    public List<Log> getData(@PathVariable long pId){
-        return  selectService.selectLog(pId);
+    @RequestMapping(value = "/log/{pId}",method = RequestMethod.GET)
+    public List getData(@PathVariable long pId){
+        List<Log> logList =  selectService.selectLog(pId);
+        return (List<LogDto>)DtoListUtil.transelateList(logList,LogDto.class);
+        //return logList;
     }
 
     @ResponseBody

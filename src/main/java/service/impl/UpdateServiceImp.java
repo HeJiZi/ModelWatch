@@ -85,5 +85,7 @@ public class UpdateServiceImp implements UpdateService {
         return flag;
     }
 
-
+    public boolean updateLogContext(Long lId,String lContext) {
+        return (logDao.updateLogContext(lId,lContext)==1);
+    }
 }

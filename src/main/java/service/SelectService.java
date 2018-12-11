@@ -3,6 +3,7 @@ package service;
 import bean.*;
 
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface SelectService {
@@ -38,5 +39,7 @@ public interface SelectService {
     Project selectProject(long pId);
 
     List<Log> selectLog(long pId);
+    List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName);
+
     List<Model> selectModel(long pId);
 }
