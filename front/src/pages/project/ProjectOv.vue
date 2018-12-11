@@ -29,7 +29,7 @@
         </el-menu-item>
       </el-menu>
       </div>
-      <div>
+      <div style="width:85%">
         <router-view/>
       </div>
       
@@ -37,6 +37,12 @@
 
   </div>
 </template>
+<style>
+body{
+  width: 100%;
+  overflow-y: scroll;
+}
+</style>
 
 <script>
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
