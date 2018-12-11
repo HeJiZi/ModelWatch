@@ -1,7 +1,7 @@
 <template>
     <article class="ov-wrapper">
         <div style="display: flex;border-bottom: 1px solid rgb(222, 222, 222);padding-bottom: 10px;margin-bottom: 10px;font-size: 17px;align-items: flex-end;">
-          <p class="title">项目总览</p>
+          <p class="ov-title">项目总览</p>
           <div style="width: 49%;display: flex;justify-content: flex-end;">
               <el-button size="mini"  icon="el-icon-view">关注  <span style="font-weight:bold">35</span></el-button>
           </div>
@@ -25,7 +25,7 @@
             </div>    
         </div>        
         <div style="display: flex;border-bottom: 1px solid rgb(222, 222, 222);padding-bottom: 10px;margin-bottom: 10px;font-size: 17px;align-items: flex-end;">
-          <p class="title">模型总览</p>
+          <p class="ov-title">模型总览</p>
         </div>
         <div style="display:flex;flex-flow:row wrap;">
             <mw-photo  v-for="model in models" :key="model.mId" :name="model.mName" 
@@ -56,7 +56,7 @@
     </article>
 </template>
 <style>
-.title{
+.ov-title{
     color: rgb(104, 110, 117);
     width:50%;
     margin-bottom:0px;
