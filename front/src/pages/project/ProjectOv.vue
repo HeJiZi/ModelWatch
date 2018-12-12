@@ -4,7 +4,7 @@
     <article style="display:flex;max-width:1280px;min-width: 800px;margin: 0 auto;">
       <div style="width:15%;">
         <el-menu
-        default-active="/"
+        :default-active="defaultActive"
         :router="true"
         class="el-menu-vertical-demo">
         <el-menu-item index="/">
@@ -21,7 +21,7 @@
         </el-menu-item>
         <el-menu-item index="/profile">
           <i class="el-icon-setting"></i>
-          <span slot="title">资料管理</span>
+          <span slot="title">项目设置</span>
         </el-menu-item>
         <el-menu-item index="/data">
           <i class="el-icon-setting"></i>
@@ -49,6 +49,12 @@ import mwNav from '@/WatchComponents/ModelWatchNav.vue'
 
 export default {
   name: 'Project',
+  computed: {
+        defaultActive() {
+           console.log(this.$route.path);
+            return '/' + this.$route.path.split('/').reverse()[0];
+        }
+  },
   components:{
     mwNav
   },

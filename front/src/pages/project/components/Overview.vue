@@ -35,6 +35,7 @@
                     <i class="el-icon-plus avatar-uploader-icon"></i>
                 </label>
             </div>                
+          
         </div>
 
         <el-dialog
@@ -69,26 +70,7 @@
     margin-left: 15px;
 
 }
- .avatar-uploader .el-upload {
-     border: 1px dashed #d9d9d9;
-     border-radius: 6px;
-     cursor: pointer;
-     position: relative;
-     overflow: hidden;
-     margin-top: 10px;
- }
- .avatar-uploader .el-upload:hover {
-     border-color: #409EFF;
- }
- .avatar-uploader-icon {
-     font-size: 28px;
-     color: #8c939d;
-     width: 135px;
-     height: 150px;
-     line-height: 150px !important;
-     text-align: center;
 
- }
  #des p{
      margin-top: 0px;
      margin-bottom: 8px;
