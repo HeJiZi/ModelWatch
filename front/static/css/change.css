@@ -1,23 +1,42 @@
-body{
-    background: #eee8ff;
+
+.tw-wrapper{
+    margin: 5px;
+    border: 1px solid rgb(204, 210, 230);
+    border-radius: 5px;
+    background: rgb(242, 246, 252);
 }
-#main{
-    background: white;
-    width:800px;
-    height:auto;
-    margin:0 auto;
-    padding-top:10px;
+
+.title{
+    font-size: 15px;
+    padding: 10px 10px;
+    font-weight: bold;
+    height: 20px;
+    color: #606d79;
 }
+
 .tit{
     font-weight: bold;
     font-size: 27px;
     text-align: center;
 }
 .blo{
-    margin-top: 15px;
-    margin-left: 140px;
-    margin-bottom: 10px;
+    padding-left: 140px;
+    margin-bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color:white;
 }
+    .blo label{
+        margin: 0px;
+        color: rgb(63, 73, 82);
+    }
+    .blo>section{
+        margin-bottom: 10px;
+    }
+    .blo textarea{
+        max-width: 500px;
+    }
+
 label{
     display: block;
     margin-bottom: 5px;
@@ -43,28 +62,22 @@ textarea{
     height: 130px;
 }
 .btn{
-    background:#ff8e47;
     color:white;
     text-align: center;
-    font-size: 15px;
     font-weight: bold;
     width: 200px;
     height: 32px;
     border-radius: 5px;
     border: none;
-    cursor: pointer;
-    margin-top: 15px;
-    margin-left: 140px;
-    margin-bottom: 8px;
 }
-.tex{
-    margin-top: 5px;
-    height: 30px;
-    width:400px;
-    border-radius: 5px;
-    border: 1px solid #ded4fc;
-    padding-left: 8px;
-}
+    .btn.el-button{
+        margin-top: 20px;
+        padding-top:10px;
+    }
+    .tex input{
+        max-width: 400px;
+        margin-top:5px;
+    }
 .pro-input-box{
     margin-top: 10px;
     margin-left: 10px;
@@ -107,4 +120,33 @@ textarea{
 }
 .el-tag{
     background-color: rgba(255,255,255,1);
+}
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 135px;
+    height: 150px;
+    line-height: 150px !important;
+    text-align: center;
+
+}
+.p-avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 200px;
+    height: 200px;
+    line-height: 200px !important;
+    text-align: center;
+
 }

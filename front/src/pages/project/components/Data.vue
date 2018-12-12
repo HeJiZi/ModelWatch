@@ -55,13 +55,7 @@
     border-radius: 5px;
     background: rgb(242, 246, 252);
   }
-  .title{
-      font-size: 15px;
-      padding: 10px 10px;
-      font-weight: bold;
-      height: 20px;
-      color: #606d79;
-  }
+
 </style>
 
 <script>
