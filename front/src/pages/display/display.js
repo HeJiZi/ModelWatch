@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Display from './Display.vue'
 import router from './router'
-import { Button,MenuItem,Menu,Tree,Input } from 'element-ui'
+import { Button,MenuItem,Menu,Tree,Input,Pagination } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
 
@@ -13,6 +13,7 @@ Vue.use(MenuItem)
 Vue.use(Menu)
 Vue.use(Tree)
 Vue.use(Input)
+Vue.use(Pagination)
 /* eslint-disable no-new */
 new Vue({
   data(){
