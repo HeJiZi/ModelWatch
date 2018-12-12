@@ -51,7 +51,6 @@ export default {
   name: 'Project',
   computed: {
         defaultActive() {
-           console.log(this.$route.path);
             return '/' + this.$route.path.split('/').reverse()[0];
         }
   },

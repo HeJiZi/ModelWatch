@@ -102,12 +102,7 @@
       cursor: pointer;
       z-index: 10000;
   }
-  .tw-wrapper{
-    margin: 5px;
-    border: 1px solid rgb(204, 210, 230);
-    border-radius: 5px;
-    background: rgb(242, 246, 252);
-  }
+
   #addIcon{
     position: relative;
     top: -2px;

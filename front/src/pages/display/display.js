@@ -15,6 +15,11 @@ Vue.use(Tree)
 Vue.use(Input)
 /* eslint-disable no-new */
 new Vue({
+  data(){
+    return{
+      mesh:null
+    }
+  },
   el: '#display',
   router,
   components: { Display },

@@ -215,13 +215,17 @@ export default {
             if(this.model.mData==undefined)
                 return
             // load a resource
-            loader.load(
+            var obj =this;
+            console.log(obj.$router.app);
+            if(obj.$router.app.mesh==null){
+                loader.load(
                 // resource URL
                 this.model.mData,
 
                 // onLoad callback
                 function ( geometry, materials ) {
                     var object = new Mesh( geometry ,materials);
+                    obj.$router.app.mesh = object;
                     scene.add( object );
                     renderer.render(scene,camera)
                 },
@@ -236,6 +240,12 @@ export default {
                     console.log( 'An error happened' );
                 }
                 );
+            }
+            else{
+                scene.add(obj.$router.app.mesh);
+                renderer.render(scene,camera)                
+            }
+            
         },
         jump: function () {
             window.location.href = '../';

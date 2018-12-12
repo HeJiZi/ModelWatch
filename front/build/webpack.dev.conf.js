@@ -28,7 +28,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         { from: /^\/$/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
         { from: /^\/login$/, to: path.posix.join(config.dev.assetsPublicPath, 'login.html') },
         { from: /^\/project$/, to: path.posix.join(config.dev.assetsPublicPath, 'project.html') },
-        { from: /^\/display$/, to: path.posix.join(config.dev.assetsPublicPath, 'display.html') },
+        { from: /^\/model$/, to: path.posix.join(config.dev.assetsPublicPath, 'display.html') },
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '404.html') }
         
       ],
