@@ -3,6 +3,7 @@
     <el-row style="font-size: 15px;padding: 10px 10px;font-weight: bold;height: 40px;color: #606d79;">
       协作者 <strong id="addIcon" @click="inputBoxHeight=inputBoxHeight=='0px'?'80px':'0px'" >{{inputBoxHeight=='0px'?'+':'-'}}</strong>
     </el-row>
+
     <el-row id="userSearchBox" style="background-color: white;border:1px solid rgb(232, 236, 242);" :style="{height:inputBoxHeight}" >
       <div style="width:800px;margin:20px auto;" >
           <el-autocomplete style="width:600px;"
@@ -22,35 +23,33 @@
           <el-button type="primary" @click="addCollaborators">添加邀请</el-button>
       </div>
     </el-row>
+
     <el-table
       :data="collaborators"
       :show-header="false"
       style="width:100%;text-align:center;">
-
         <el-table-column >
             <template slot-scope="scope">
               <article>
-                <el-popover trigger="hover" placement="left-start">
-                <span style="display: inline-block;vertical-align: middle;">
-                  <b>邮箱：{{ scope.row.uEmail }}</b><br>
-                  <br>
-                  <b>生日：{{ scope.row.uBirthday }}</b><br>
-                </span>
-                <div slot="reference" class="name-wrapper" >
-                  <div class="avatar">
-                    <img :src='scope.row.uAvater' width="60px" height="60px" >
+                <el-popover trigger="hover" placement="right-start">
+                  <span style="display: inline-block;vertical-align: middle;">
+                    <b>邮箱：{{ scope.row.uEmail }}</b><br>
+                    <br>
+                    <b>生日：{{ scope.row.uBirthday }}</b><br>
+                  </span>
+                  <div slot="reference" class="name-wrapper" >
+                    <div class="avatar">
+                      <img :src='scope.row.uAvater' width="60px" height="60px" >
+                    </div>
                   </div>
+                </el-popover>
+                <div style="margin:0px 0px 0px 70px;cursor: pointer;" >
+                  <strong>{{scope.row.uUsername}}</strong>
+                  <p style="margin:10px 0px 0px 0px">{{scope.row.uSignature}}</p>
                 </div>
-              </el-popover>
-              <div style="margin:0px 0px 0px 70px;cursor: pointer;" >
-                <strong>{{scope.row.uUsername}}</strong>
-                <p style="margin:10px 0px 0px 0px">{{scope.row.uSignature}}</p>
-              </div>
               </article>
-
             </template>
-        </el-table-column>
-    
+        </el-table-column>   
         <el-table-column >
           <template slot-scope="scope">
             <div style="display:flex;justify-content: flex-end;margin-right:20px;">
@@ -62,12 +61,22 @@
               </template>
               <template v-else>
                 <span style="padding-top:2px;margin-right:20px;">正在等待该用户的回应...</span>
-                <el-button size="mini">复制链接</el-button>
+                <el-popover
+                  placement="bottom"
+                  width="250"
+                  trigger="click"
+                  offset=0>
+                  <div style="margin-bottom:10px">邀请链接:</div>
+                  <div class="me" style="border:2px solid rgb(57, 139, 211);display:flex;border-radius:3px;">
+                    <el-input :value=scope.row.uEmail readonly id="nu"  
+                      style="width:200px;display:inline-block;vertical-align:middle;"></el-input>
+                    <el-button icon="el-icon-edit-outline" style="border: 0px;margin-left: -10px;height: 40px;width:55px;" @click="copy"></el-button>                
+                  </div>
+                  <el-button size="mini" slot="reference">复制链接</el-button>
+                </el-popover>
                 <el-button size="mini" type="danger">取消邀请</el-button>
               </template>
-
             </div>
-
           </template>
         </el-table-column>
         <el-table-column width="200px">
@@ -91,8 +100,7 @@
   </div>
 </template>
 <style>
-  .avatar{
-    
+  .avatar{  
       width: 60px;
       height: 60px;
       float: left;
@@ -102,7 +110,12 @@
       cursor: pointer;
       z-index: 10000;
   }
-
+  .tw-wrapper{
+    margin: 5px;
+    border: 1px solid rgb(204, 210, 230);
+    border-radius: 5px;
+    background: rgb(242, 246, 252);
+  }
   #addIcon{
     position: relative;
     top: -2px;
@@ -115,9 +128,22 @@
   #userSearchBox{
     transition: height ease 0.4s;
   }
-
+  .el-input>input{   
+    border-radius: 0;
+  }
+  .el-input>input:focus{
+    border-color:rgb(140, 175, 228);
+    outline:rgb(140, 175, 228) solid 2px;
+  }
+  .me>.el-input>input{
+    border-right-color: rgb(140, 175, 228);
+    border-left:0;
+    border-bottom:0;   
+    border-top: 0;
+  }
 </style>
 <script>
+  import Clipboard from 'clipboard';
   export default {
     data() {
       return {
@@ -184,23 +210,39 @@
 
       // 按钮添加协作者
       addCollaborators(){
-        if(this.state){
-          this.tableData.push({date:'2018-12-11',
-                  imageUrl:'/static/images/temp.jpeg',
-                  name:this.state,
-                  address: '上海市普陀区金沙江路 1519 弄'});
-          this.state='';
+        if(this.name){
+          this.collaborators.push({
+                  uId:'',
+                  uUsername:this.name,
+                  uSignature:'这是一段个性签名',
+                  invTime:'2018-12-07 14:00:00',
+                  uAvater:'/static/images/temp.jpeg', 
+                  uBirthday:'2018-12-11',
+                  uEmail:"129312398@qq.com",
+                  invState: '1'
+          });
+          this.name='';
         }
         else{
           this.focusState=true;
         }
       },
       handleDelete(index,row){
-        this.tableData.splice(index,1);
+        this.collaborators.splice(index,1);
+      },
+      copy() {
+        var Url2 = document.getElementById("nu").value;
+        var oInput = document.createElement("input");
+        oInput.value = Url2;
+        document.body.appendChild(oInput);
+        oInput.select();                            // 选择对象
+        document.execCommand("Copy");               // 执行浏览器复制命令
+        oInput.className = "oInput";
+        oInput.style.display = "none";
       }
     },
     mounted() {
-      this.users = this.loadAll();
+      this.users= this.loadAll();
       console.log(this.users);
     }
   }
