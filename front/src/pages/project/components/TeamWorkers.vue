@@ -151,7 +151,8 @@
         inputBoxHeight:'0px',
         page:1,
         focusState:false,
-        collaborators: [{
+        collaborators: [
+        {
           uId:1,
           uUsername: 'HeJiZi',
           uSignature:'太阳照常升起',
@@ -169,7 +170,8 @@
           uBirthday:'2018-07-05',
           uEmail:"129312398@qq.com",
           invState: '1'
-        }]
+        }
+        ]
       };
     },
     methods:{
@@ -183,17 +185,9 @@
           return (users.uUsername.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
-      loadAll() {
-        return [
-          { uAvater: "/static/images/small_logo.png", uUsername: "LiAn" },
-          { uAvater: "/static/images/temp.jpeg", uUsername: "HeJiZi" },
-          { uAvater: "/static/images/temp.jpeg", uUsername: "Haha" },
-        ];
-      },
-
-      handleSelect(item) {
-        console.log(item);
-      },
+      // handleSelect(item) {
+      //   console.log(item);
+      // },
       nextPage(){
         console.log("nextPage");
         this.tableData=[{
@@ -205,9 +199,6 @@
       changePage(){
         console.log("changePage"+this.page);
       },
-
-
-      // 按钮添加协作者
       addCollaborators(){
         if(this.name){
           this.collaborators.push({
@@ -229,7 +220,7 @@
       handleDelete(index,row){
         this.collaborators.splice(index,1);
       },
-      copy() {
+      copy(){
         var Url2 = document.getElementById("nu").value;
         var oInput = document.createElement("input");
         oInput.value = Url2;
@@ -240,9 +231,10 @@
         oInput.style.display = "none";
       }
     },
-    mounted() {
-      this.users= this.loadAll();
-      console.log(this.users);
+    mounted(){
+      this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                this.collaborators=response.data.list;
+            })
     }
   }
 </script>

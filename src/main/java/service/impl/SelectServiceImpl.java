@@ -2,6 +2,8 @@ package service.impl;
 
 import bean.*;
 import dao.*;
+import dto.ListObject;
+import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
@@ -26,6 +28,9 @@ public class SelectServiceImpl implements SelectService {
 
     @Autowired
     private CommentsDao commentsDao;
+
+    @Autowired
+    private InvitationDao invitationDao;
 
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
@@ -78,5 +83,13 @@ public class SelectServiceImpl implements SelectService {
     }
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);
+    }
+
+    public ListObject selectCollaborators(long pId, int currentPage) {
+        Page page = new Page(5);
+        page.setCurrentPageNum(currentPage);
+        List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
+
+        return new ListObject(users,page);
     }
 }

@@ -5,6 +5,7 @@ import bean.Project;
 import bean.User;
 import bean.Model;
 import dao.ProjectDao;
+import dto.ListObject;
 import dto.LogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,4 +88,6 @@ public class ProjectController {
     public Project getProjectUser(@PathVariable("pId") long pId){
         return projectDao.getProjectAndUserByPid(pId);
     }
+
+
 }
