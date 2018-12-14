@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import service.UpdateService;
 import util.MyFileUtil;
+import util.TransCharsetUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -86,6 +87,7 @@ public class UpdateServiceImp implements UpdateService {
     }
 
     public boolean updateLogContext(Long lId,String lContext) {
+        lContext = TransCharsetUtil.transISOToUTF(lContext);
         return (logDao.updateLogContext(lId,lContext)==1);
     }
 }

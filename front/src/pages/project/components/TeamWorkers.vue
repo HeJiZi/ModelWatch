@@ -143,7 +143,6 @@
   }
 </style>
 <script>
-  import Clipboard from 'clipboard';
   export default {
     data() {
       return {

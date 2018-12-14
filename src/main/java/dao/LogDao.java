@@ -33,8 +33,9 @@ public interface LogDao {
 
     List<Log> filterLog(@Param("beginTime")Timestamp beginTime,
                         @Param("endTime")Timestamp endTime,
-                        @Param("uUserName")String uUserName,
-                        @Param("mName")String mName);
+                        @Param("uUsername")String uUsername,
+                        @Param("mName")String mName,
+                        @Param("pId")Long pId);
 
 
 

@@ -26,12 +26,13 @@
         <if test="beginTime != null and endTime != null">
             AND L_Time between #{beginTime} and #{endTime}
         </if>
-        <if test="uUserName != null">
-            AND U_username like #{uUserName}
+        <if test="uUsername != null">
+            AND U_username like CONCAT('%',#{uUsername},'%')
         </if>
         <if test="mName != null">
-            AND M_name like #{mName}
+            AND M_name like CONCAT('%',#{mName},'%')
         </if>
+            and log.L_pid = #{pId}
     </select>
 
 </mapper>

@@ -48,7 +48,7 @@ public class LogDaoTest {
 
     @Test
     public void selectLog(){
-        System.out.println(logDao.filterLog(null,null,"HeJiZi",null).get(0).getlContext());
+        System.out.println(logDao.filterLog(null,null,"HeJiZi",null,new Long(1)).get(0).getlContext());
 
     }
 

@@ -6,7 +6,10 @@
         </div>
         <div class="divInLogManager">
             <el-collapse-transition>
-                <fieldset v-show="show_create_log" style="border:4px #fff groove;border-radius: 10px; ">
+                <fieldset
+                    v-show="show_create_log"
+                    style="border:4px #fff groove;border-radius: 10px; "
+                >
                     <legend style="font-size:1.2em;color:grey">新建日志:</legend>
                     <el-input
                         type="textarea"
@@ -29,59 +32,46 @@
             >取消</el-button>
         </div>
         <div class="divInLogManager">
-
             <el-collapse-transition>
-                <fieldset v-show="show_search_log"   style="border:4px #fff groove;border-radius: 10px; ">
+                <fieldset
+                    v-show="show_search_log"
+                    style="border:4px #fff groove;border-radius: 10px; "
+                >
                     <legend style="font-size:1.2em;color:grey">搜索日志:</legend>
                     <div class="divInLogManager">
-                        <div class="divInLogManager">
-                            时间：
+                        <div class="divInLogManager">时间：
                             <el-date-picker
-                                v-model="pickedTime"
+                                v-model="searchConditions.timeRange"
                                 type="datetimerange"
                                 :picker-options="timePickerOptions"
                                 range-separator="至"
                                 start-placeholder="开始日期"
                                 end-placeholder="结束日期"
                                 align="right"
-                            ></el-date-picker> 
+                            ></el-date-picker>
                         </div>
-
-                        <div class="divInLogManager">
-                            内容：
+                        <div class="divInLogManager">用户：
                             <el-input
-                                v-model="searchContent"
+                                v-model="searchConditions.uUsername"
                                 style="width:70%;"
-                                type="textarea"
-                                :autosize="{ minRows:1, maxRows: 4}"
-                                placeholder="请输入日志内容" 
-                                autocomplete="off"
-                            ></el-input>
-                        </div>
-                        <div class="divInLogManager">
-                            用户：
-                            <el-input
-                                v-model="searchUser"
-                                style="width:70%;"  
                                 type="text"
-                                placeholder="请输入用户名" 
+                                placeholder="请输入用户名"
                                 autocomplete="off"
                             ></el-input>
                         </div>
-                        <div class="divInLogManager">
-                            模型：
+                        <div class="divInLogManager">模型：
                             <el-input
-                                v-model="searchModel"
-                                style="width:70%;" 
-                                type="text" 
-                                placeholder="请输入模型名" 
+                                v-model="searchConditions.mName"
+                                style="width:70%;"
+                                type="text"
+                                placeholder="请输入模型名"
                                 autocomplete="off"
                             ></el-input>
                         </div>
                         <div>
                             <el-button
                                 class="buttonInLogManager"
-                                icon="el-icon-search" 
+                                icon="el-icon-search"
                                 round
                                 @click="search_log();"
                             >搜索</el-button>
@@ -109,30 +99,28 @@
             ></el-pagination>
         </div>
 
-        <el-row class="divInLogManager" v-for="(log,index) in get_logs()" :key="log.id">
+        <el-row class="divInLogManager" v-for="log in logs" :key="log.lId">
             <el-card :body-style="{ padding: '0px',width: '70vw'}">
                 <div class="divInLogManager">
                     <span
-                        @click="read_log_content(log.content);"
+                        @click="read_log_context(log.lContext);"
                         style="cursor:pointer; display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;overflow: hidden;"
-                    >{{log.content}}+{{index}}</span>
+                    >{{log.lContext}}</span>
                 </div>
 
                 <div style="margin:5px 10px 5px 10px;">
                     <hr>
-                    <span style="color:grey;font-size:0.8em">涉及模型：</span>
+                    <span style="color:grey;font-size:0.8em">模型：</span>
                     <a
                         style="text-decoration:none;out-line: none;color:#409EFF;margin:5px;"
-                        v-bind:href="'/model/'+model"
-                        v-for="model in log.models"
-                        :key="model.index"
-                    >{{model}}</a>
+                        v-bind:href="'/model/'+log.model"
+                    >{{log.model.mName}}</a>
                     
                     <span style="color:grey;font-size:0.8em；margin-left:10px;">创建者：</span>
                     <a
                         style="text-decoration:none;out-line: none;color:#409EFF;margin:5px;"
-                        v-bind:href="'/user/'+log.user" 
-                    >{{log.user}}</a>
+                        v-bind:href="'/user/'+log.user"
+                    >{{log.user.uUsername}}</a>
                 </div>
 
                 <el-button
@@ -151,27 +139,27 @@
                     icon="el-icon-delete"
                     circle
                 ></el-button>
-                <time style="float:right;margin:10px;">{{ log.time.toLocaleString() }}</time>
+                <time style="float:right;margin:10px;">{{ new Date(log.lTime).toLocaleString() }}</time>
             </el-card>
         </el-row>
         <!-- 编辑日志内容的Form -->
         <el-dialog title="编辑日志内容" :visible.sync="editContentFormVisible">
-            <el-form :model="currentEditLog" ref="logForm">
+            <el-form :model="editForm" ref="editForm" >
                 <el-form-item>
                     <el-input
+                        v-model="editForm.lContext"
                         type="textarea"
                         :autosize="{ minRows: 4, maxRows: 6}"
-                        placeholder="请输入日志内容"
-                        v-model="currentEditLog.content"
+                        placeholder="请输入日志内容" 
                         autocomplete="off"
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button
                         type="primary"
-                        @click="editContentFormVisible = false;submitForm('ruleForm');"
-                    >立即创建</el-button>
-                    <el-button @click="editContentFormVisible = false;resetForm('ruleForm');">重置</el-button>
+                        @click="editContentFormVisible = false;submiteditForm();"
+                    >确认修改</el-button>
+                    <el-button @click="reseteditForm();">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -193,120 +181,59 @@
 export default {
     data() {
         return {
-            show_create_log: false, 
+            getLogsBypPidUrl: "/api/project/log/",
+            searchLogsUrl: "api/log",
+            deleteLogUrl: "api/log",
+            updateLogUrl: "api/log",
+            currentProjectId: 1,
+            show_create_log: false,
             show_search_log: false,
             currentPage: 1,
             currentPageSize: 10,
             fakeData: [
                 {
-                    id: 1,
-                    content:
+                    lId: 1,
+                    lContext:
                         "1建了一个超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A", "模型B", "模型c"],
-                    user: "asd",
-                    project: "项目1",
-                    time: new Date()
-                },
-                {
-                    id: 2,
-                    content:
-                        "2修改了一个超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A"],
-                    user: "hejizi", 
-                    project: "项目1",
-                    time:  new Date()
-                },
-                {
-                    id: 3,
-                    content: "3修改了一个超级厉害的模型",
-                    models: ["模型c"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()
-                },
-                {
-                    id: 4,
-                    content: "4修改了一个超级厉害的模型",
-                    models: ["模型A", "模型B"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()
-                },
-                {
-                    id: 5,
-                    content:
-                        "5建了一个超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A", "模型B", "模型c"],
-                    user: "hejizi",
-                    project: "项目1", 
-                    time:  new Date()
-                },
-                {
-                    id: 6,
-                    content:
-                        "6修改了一个超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A"],
-                    user: "hejizi",
-                    project: "项目1", 
-                    time:  new Date()  
-                },
-                {
-                    id: 7,
-                    content: "7修改了一个超级厉害的模型",
-                    models: ["模型c"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()  
-                },
-                {
-                    id: 8,
-                    content: "8修改了一个超级厉害的模型",
-                    models: ["模型A", "模型B"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()
-                },
-                {
-                    id: 9,
-                    content:
-                        "9建了一个超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A", "模型B", "模型c"],
-                    user: "hejizi",
-                    project: "项目1", 
-                    time:  new Date()  
-                },
-                {
-                    id: 10,
-                    content:
-                        "10修改了一个超级超级超级超级超级超级超级超级超级超级厉害的模型",
-                    models: ["模型A"],
-                    user: "hejizi",
-                    project: "项目1", 
-                    time:  new Date()  
-                },
-                {
-                    id: 11,
-                    content: "11修改了一个超级厉害的模型",
-                    models: ["模型c"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()  
-                },
-                {
-                    id: 12,
-                    content: "12修改了一个超级厉害的模型",
-                    models: ["模型A", "模型B"],
-                    user: "hejizi",
-                    project: "项目2", 
-                    time:  new Date()  
+                    model: {
+                        mId: 1,
+                        mName: "模型A"
+                    },
+                    user: {
+                        uId: 1,
+                        uUsername: "asd"
+                    },
+                    project: {
+                        pId: 1,
+                        pName: "项目1"
+                    },
+                    lTime: new Date()
                 }
             ],
-            logs: [],
-            currentEditLog: { id: 0, content: "" },
+            logs: [
+                {
+                    lId: null,
+                    lContext: null,
+                    model: {
+                        mId: null,
+                        mName: null
+                    },
+                    user: {
+                        uId: null,
+                        uUsername: null
+                    },
+                    project: {
+                        pId: null,
+                        pName: null
+                    },
+                    lTime: null
+                }
+            ],
+            editForm:{lId: 0, lContext: ""},
             editContentFormVisible: false,
             currentUser: {
-                id:1,
-                name:"hejizi"
+                mId: 1,
+                mUsername: "hejizi"
             },
             timePickerOptions: {
                 shortcuts: [
@@ -345,22 +272,44 @@ export default {
                     }
                 ]
             },
-            pickedTime: "",
-            searchContent: "",
-            searchUser: "",
-            searchModel: ""
+            searchConditions: {
+                timeRange: null,
+                uUsername: null,
+                mName: null
+            }
         };
+    },
+    mounted: function() {
+        this.$nextTick(function() {
+            // Code that will run only after the
+            // entire view has been rendered
+            this.get_logs();
+        });
     },
     methods: {
         get_logs() {
             var startPage = (this.currentPage - 1) * this.currentPageSize;
+            //console.log(this.getLogsBypPidUrl+this.currentProjectId);
 
-            this.logs = this.fakeData;
-            return this.logs.slice(startPage, startPage + this.currentPageSize);
+            //this.logs = this.fakeData.concat();
+            //发送 get 请求
+
+            this.$http
+                .get(this.getLogsBypPidUrl + "" + this.currentProjectId)
+                .then(
+                    function(res) {
+                        this.logs = res.body;
+                    },
+                    function(res) {
+                        console.log(res.status);
+                    }
+                );
+            return this.logs;
         },
         edit_log(log) {
             this.editContentFormVisible = true;
-            this.currentEditLog = log;
+            this.editForm.lContext = log.lContext;
+            this.editForm.lId = log.lId;
         },
         delete_log(log) {
             this.$confirm("此操作将永久删除该日志, 是否继续?", "提示", {
@@ -369,10 +318,27 @@ export default {
                 type: "warning"
             })
                 .then(() => {
-                    this.$message({
-                        type: "success",
-                        message: "删除成功!"
-                    });
+                    this.$http.delete(this.deleteLogUrl+"/"+log.lId, {timeout:3000 }).then(
+                        function(res) {
+                            if (res.body == true) {
+                                this.$message({
+                                    type: "success",
+                                    message: "删除成功!"
+                                });
+                            } else {
+                                this.$message({
+                                    type: "error",
+                                    message: "删除失败!"
+                                });
+                            }
+                        },
+                        function(res) {
+                            this.$message({
+                                type: "error",
+                                message: "删除失败!"
+                            });
+                        }
+                    );
                 })
                 .catch(() => {
                     this.$message({
@@ -425,12 +391,12 @@ export default {
                 })
                 .catch(() => {});
         },
-        read_log_content(content) {
+        read_log_context(context) {
             const h = this.$createElement;
             this.$msgbox({
                 title: "日志内容",
                 message: h("p", null, [
-                    h("span", { style: "color: black" }, content)
+                    h("span", { style: "color: black" }, context)
                 ])
             })
                 .then(() => {
@@ -442,18 +408,37 @@ export default {
                 })
                 .catch(() => {});
         },
-        submitForm(formName) {
-            this.$refs[formName].validate(valid => {
-                if (valid) {
-                    alert("提交成功!");
-                } else {
-                    console.log("提交出错!");
-                    return false;
-                }
-            });
+        submiteditForm() {
+            var params = new Object();
+            params.lContext = this.editForm.lContext;
+            console.log(params);
+
+            this.$http
+                .put(this.updateLogUrl+'/'+this.editForm.lId,{}, {
+                    params: params
+                })
+                .then(
+                    function(res) {
+                        this.$message({
+                            type: "success",
+                            message: "上传成功!"
+                        });
+                        this.get_logs();
+                    },
+                    function(res) {
+                        this.$message({
+                            type: "error",
+                            message: "上传失败!"
+                        });
+                    }
+                );
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
+        reseteditForm() {
+            console.log(this.editForm.lId); 
+            var findlId = this.editForm.lId;
+            this.editForm.lContext = this.logs.find(function(log){ 
+                return log.lId = findlId;
+            }).lContext;
         },
         handleSizeChange(val) {
             this.currentPageSize = val;
@@ -468,57 +453,34 @@ export default {
 
             this.logs.slice(startPage, startPage + this.currentPageSize);
         },
-        search_log(){ 
-            // var tmp = this.get_logs().concat();
-            // this.logs.splice(0,this.logs.length);
-            // if(this.pickedTime != null && this.pickedTime[0] != null ){
-            //     for(var i=0; i < tmp.length; i++){ 
-            //         if(tmp[i].time >= this.pickedTime[0] && tmp[i].time <= this.pickedTime[1]){
-            //             this.logs.push(tmp[i]);
-            //             tmp.splice(i,1);
-            //             i = i-1;
-            //         }
-            //     }
-            // }
-            // if(this.searchContent != null && this.searchContent != ""){
-            //     for(var i=0; i < tmp.length; i++){ 
-            //         if(tmp[i].content.indexOf(this.searchContent) != -1){
-            //             this.logs.push(tmp[i]);
-            //             tmp.splice(i,1);
-            //             i = i-1;
-            //         }
-            //     }
-            // }  
-            //         console.log(this.searchUser);
-            //         console.log(tmp);
-            // if(this.searchUser != null && this.searchUser != ""){
-            //     for(var i=0; i < tmp.length; i++){
-            //         if(tmp[i].user.indexOf(this.searchUser) != -1){
-            //         console.log(tmp[i] ); 
-            //             this.logs.push(tmp[i]);
-            //             tmp.splice(i,1);
-            //             i = i-1;
-            //         }
-            //     }
-            // } 
-            // if(this.searchModel != null && this.searchModel != ""){
-            //     for(var i=0; i < tmp.length; i++){  
-            //         for(var j=0; j < tmp[i].models.length; j++){ 
-            //             if(tmp[i].models[j].indexOf(this.searchModel) != -1){
-                            
-            //         console.log(tmp[i] ); 
-            //                 this.logs.push(tmp[i]);
-            //                 tmp.splice(i,1);
-            //                 i = i-1;
-            //             }
-            //         }
-            //     }
-            // }  
-            
-            // function sortId(a,b){  
-            //     return a.id-b.id  
-            // }
-            // result.sort(sortId);
+        search_log() {
+            //发送 get 请求
+
+            var params = new Object();
+            if (this.searchConditions.timeRange != null) {
+                params.beginTime = this.searchConditions.timeRange[0].getTime();
+                params.endTime = this.searchConditions.timeRange[1].getTime();
+            }
+            if (this.searchConditions.mName != null) {
+                params.mName = this.searchConditions.mName;
+            }
+            if (this.searchConditions.uUsername != null) {
+                params.uUsername = this.searchConditions.uUsername;
+            }
+            params.pId = this.currentProjectId;
+            this.$http
+                .get(this.searchLogsUrl, {
+                    params: params
+                })
+                .then(
+                    function(res) {
+                        //console.log(res.body);
+                        this.logs = res.body;
+                    },
+                    function(res) {
+                        console.log(res.status);
+                    }
+                );
         }
     }
 };
