@@ -5,12 +5,14 @@ import Project from './ProjectOv'
 import router from './router'
 import ElementUI from 'element-ui'
 import VCharts from 'v-charts'
+import VueResources from 'vue-resource'
 import 'element-ui/lib/theme-chalk/index.css';
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI) 
 Vue.use(VCharts)
+Vue.use(VueResources)
 
 /* eslint-disable no-new */
 new Vue({

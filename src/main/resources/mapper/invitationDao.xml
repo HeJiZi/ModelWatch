@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.invitationDao">
+<mapper namespace="dao.InvitationDao">
     <select id="selectInvitationByPid" resultType="User">
         select U_id,U_username,U_sex
         from user,invitation
@@ -24,4 +24,12 @@
         where Inv_pid=#{pid}
         and Inv_uid=#{uid}
     </delete>
+
+    <select id="selectCollaboratorsByPidPage" resultType="User">
+        select u.U_id,u.U_avater,u.U_birthday,u.U_email,u.U_signature,u.U_username,
+            Inv_Time,Inv_state
+        from user u,invitation i
+        where u.U_id = i.Inv_uid AND  i.Inv_pid=#{pid}
+        order by i.Inv_Time desc
+    </select>
 </mapper>
