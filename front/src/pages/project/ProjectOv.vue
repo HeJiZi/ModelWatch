@@ -7,23 +7,23 @@
         :default-active="defaultActive"
         :router="true"
         class="el-menu-vertical-demo">
-        <el-menu-item index="/">
+        <el-menu-item :index="'/'+$route.params.pId">
             <i class="el-icon-location"></i>
             <span slot="title">项目总览</span>
         </el-menu-item>
-        <el-menu-item index="/log">
+        <el-menu-item :index="'/'+$route.params.pId+'/log'">
           <i class="el-icon-menu"></i>
           <span slot="title">日志管理</span>
         </el-menu-item>
-        <el-menu-item index="/teamworker">
+        <el-menu-item :index="'/'+$route.params.pId+'/teamworker'">
           <i class="el-icon-document"></i>
           <span slot="title">协作者管理</span>
         </el-menu-item>
-        <el-menu-item index="/profile">
+        <el-menu-item :index="'/'+$route.params.pId+'/profile'">
           <i class="el-icon-setting"></i>
           <span slot="title">项目设置</span>
         </el-menu-item>
-        <el-menu-item index="/data">
+        <el-menu-item :index="'/'+$route.params.pId+'/data' ">
           <i class="el-icon-setting"></i>
           <span slot="title">数据统计</span>
         </el-menu-item>
@@ -51,7 +51,7 @@ export default {
   name: 'Project',
   computed: {
         defaultActive() {
-            return '/' + this.$route.path.split('/').reverse()[0];
+            return this.$route.path;
         }
   },
   components:{

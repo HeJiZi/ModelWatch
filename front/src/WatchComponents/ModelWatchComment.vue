@@ -108,7 +108,7 @@
 
 <script>
 
-import eInputPanel from '../pages/display/components/InputPanel.vue'
+import eInputPanel from '../pages/model/components/InputPanel.vue'
 
 export default {
 

@@ -14,8 +14,8 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js',
-    login: './src/pages/login/login.js',
-    display: './src/pages/display/display.js',
+    sign: './src/pages/sign/mw-sign.js',
+    model: './src/pages/model/model.js',
     project: './src/pages/project/project.js'
   },
   output: {

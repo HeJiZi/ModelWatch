@@ -1,10 +1,8 @@
 #login{
-    width: 40%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-content: center;
-    
-    background: rgb(0, 11, 41);
     flex-flow: row wrap;
 }
 .title{
@@ -22,11 +20,11 @@ input{
     margin: 10px;
 }
 
-button{
+.input .el-button{
     margin: 20px 10px !important;
     width: 100%;
     font-size: 20px !important;
-    color: rgb(1, 1, 19);
+    color: rgb(20, 107, 194) ;
 }
 
 #titleCanvas{
@@ -34,3 +32,50 @@ button{
     height: 200px;
     margin: 0 auto;
 }
+
+.jumpButton{
+    width: 120px;
+    color:white;
+    height: 50px;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-flow: row wrap;
+    cursor: pointer;
+}
+    .jumpButton span{
+        position: relative;
+        top: -8px;
+        font-size: 20px;
+        width: 100px;
+        text-align: center;
+        font-weight: 400;
+    }
+
+.jumpButton.login{
+    background: #3a8ee6;
+}
+    .jumpButton.login:hover{
+        background: #F56C6C;
+    }
+
+.signup.jumpButton{
+    background: rgb(235, 75, 75);
+}
+    .signup.el-button{
+        color: #731919 ;
+    }
+    .signup.el-button:hover{
+        background: rgb(212, 19, 19);
+        color: white ;
+        border-color: rgb(212, 19, 19);
+    }
+    .signup.jumpButton:hover{
+        background: #3a8ee6;
+        
+    }
