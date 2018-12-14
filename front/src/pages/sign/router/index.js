@@ -10,10 +10,12 @@ export default new Router({
   routes: [
     {
       path:'/',
+      meta:{index:0},
       component:UserLogin
     },
     {
       path:'/up',
+      meta:{index:1},
       component:UserRegister
     }
   ]

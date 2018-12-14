@@ -1,13 +1,13 @@
 <template>
-    <div style="width:40%;background: #12338c;">
+    <div style="background: #12338c;height:100%;width:100%;margin:0px">
         <section id="login">
-        <div id = "titleCanvas"></div>
+        <div id = "in-titleCanvas"></div>
         <div class="login_box">
             <div class="title">ModelWatch</div>
             <div class="input">
             <el-input v-model="username" placeholder="用户名"></el-input>
             <el-input v-model="password" type="password" placeholder="密码"></el-input>
-            <el-button @click="login"  round size="mini">登录</el-button>
+            <el-button @click="login" class="signin" round size="mini">登录</el-button>
             </div>
         </div>
         </section>
@@ -32,7 +32,7 @@ var globalID
 
 function m_initThree() {
 
-    var titleCanvas = document.getElementById('titleCanvas');
+    var titleCanvas = document.getElementById('in-titleCanvas');
     width = titleCanvas.clientWidth;
     height = titleCanvas.clientHeight;
     rightRenderer = new THREE.WebGLRenderer();

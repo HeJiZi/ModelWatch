@@ -15,19 +15,32 @@
 .input{
     width: 400px;
 }
+    .input .el-button{
+        margin: 20px 10px !important;
+        width: 100%;
+        font-size: 20px !important;
+    }
 
 input{
     margin: 10px;
 }
 
-.input .el-button{
-    margin: 20px 10px !important;
-    width: 100%;
-    font-size: 20px !important;
-    color: rgb(20, 107, 194) ;
+    .signin.el-button{
+        color: rgb(20, 107, 194) ;
+    }
+        .signin.el-button:hover{
+            color: white ;
+            background: #409EFF;
+            border-color: #409EFF;
+        }
+
+#in-titleCanvas{
+    width: 80%;
+    height: 200px;
+    margin: 0 auto;
 }
 
-#titleCanvas{
+#up-titleCanvas{
     width: 80%;
     height: 200px;
     margin: 0 auto;

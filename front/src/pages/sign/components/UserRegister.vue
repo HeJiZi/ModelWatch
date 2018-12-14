@@ -1,5 +1,5 @@
 <template>
-    <div style="width:40%;background: #731919;">
+    <div style="background: #731919;height:100%;width:100%;margin:0px">
         <section style="display: flex;height: 10%;align-items: flex-start;">
             <div @click="$router.push({path:'/'})" class="jumpButton signup">
                 <div class="el-icon-arrow-down"/>
@@ -8,8 +8,8 @@
                 </span>
             </div>
         </section>        
-        <section id="login">
-        <div id = "titleCanvas"></div>
+        <section id="login" style="position:relative;top:-5%;">
+        <div id = "up-titleCanvas"></div>
         <div class="login_box">
             <div class="title">ModelWatch</div>
             <div class="input">
@@ -34,7 +34,7 @@ var globalID
 
 function m_initThree() {
 
-    var titleCanvas = document.getElementById('titleCanvas');
+    var titleCanvas = document.getElementById('up-titleCanvas');
     width = titleCanvas.clientWidth;
     height = titleCanvas.clientHeight;
     rightRenderer = new THREE.WebGLRenderer();
