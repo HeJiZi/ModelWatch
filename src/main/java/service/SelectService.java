@@ -40,8 +40,8 @@ public interface SelectService {
 
     Project selectProject(long pId);
 
-    List<Log> selectLog(long pId);
-    List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId);
+    List<Log> selectLog(long pId,int currentPage,int limit);
+    List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit);
 
     List<Model> selectModel(long pId);
 

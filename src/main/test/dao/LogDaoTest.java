@@ -4,6 +4,7 @@ import bean.Log;
 import bean.Model;
 import bean.Project;
 import bean.User;
+import entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,11 @@ public class LogDaoTest {
 
     @Test
     public void selectLog(){
-        System.out.println(logDao.filterLog(null,null,"HeJiZi",null,new Long(1)).get(0).getlContext());
-
+        int limit=10,currentPage=1;
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+        System.out.println(logDao.filterLogPage(null,null,"HeJiZi",null,new Long(1),page).get(0).getlContext());
+        System.out.println(logDao.getLogByPidPage(new Long(1),page).get(0).getlContext());
     }
 
 }

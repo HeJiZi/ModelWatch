@@ -2,6 +2,7 @@ package dao;
 
 import bean.Log;
 import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;
+import entity.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Timestamp;
@@ -29,13 +30,14 @@ public interface LogDao {
      * @param pid
      * @return
      */
-    List<Log> getLogByPid(long pid);
+    List<Log> getLogByPidPage(@Param("pId")Long pid, @Param("page") Page page);
 
-    List<Log> filterLog(@Param("beginTime")Timestamp beginTime,
+    List<Log> filterLogPage(@Param("beginTime")Timestamp beginTime,
                         @Param("endTime")Timestamp endTime,
                         @Param("uUsername")String uUsername,
                         @Param("mName")String mName,
-                        @Param("pId")Long pId);
+                        @Param("pId")Long pId,
+                            @Param("page") Page page);
 
 
 

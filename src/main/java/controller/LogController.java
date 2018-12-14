@@ -26,8 +26,10 @@ public class LogController {
                         @RequestParam(value = "endTime", required = false) String endTime,
                         @RequestParam(value = "uUsername", required = false) String uUsername,
                         @RequestParam(value = "mName",required = false) String mName,
-                          @RequestParam(value = "pId") Long pId){
-        return DtoListUtil.transelateList(selectService.filterLog(beginTime, endTime, uUsername, mName,pId),LogDto.class);
+                          @RequestParam(value = "pId") Long pId,
+                          @RequestParam(value = "currentPage") int currentPage,
+                          @RequestParam(value = "limit") int limit){
+        return DtoListUtil.transelateList(selectService.filterLog(beginTime, endTime, uUsername, mName,pId,currentPage,limit),LogDto.class);
     }
 
     @Autowired

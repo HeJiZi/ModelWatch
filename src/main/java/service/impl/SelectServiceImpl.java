@@ -65,10 +65,12 @@ public class SelectServiceImpl implements SelectService {
     public Project selectProject(long pId){
         return projectDao.getProjectById(pId);
     }
-    public List<Log> selectLog(long pId){
-        return logDao.getLogByPid(pId);
+    public List<Log> selectLog(long pId,int currentPage,int limit){
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+        return logDao.getLogByPidPage(pId,page);
     }
-    public List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId){
+    public List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit){
         Timestamp beginTimestamp = null;
         Timestamp endTimestamp = null;
         if(beginTime != null && endTime != null){
@@ -79,7 +81,10 @@ public class SelectServiceImpl implements SelectService {
         uUsername = TransCharsetUtil.transISOToUTF(uUsername);
         mName = TransCharsetUtil.transISOToUTF(mName);
 
-        return logDao.filterLog(beginTimestamp,endTimestamp,uUsername,mName,pId);
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+
+        return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
     }
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);

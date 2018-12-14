@@ -293,9 +293,11 @@ export default {
 
             //this.logs = this.fakeData.concat();
             //发送 get 请求
-
+            var params= new Object();
+            params.currentPage = this.currentPage;
+            params.limit = this.currentPageSize;
             this.$http
-                .get(this.getLogsBypPidUrl + "" + this.currentProjectId)
+                .get(this.getLogsBypPidUrl + "" + this.currentProjectId,{params:params})
                 .then(
                     function(res) {
                         this.logs = res.body;
@@ -442,16 +444,11 @@ export default {
         },
         handleSizeChange(val) {
             this.currentPageSize = val;
-
-            var startPage = (this.currentPage - 1) * this.currentPageSize;
-
-            this.logs.slice(startPage, startPage + this.currentPageSize);
+            this.get_logs();
         },
         handleCurrentChange(val) {
             this.currentPage = val;
-            var startPage = (this.currentPage - 1) * this.currentPageSize;
-
-            this.logs.slice(startPage, startPage + this.currentPageSize);
+            this.get_logs();
         },
         search_log() {
             //发送 get 请求
@@ -468,6 +465,8 @@ export default {
                 params.uUsername = this.searchConditions.uUsername;
             }
             params.pId = this.currentProjectId;
+            params.currentPage = this.currentPage;
+            params.limit = this.currentPageSize;
             this.$http
                 .get(this.searchLogsUrl, {
                     params: params
