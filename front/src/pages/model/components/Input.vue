@@ -4,8 +4,7 @@
 
         </div>
         <div ref="textplace" class="textplace" 
-            style="height:100px;max-height:100px;border: 1px;border-style: solid; border-color: #f1f1f1;">
-            
+            style="height:75px;max-height:75px; border: 1px;border-style: solid; border-color: #f1f1f1;">
         </div> 
         
     </div>

@@ -2,9 +2,12 @@ package service.impl;
 
 import bean.*;
 import dao.*;
+import dto.ListObject;
+import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
+import util.TransCharsetUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -25,6 +28,9 @@ public class SelectServiceImpl implements SelectService {
 
     @Autowired
     private CommentsDao commentsDao;
+
+    @Autowired
+    private InvitationDao invitationDao;
 
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
@@ -59,13 +65,36 @@ public class SelectServiceImpl implements SelectService {
     public Project selectProject(long pId){
         return projectDao.getProjectById(pId);
     }
-    public List<Log> selectLog(long pId){
-        return logDao.getLogByPid(pId);
+    public List<Log> selectLog(long pId,int currentPage,int limit){
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+        return logDao.getLogByPidPage(pId,page);
     }
-    public List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName){
-        return logDao.filterLog(beginTime,endTime,uUsername,mName);
+    public List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit){
+        Timestamp beginTimestamp = null;
+        Timestamp endTimestamp = null;
+        if(beginTime != null && endTime != null){
+            beginTimestamp = new Timestamp(Long.parseLong(beginTime));
+            endTimestamp = new Timestamp(Long.parseLong(endTime));
+        }
+
+        uUsername = TransCharsetUtil.transISOToUTF(uUsername);
+        mName = TransCharsetUtil.transISOToUTF(mName);
+
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+
+        return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
     }
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);
+    }
+
+    public ListObject selectCollaborators(long pId, int currentPage) {
+        Page page = new Page(5);
+        page.setCurrentPageNum(currentPage);
+        List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
+
+        return new ListObject(users,page);
     }
 }

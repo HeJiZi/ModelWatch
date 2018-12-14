@@ -1,6 +1,8 @@
 package service;
 
 import bean.*;
+import dto.ListObject;
+import entity.Page;
 
 
 import java.sql.Timestamp;
@@ -38,8 +40,10 @@ public interface SelectService {
 
     Project selectProject(long pId);
 
-    List<Log> selectLog(long pId);
-    List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName);
+    List<Log> selectLog(long pId,int currentPage,int limit);
+    List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit);
 
     List<Model> selectModel(long pId);
+
+    ListObject selectCollaborators(long pId, int currentPage);
 }
