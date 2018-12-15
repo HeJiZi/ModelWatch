@@ -124,7 +124,7 @@
 
 <script>
 
-import eInputPanel from '../pages/model/components/InputPanel.vue'
+import eInputPanel from '../pages/display/components/InputPanel.vue'
 
 export default {
     props: ['user', 'id', 'content', 'time', 'likeNum', 'disLikeNum', 'name', 'avater', 'replys', 'repCom'],
