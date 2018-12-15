@@ -26,9 +26,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: {
       rewrites: [
         { from: /^\/$/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
-        { from: /^\/login$/, to: path.posix.join(config.dev.assetsPublicPath, 'login.html') },
+        { from: /^\/sign$/, to: path.posix.join(config.dev.assetsPublicPath, 'sign.html') },
         { from: /^\/project$/, to: path.posix.join(config.dev.assetsPublicPath, 'project.html') },
-        { from: /^\/model$/, to: path.posix.join(config.dev.assetsPublicPath, 'display.html') },
+        { from: /^\/model$/, to: path.posix.join(config.dev.assetsPublicPath, 'model.html') },
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '404.html') }
         
       ],
@@ -64,16 +64,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       chunks: ['app']
     }),
     new HtmlWebpackPlugin({
-      filename: 'login.html',
-      template: 'compOverview/login.html',
+      filename: 'sign.html',
+      template: 'compOverview/sign.html',
       inject: true,
-      chunks: ['login']
+      chunks: ['sign']
     }),
     new HtmlWebpackPlugin({
-      filename: 'display.html',
-      template: 'compOverview/display.html',
+      filename: 'model.html',
+      template: 'compOverview/model.html',
       inject: true,
-      chunks: ['display']
+      chunks: ['model']
     }),
     new HtmlWebpackPlugin({
       filename: 'project.html',

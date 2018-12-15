@@ -15,6 +15,8 @@
 <script>
 import '@/../static/css/main.css'
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
+
+
 export default {
     data(){
         return{

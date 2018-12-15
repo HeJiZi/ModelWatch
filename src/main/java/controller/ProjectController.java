@@ -5,6 +5,7 @@ import bean.Project;
 import bean.User;
 import bean.Model;
 import dao.ProjectDao;
+import dto.ListObject;
 import dto.LogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,8 +71,10 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping(value = "/log/{pId}",method = RequestMethod.GET)
-    public List getData(@PathVariable long pId){
-        List<Log> logList =  selectService.selectLog(pId);
+    public List getData(@PathVariable Long pId,
+                        @RequestParam(value = "currentPage") int currentPage,
+                        @RequestParam(value = "limit") int limit){
+        List<Log> logList =  selectService.selectLog(pId,currentPage,limit);
         return (List<LogDto>)DtoListUtil.transelateList(logList,LogDto.class);
         //return logList;
     }
@@ -87,4 +90,6 @@ public class ProjectController {
     public Project getProjectUser(@PathVariable("pId") long pId){
         return projectDao.getProjectAndUserByPid(pId);
     }
+
+
 }

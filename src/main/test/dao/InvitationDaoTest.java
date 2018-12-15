@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +13,32 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class InvitationDaoTest {
 
     @Autowired
-    invitationDao invitationDao;
+    InvitationDao InvitationDao;
 
     @Test
     public void addInvitation() {
-        System.out.println(invitationDao.addInvitation(1,2));
-        invitationDao.addInvitation(1,3);
+        System.out.println(InvitationDao.addInvitation(1,2));
+        InvitationDao.addInvitation(1,3);
     }
 
     @Test
     public void deleteInvitation() {
-        System.out.println(invitationDao.deleteInvitation(1,2));
+        System.out.println(InvitationDao.deleteInvitation(1,2));
     }
 
     @Test
     public void selectInvitationByPid() {
-        System.out.println(invitationDao.selectInvitationByPid(1));
+        System.out.println(InvitationDao.selectInvitationByPid(1));
     }
 
     @Test
     public void addInvitationByUNameAndPid(){
-        System.out.println(invitationDao.addInvitationByUNameAndPid(1,"Pig"));
+        System.out.println(InvitationDao.addInvitationByUNameAndPid(1,"Pig"));
     }
+
+    @Test
+    public void selectCollaboratorsByPidPage(){
+        System.out.println(InvitationDao.selectCollaboratorsByPidPage(1,new Page(1)));
+    }
+
 }

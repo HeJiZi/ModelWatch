@@ -3,76 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/admin_login.css">
     <script src="static/lib/three.min.js"></script>
     <title>login</title>
   </head>
-  <body style="margin:0px" onload = "m_threeStart()">
+  <body style="margin:0px" >
     <div  style="display:flex">
-        <div id="login">
+        <div id="sign">
         </div>
-        <div id="info" style="width:60%;height:940px;">
+        <div id="info" style="width:60%;height:99%;position:absolute;left:40%;">
             <span id="birds"></span>
             <span id="options"></span>
         </div>
   </body>
-  <script>
-    var rightRenderer;
-    var rightCamera;
-    var rightScene;
-    var rightCube;
-
-    function m_initThree() {
-
-        var titleCanvas = document.getElementById('titleCanvas');
-        width = titleCanvas.clientWidth;
-        height = titleCanvas.clientHeight;
-        rightRenderer = new THREE.WebGLRenderer();
-        rightRenderer.setSize(width, height);
-        titleCanvas.appendChild(rightRenderer.domElement);
-        rightRenderer.setClearColor(0x000b29, 1.0);
-    }
-
-
-    function m_initCamera() {
-        rightCamera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-        rightCamera.position.z = 5;
-    }
-
-    function m_initScene() {
-        rightScene = new THREE.Scene();
-    }
-
-
-    function m_initLight() {
-        // 位置不同，方向光作用于物体的面也不同，看到的物体各个面的颜色也不一样
-        var light = new THREE.AmbientLight({ color: 0xFFFFFF }, 1)
-        rightScene.add(light)
-    }
-
-    function m_initObject(){
-        var geometry = new THREE.CubeGeometry(3,3,3); 
-        var material = new THREE.MeshBasicMaterial({color: 0xffffff});
-        rightCube = new THREE.Mesh(geometry, material); 
-        rightScene.add(rightCube);
-    }
-
-    function m_render()
-    {
-        requestAnimationFrame(m_render);
-        rightCube.rotation.y += 0.05;
-        rightRenderer.render(rightScene, rightCamera);
-    }
-    function m_threeStart(){
-        m_initThree();
-        m_initCamera();
-        m_initScene();
-        m_initLight();
-        m_initObject();
-        m_render();
-    }
+  
     
-</script>
 <script src="static/lib/Detector.js"></script>
 <!-- <script src="../../resources/js/lib//stats.min.js"></script>
 <script src="../../resources/js/lib/dat.gui.min.js"></script> -->
@@ -381,24 +325,7 @@ info.appendChild(renderer.domElement)
         document.addEventListener( 'touchmove', onDocumentTouchMove, false );
         //
         window.addEventListener( 'resize', onWindowResize, false );
-        // var gui = new dat.GUI();
-        // var effectController = {
-        // 	seperation: 20.0,
-        // 	alignment: 20.0,
-        // 	cohesion: 20.0,
-        // 	freedom: 0.75
-        // };
-        // var valuesChanger = function() {
-        // 	velocityUniforms.seperationDistance.value = effectController.seperation;
-        // 	velocityUniforms.alignmentDistance.value = effectController.alignment;
-        // 	velocityUniforms.cohesionDistance.value = effectController.cohesion;
-        // 	velocityUniforms.freedomFactor.value = effectController.freedom;
-        // };
-        // valuesChanger();
-        // gui.add( effectController, "seperation", 0.0, 100.0, 1.0 ).onChange( valuesChanger );
-        // gui.add( effectController, "alignment", 0.0, 100, 0.001 ).onChange( valuesChanger );
-        // gui.add( effectController, "cohesion", 0.0, 100, 0.025 ).onChange( valuesChanger );
-        // gui.close();
+
         initBirds();
     }
     function initComputeRenderer() {

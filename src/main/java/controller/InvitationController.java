@@ -1,9 +1,11 @@
 package controller;
 
 import bean.User;
+import dto.ListObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import dao.invitationDao;
+import dao.InvitationDao;
+import service.SelectService;
 
 import java.util.List;
 
@@ -12,28 +14,37 @@ import java.util.List;
 public class InvitationController {
 
     @Autowired
-    private invitationDao invitationDao;
+    private InvitationDao InvitationDao;
+
+    @Autowired
+    private SelectService selectService;
 
     @PostMapping(value = "/addInvitation")
     public int addInvitation(@RequestParam("pid") int pid,
                              @RequestParam("uid") int uid){
-        return invitationDao.addInvitation(pid,uid);
+        return InvitationDao.addInvitation(pid,uid);
     }
 
     @PostMapping(value = "/{pid}/{uUsername}")
     public int addInvitationByUNameAndPid(@PathVariable("pid") int pid,
                                           @PathVariable("uUsername") String uUsername){
-        return invitationDao.addInvitationByUNameAndPid(pid, uUsername);
+        return InvitationDao.addInvitationByUNameAndPid(pid, uUsername);
     }
 
     @DeleteMapping(value = "/{pid}/{uid}")
     public int deleteInvitation(@PathVariable("pid") int pid,
                                 @PathVariable("uid") int uid){
-        return invitationDao.deleteInvitation(pid,uid);
+        return InvitationDao.deleteInvitation(pid,uid);
     }
 
     @GetMapping(value = "/{pid}")
     public List<User> selectInvitation(@PathVariable int pid){
-        return invitationDao.selectInvitationByPid(pid);
+        return InvitationDao.selectInvitationByPid(pid);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    public ListObject getCollaborators(@RequestParam("pId") long pId,@RequestParam("currentPage") int currentPage){
+        return selectService.selectCollaborators(pId,currentPage);
     }
 }
