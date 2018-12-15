@@ -1,7 +1,7 @@
 <template>
     <div style="background: #ffffff; padding-bottom: 20px;">
         <!-- 顶部评论输入框 -->
-        <div style="width: 60%; margin: 0 auto;">
+        <div style="width: 53%; margin: 0 auto;">
             <e-input-panel 
                 :user="user", :repId="0", 
                 :needRepId="0", :keyType="0", 
@@ -10,23 +10,30 @@
                 >
             </e-input-panel>
         </div>
+        <!-- 评论数量 -->
+        <div style="width: 53%; margin: 0 auto">
+            <span style="color: #6d757a; font-size: 20px; font-weight: 700; margin-left: 0px">评论数量</span>
+            <span style="color: #409EFF; font-size: 28px; font-weight: 900; margin-left: 5px">{{comments.length}}</span>
+        </div>
         <!-- 评论&回复模板 -->
-        <mw-comment v-for="comment in comments" v-on:replyButtonListener="setRepCom" :key="comment.comId"
-                    :user="user"
-                    :id="comment.comId"
-                    :content="comment.comContent"
-                    :time="comment.comCreateTime"
-                    :likeNum="comment.comLikeNum"
-                    :disLikeNum="comment.comDisLikeNum"
-                    :name="comment.user.uUsername"
-                    :avater="comment.user.uAvater" 
-                    :replys="comment.replys"
-                    :repCom="repCom"
-                    >
-        </mw-comment>
-        <br>
+        <div style="width: 53%; margin: 0 auto">
+            <hr style="color: #e5e9ef; border-style: solid; margin-top: 5px">
+            <mw-comment v-for="comment in comments" v-on:replyButtonListener="setRepCom" :key="comment.comId"
+                        :user="user"
+                        :id="comment.comId"
+                        :content="comment.comContent"
+                        :time="comment.comCreateTime"
+                        :likeNum="comment.comLikeNum"
+                        :disLikeNum="comment.comDisLikeNum"
+                        :name="comment.user.uUsername"
+                        :avater="comment.user.uAvater" 
+                        :replys="comment.replys"
+                        :repCom="repCom"
+                        >
+            </mw-comment>
+        </div>
         <!-- 分页 -->
-        <div style="width: 60%; margin: 0 auto;">
+        <div style="width: 53%; margin: 0 auto;">
             <el-pagination v-if="commentsInfo.totalNum >= commentsInfo.pageSize"    
                 background
                 :page-size="commentsInfo.pageSize"
@@ -216,14 +223,14 @@ export default {
 
 <style>
     .tempAvater{
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         float: left;
         border-radius: 50%;
         border: 2px solid white;
         overflow: hidden;
         cursor: pointer;
-        z-index: 10000;
+        z-index: 99;
     }
     #comments>div{
         border-bottom: 1px solid #e1e1e1;
