@@ -16,7 +16,8 @@ module.exports = {
     app: './src/main.js',
     sign: './src/pages/sign/mw-sign.js',
     model: './src/pages/model/model.js',
-    project: './src/pages/project/project.js'
+    project: './src/pages/project/project.js',
+    inv:'./src/pages/inv/inv.js'
   },
   output: {
     path: config.build.assetsRoot,

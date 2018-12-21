@@ -29,6 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         { from: /^\/sign$/, to: path.posix.join(config.dev.assetsPublicPath, 'sign.html') },
         { from: /^\/project$/, to: path.posix.join(config.dev.assetsPublicPath, 'project.html') },
         { from: /^\/model$/, to: path.posix.join(config.dev.assetsPublicPath, 'model.html') },
+        { from: /^\/inv$/, to: path.posix.join(config.dev.assetsPublicPath, 'inv.html') },
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '404.html') }
         
       ],
@@ -80,6 +81,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'compOverview/project.html',
       inject: true,
       chunks: ['project']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'inv.html',
+      template: 'compOverview/inv.html',
+      inject: true,
+      chunks: ['inv']
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
