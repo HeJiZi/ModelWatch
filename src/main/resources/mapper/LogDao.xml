@@ -12,26 +12,27 @@
         delete from log where L_id = #{lId};
     </delete>
 
-    <select id="getLogByPid" resultType="Log">
-        select L_id,L_context,L_Time,U_id "user.U_id",U_username "user.U_username",L_pid "project.pId",P_name "project.pName",M_id "model.mId",M_name "model.mName" from log,user,project,model where L_pid=#{pid} and U_id=L_uid and P_id=L_pid and M_id=L_mid;
+    <select id="getLogByPidPage" resultType="Log">
+        select L_id,L_context,L_Time,U_id "user.U_id",U_username "user.U_username",L_pid "project.pId",P_name "project.pName",M_id "model.mId",M_name "model.mName" from log,user,project,model where L_pid=#{pId} and U_id=L_uid and P_id=L_pid and M_id=L_mid
     </select>
 
     <update id="updateLogContext">
         update log set L_context = #{lContext} where log.L_id = #{lId};
     </update>
 
-    <select id="filterLog" resultType="Log">
+    <select id="filterLogPage" resultType="Log">
         select L_id,L_context,L_Time,U_id "user.U_id",U_username "user.U_username",L_pid "project.pId",P_name "project.pName",M_id "model.mId",M_name "model.mName"
         from log,user,project,model where U_id=L_uid and P_id=L_pid and M_id=L_mid
         <if test="beginTime != null and endTime != null">
             AND L_Time between #{beginTime} and #{endTime}
         </if>
-        <if test="uUserName != null">
-            AND U_username like #{uUserName}
+        <if test="uUsername != null">
+            AND U_username like CONCAT('%',#{uUsername},'%')
         </if>
         <if test="mName != null">
-            AND M_name like #{mName}
+            AND M_name like CONCAT('%',#{mName},'%')
         </if>
+            and log.L_pid = #{pId}
     </select>
 
 </mapper>

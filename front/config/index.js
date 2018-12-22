@@ -12,12 +12,12 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8090',  //目标接口域名
-        changeOrigin: true,  //是否跨域
-        pathRewrite: {
-          '^/api': ''   //重写接口
-        }
-      },
+        target: 'http://localhost:8080',
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true,
+        secure: false, // 接受 运行在 https 上的服务
+      }
+
     },
 
     // Various Dev Server settings

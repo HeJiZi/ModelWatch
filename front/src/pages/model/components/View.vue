@@ -1,5 +1,6 @@
 <template>
-    <div tabIndex="-1" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
+    <div v-loading="modelLoading" element-loading-text="正在加载模型..."
+        tabIndex="-1" :style="{width:width+'px',height:height+'px'}" style="overflow: hidden">
             <div class="leftbar moveable" :style="{transform:transform}">
                 <el-tree :data="components" :props="defaultProps" ></el-tree>
             </div>
@@ -7,7 +8,7 @@
             </article>
 
             <div class="rightbar" style="opacity: 1">
-                <a title="切换模式" :href="'/model/edi/'+model.mId">
+                <a title="切换模式" style="cursor:pointer" @click="$router.push({path:`/${$route.params.id}/editor`})">
                     <div class="mw-icon transbutton"></div>
                 </a>
                 <div title="收藏" @click="mark">
@@ -155,9 +156,9 @@ function moveclean() {
 }
 
 export default {
-   
     data() {
         return{
+            modelLoading:true,
             model:{
                 mId:1,
                 mData: '/static/3.json'
@@ -212,11 +213,12 @@ export default {
         initObject:function(){
             // instantiate a loader
             var loader = new JSONLoader();
-            if(this.model.mData==undefined)
-                return
+            if(this.model.mData==undefined){
+                this.modelLoading =false;
+                return;
+            }
             // load a resource
             var obj =this;
-            console.log(obj.$router.app);
             if(obj.$router.app.mesh==null){
                 loader.load(
                 // resource URL
@@ -228,6 +230,7 @@ export default {
                     obj.$router.app.mesh = object;
                     scene.add( object );
                     renderer.render(scene,camera)
+                    obj.modelLoading =false;                
                 },
 
                 // onProgress callback
@@ -243,7 +246,8 @@ export default {
             }
             else{
                 scene.add(obj.$router.app.mesh);
-                renderer.render(scene,camera)                
+                renderer.render(scene,camera);
+                obj.modelLoading =false;                
             }
             
         },

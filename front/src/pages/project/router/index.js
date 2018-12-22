@@ -12,27 +12,27 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/:pId',
       name: 'Overview',
       component: Overview
     },
     {
-        path: '/log',
+        path: '/:pId/log',
         name: 'Log',
         component: Log
     },
     {
-        path: '/teamworker',
+        path: '/:pId/teamworker',
         name: 'TeamWorker',
         component: TeamWorker
     },
     {
-        path: '/profile',
+        path: '/:pId/profile',
         name: 'Profile',
         component: Profile
     },
     {
-        path: '/data',
+        path: '/:pId/data',
         name: 'Data',
         component: Data
     },

@@ -7,6 +7,7 @@ import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.SelectService;
+import util.TransCharsetUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -65,12 +66,26 @@ public class SelectServiceImpl implements SelectService {
         return projectDao.getProjectById(pId);
     }
 
-    public List<Log> selectLog(long pId){
-        return logDao.getLogByPid(pId);
+    public List<Log> selectLog(long pId,int currentPage,int limit){
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+        return logDao.getLogByPidPage(pId,page);
     }
+    public List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit){
+        Timestamp beginTimestamp = null;
+        Timestamp endTimestamp = null;
+        if(beginTime != null && endTime != null){
+            beginTimestamp = new Timestamp(Long.parseLong(beginTime));
+            endTimestamp = new Timestamp(Long.parseLong(endTime));
+        }
 
-    public List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName){
-        return logDao.filterLog(beginTime,endTime,uUsername,mName);
+        uUsername = TransCharsetUtil.transISOToUTF(uUsername);
+        mName = TransCharsetUtil.transISOToUTF(mName);
+
+        Page page = new Page(limit);
+        page.setCurrentPageNum(currentPage);
+
+        return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
     }
 
     public List<Model> selectModel(long pId){
