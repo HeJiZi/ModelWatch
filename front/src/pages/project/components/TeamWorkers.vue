@@ -10,7 +10,10 @@
             v-model="name"
             :fetch-suggestions="querySearch"
             placeholder="请输入关键词"
-            :trigger-on-focus="false">
+            :trigger-on-focus="false"
+             @select="handleSelect"
+            :select-when-unmatched="true"
+            >
             <template slot-scope="{item}">
               <div style="margin:10px 0px;">
                 <div class="avatar" style="width:30px;height:30px">
@@ -57,7 +60,7 @@
                 <el-button
                 size="mini"
                 type="danger"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                @click="handleDelete(scope.$index,scope.row)">删除</el-button>
               </template>
               <template v-else>
                 <span style="padding-top:2px;margin-right:20px;">正在等待该用户的回应...</span>
@@ -74,7 +77,7 @@
                   </div>
                   <el-button size="mini" slot="reference">复制链接</el-button>
                 </el-popover>
-                <el-button size="mini" type="danger">取消邀请</el-button>
+                <el-button size="mini" type="danger" @click="cancelInv(scope.$index,scope.row)">取消邀请</el-button>
               </template>
             </div>
           </template>
@@ -91,10 +94,9 @@
       :page-size="5"
       :pager-count="11"
       layout="prev, pager, next"
-      :total="50"
-      style="margin:0px 250px"
+      :total="totalNum"
+      style="margin:0px 350px"
       :current-page.sync="page"
-      @next-click="nextPage"
       @current-change="changePage">
     </el-pagination>     
   </div>
@@ -147,78 +149,113 @@
     data() {
       return {
         users: [],
-        name: '',
+        name:'',
         inputBoxHeight:'0px',
         page:1,
         focusState:false,
+        totalNum:0,
         collaborators: [
-        {
-          uId:1,
-          uUsername: 'HeJiZi',
-          uSignature:'太阳照常升起',
-          invTime:'2018-12-07 12:00:00',
-          uAvater:'/static/images/temp.jpeg',
-          uEmail:"129312398@qq.com",
-          uBirthday:'2018-07-05',
-          invState: '0'
-        }, {
-          uId:2,
-          uUsername: 'LiAn',
-          uSignature:'这是一段个性签名',
-          invTime:'2018-12-07 14:00:00',
-          uAvater:'/static/images/small_logo.png',
-          uBirthday:'2018-07-05',
-          uEmail:"129312398@qq.com",
-          invState: '1'
-        }
+        // {
+        //   uId:1,
+        //   uUsername: 'HeJiZi',
+        //   uSignature:'太阳照常升起',
+        //   invTime:'2018-12-07 12:00:00',
+        //   uAvater:'/static/images/temp.jpeg',
+        //   uEmail:"129312398@qq.com",
+        //   uBirthday:'2018-07-05',
+        //   invState: '0'
+        // }, {
+        //   uId:2,
+        //   uUsername: 'LiAn',
+        //   uSignature:'这是一段个性签名',
+        //   invTime:'2018-12-07 14:00:00',
+        //   uAvater:'/static/images/small_logo.png',
+        //   uBirthday:'2018-07-05',
+        //   uEmail:"129312398@qq.com",
+        //   invState: '1'
+        // }
         ]
       };
     },
     methods:{
-      querySearch(queryString, cb) {
-        var users = this.users;
-        var results = queryString ? users.filter(this.createFilter(queryString)) : users;
-        cb(results);
+      querySearch(queryString, cb){  
+              this.$http.get('/api/user/'+queryString).then((response)=>{   
+                      this.users=response.data.list;
+                      cb(this.users);
+              })
+              .catch((response) => { 
+                              alert('查询失败!'); 
+                        }); 
       },
-      createFilter(queryString) {
-        return (users) => {
-          return (users.uUsername.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-      // handleSelect(item) {
-      //   console.log(item);
-      // },
-      nextPage(){
-        console.log("nextPage");
-        this.tableData=[{
-          date: '2017-02-01',
-          name: '王虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }]
-      },
-      changePage(){
-        console.log("changePage"+this.page);
+      changePage(val){
+        this.page=val;
+        this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                this.collaborators=response.data.list;
+            });
       },
       addCollaborators(){
-        if(this.name){
-          this.collaborators.push({
-                  uId:'',
-                  uUsername:this.name,
-                  uSignature:'这是一段个性签名',
-                  invTime:'2018-12-07 14:00:00',
-                  uAvater:'/static/images/temp.jpeg', 
-                  uBirthday:'2018-12-11',
-                  uEmail:"129312398@qq.com",
-                  invState: '1'
-          });
+        if(this.users.length==0){
           this.name='';
         }
-        else{
-          this.focusState=true;
+        if(this.name!=null&&this.name.length!=0){
+            this.$http.post('/api/invitation/'+1+'/'+this.name).then((response)=>{
+                // // this.collaborators=response.data.list;
+                // if(response.data){alert("成功插入"+response.data);}
+                alert("邮件已发送！")
+                this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                  this.collaborators=response.data.list;
+                  this.totalNum=response.data.page.totalNum;
+                }); 
+            })
+            .catch((response)=>{
+                alert("邀请失败！");
+            });
         }
+
+        // if(this.name){
+        //   this.collaborators.push({
+        //           uId:'',
+        //           uUsername:this.name,
+        //           uSignature:'这是一段个性签名',
+        //           invTime:'2018-12-07 14:00:00',
+        //           uAvater:'/static/images/temp.jpeg', 
+        //           uBirthday:'2018-12-11',
+        //           uEmail:"129312398@qq.com",
+        //           invState: '1'
+        //   });
+        //   this.name='';
+        // }
+        // else{
+        //   this.focusState=true;
+        // }
       },
-      handleDelete(index,row){
-        this.collaborators.splice(index,1);
+      handleSelect(item) {
+        this.name=item.uUsername;
+      },
+      handleDelete(index,user){
+          this.$confirm("此操作将删除该协作者, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                  this.$http.delete('/api/invitation/1/'+user.uId) 
+                        .then((response) => {   
+                            if(response.data!=0){ 
+                              this.collaborators.splice(index,1);
+                              this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                                this.collaborators=response.data.list;
+                                this.totalNum=response.data.page.totalNum;
+                              });    
+                              this.$message.success('成功删除了协作者' + user.uUsername + '!');                       
+                            }
+                        }) 
+                        .catch((response) => { 
+                             this.$message.error('删除失败!'); 
+                        }); 
+              })
+              .catch(() => {
+                    this.$message.info('已取消删除!'); 
+              });      
       },
       copy(){
         var Url2 = document.getElementById("nu").value;
@@ -229,12 +266,29 @@
         document.execCommand("Copy");               // 执行浏览器复制命令
         oInput.className = "oInput";
         oInput.style.display = "none";
+      },
+      cancelInv(index,user){
+          this.$http.delete('/api/invitation/1/'+user.uId) 
+                        .then((response) => {   
+                            if(response.data!=0){ 
+                              this.collaborators.splice(index,1);
+                              this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                                this.collaborators=response.data.list;
+                                this.totalNum=response.data.page.totalNum;
+                              });    
+                              this.$message.success('已取消邀请！' + user.uUsername + '!');                       
+                            }
+                        }) 
+                        .catch((response) => { 
+                             this.$message.error('取消失败!'); 
+                        }); 
       }
     },
     mounted(){
       this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
                 this.collaborators=response.data.list;
-            })
+                this.totalNum=response.data.page.totalNum;
+            });
     }
   }
 </script>

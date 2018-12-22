@@ -5,6 +5,7 @@ import Log from './../components/LogManager.vue'
 import TeamWorker from './../components/TeamWorkers.vue'
 import Profile from './../components/Profile.vue'
 import Data from './../components/Data.vue'
+import Inv from './../components/Inv.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
         path: '/data',
         name: 'Data',
         component: Data
+    },
+    {
+        path: '/inv',
+        name: 'Inv',
+        component:Inv
     },
   ]
 })

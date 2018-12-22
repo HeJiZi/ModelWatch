@@ -64,12 +64,15 @@ public class SelectServiceImpl implements SelectService {
     public Project selectProject(long pId){
         return projectDao.getProjectById(pId);
     }
+
     public List<Log> selectLog(long pId){
         return logDao.getLogByPid(pId);
     }
+
     public List<Log> filterLog(Timestamp beginTime,Timestamp endTime,String uUsername,String mName){
         return logDao.filterLog(beginTime,endTime,uUsername,mName);
     }
+
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);
     }
@@ -78,7 +81,6 @@ public class SelectServiceImpl implements SelectService {
         Page page = new Page(5);
         page.setCurrentPageNum(currentPage);
         List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
-
         return new ListObject(users,page);
     }
 }

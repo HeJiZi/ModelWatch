@@ -4,6 +4,7 @@ import bean.Comment;
 import bean.User;
 import dao.CommentsDao;
 import dao.UserDao;
+import dto.ListDto;
 import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
 import net.sf.json.util.JSONUtils;
@@ -16,6 +17,7 @@ import util.MyFileUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -70,4 +72,10 @@ public class UserServiceImp implements UserService {
     public boolean addComment(Comment comment) {
         return commentsDao.AddComment(comment) == 1 ?true:false;
     }
+
+    public ListDto selectByName(String uName){
+        List<User> users=userDao.selectUname(uName);
+        return new ListDto(users);
+    }
+
 }

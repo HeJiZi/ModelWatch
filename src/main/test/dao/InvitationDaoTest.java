@@ -33,7 +33,7 @@ public class InvitationDaoTest {
 
     @Test
     public void addInvitationByUNameAndPid(){
-        System.out.println(InvitationDao.addInvitationByUNameAndPid(1,"Pig"));
+        System.out.println(InvitationDao.addInvByNamePid((long) 1,"Pig"));
     }
 
     @Test
