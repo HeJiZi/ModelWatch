@@ -28,6 +28,10 @@
           <i class="el-icon-setting"></i>
           <span slot="title">数据统计</span>
         </el-menu-item>
+        <el-menu-item index="/inv">
+          <i class="el-icon-setting"></i>
+          <span slot="title">邀请页面</span>
+        </el-menu-item>
       </el-menu>
       </div>
       <div style="width:85%">

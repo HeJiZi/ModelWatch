@@ -65,6 +65,7 @@ public class SelectServiceImpl implements SelectService {
     public Project selectProject(long pId){
         return projectDao.getProjectById(pId);
     }
+
     public List<Log> selectLog(long pId,int currentPage,int limit){
         Page page = new Page(limit);
         page.setCurrentPageNum(currentPage);
@@ -86,6 +87,7 @@ public class SelectServiceImpl implements SelectService {
 
         return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
     }
+
     public List<Model> selectModel(long pId){
         return modelDao.getProjectModelByPid(pId);
     }
@@ -94,7 +96,6 @@ public class SelectServiceImpl implements SelectService {
         Page page = new Page(5);
         page.setCurrentPageNum(currentPage);
         List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
-
         return new ListObject(users,page);
     }
 }

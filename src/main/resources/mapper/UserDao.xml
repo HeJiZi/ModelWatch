@@ -44,4 +44,7 @@
         insert ignore into user(U_username,U_password) values (#{username},#{password})
     </insert>
 
+    <select id="selectUname" resultType="User">
+        select * FROM user WHERE U_username like concat(#{uName},'%')
+    </select>
 </mapper>

@@ -59,4 +59,6 @@ public interface UserDao {
 
     int updateState(User user);
 
+    List<User> selectUname(@Param("uName") String Uname);
+
 }

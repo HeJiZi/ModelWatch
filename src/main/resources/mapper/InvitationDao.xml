@@ -13,12 +13,13 @@
         insert into invitation(Inv_pid,Inv_uid,Inv_state)
                 values (#{pid},#{uid},1)
     </insert>
-    <insert id="addInvitationByUNameAndPid">
+    <insert id="addInvByNamePid">
         insert into invitation (Inv_pid, Inv_uid,Inv_state)
-        select ${pid},U_id,1
+        select #{pid},U_id,0
         from user
         where U_username=#{uUsername}
     </insert>
+
     <delete id="deleteInvitation">
         delete from invitation
         where Inv_pid=#{pid}
