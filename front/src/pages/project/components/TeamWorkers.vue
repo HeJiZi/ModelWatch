@@ -157,7 +157,7 @@
           uUsername: 'HeJiZi',
           uSignature:'太阳照常升起',
           invTime:'2018-12-07 12:00:00',
-          uAvater:'/static/images/temp.jpeg',
+          uAvater:'/resources/images/temp.jpeg',
           uEmail:"129312398@qq.com",
           uBirthday:'2018-07-05',
           invState: '0'
@@ -166,7 +166,7 @@
           uUsername: 'LiAn',
           uSignature:'这是一段个性签名',
           invTime:'2018-12-07 14:00:00',
-          uAvater:'/static/images/small_logo.png',
+          uAvater:'/resources/images/small_logo.png',
           uBirthday:'2018-07-05',
           uEmail:"129312398@qq.com",
           invState: '1'

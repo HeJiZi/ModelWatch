@@ -12,13 +12,13 @@
                 <div class="lastLineTip">
                     <span class="timeSpan">&nbsp;&nbsp;{{time}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                     <el-button class="likeButton">
-                        <img src="../../static/images/pos_icon.png" width="20px" height="20px">
+                        <img src="/resources/images/pos_icon.png" width="20px" height="20px">
                     </el-button>
                     <span class="tipSpanPos" v-if="likeNum != 0">{{likeNum}}</span> 
                     <span class="tipSpanPos" v-if="likeNum == 0"></span> &nbsp;
 
                     <el-button class="disLikeButton">
-                        <img src="../../static/images/obj_icon.png" width="20px" height="20px">
+                        <img src="/resources/images/obj_icon.png" width="20px" height="20px">
                     </el-button> 
                     <span class="tipSpanObj" v-if="disLikeNum != 0">{{disLikeNum}}</span> 
                     <span class="tipSpanObj" v-if="disLikeNum == 0"></span> &nbsp;
@@ -59,13 +59,13 @@
                         <div class="lastLineTip">
                             <span class="timeSpan">&nbsp;&nbsp;{{reply.repTime}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <el-button class="likeButton">
-                                <img src="../../static/images/pos_icon.png" width="20px" height="20px">
+                                <img src="/resources/images/pos_icon.png" width="20px" height="20px">
                             </el-button>
                             <span class="tipSpanPos" v-if="reply.repLikeNum != 0">{{reply.repLikeNum}}</span> 
                             <span class="tipSpanPos" v-if="reply.repLikeNum == 0"></span> &nbsp;
 
                             <el-button class="disLikeButton">
-                                <img src="../../static/images/obj_icon.png" width="20px" height="20px">
+                                <img src="/resources/images/obj_icon.png" width="20px" height="20px">
                             </el-button> 
                             <span class="tipSpanObj" v-if="reply.repDisLikeNum != 0">{{reply.repDisLikeNum}}</span>
                             <span class="tipSpanObj" v-if="reply.repDisLikeNum == 0"></span> &nbsp;

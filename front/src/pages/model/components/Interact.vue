@@ -65,7 +65,7 @@ export default {
             // newComments:'',
             // @user 当前用户的信息
             user:{
-                uAvater:'/static/images/small_logo.png',
+                uAvater:'/resources/images/small_logo.png',
                 uId:'',
             },
             // @commentsInfo 评论信息（评论总数，当前页面） 用于分页
@@ -77,82 +77,82 @@ export default {
             // @comments 列表 评论回复，测试用
             comments: [{
                 comId: 1, comContent: '这看起来真棒啊', comCreateTime: '2017-09-21 08:12:23', comLikeNum: 10, comDisLikeNum: 0, 
-                user: {uUsername: '隔壁老王', uAvater: '/static/images/small_logo.png'},
+                user: {uUsername: '隔壁老王', uAvater: '/resources/images/small_logo.png'},
                 replys: [{
                     repId: 1, repContent: '是啊是啊', repTime: '2017-09-21 09:12:23', repLikeNum: 2, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '小孙', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '小孙', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 2, repContent: '放屁', repTime: '2017-09-21 10:12:23', repLikeNum: 0, repDisLikeNum: 12, repUsername: '小孙',
-                    user: {uUsername: '傻屌', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '傻屌', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 25, repContent: '你才放屁', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '傻屌',
-                    user: {uUsername: '舞法天女', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '舞法天女', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 26, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '26', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '26', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 27, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '27', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '27', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 28, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '28', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '28', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 29, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '29', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '29', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 30, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '30', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '30', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 31, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '31', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '31', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 32, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '32', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '32', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 33, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '33', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '33', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 34, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '34', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '34', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 35, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '35', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '35', uAvater: '/resources/images/small_logo.png'}
                 }]
             }, {
                 comId: 2, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/static/images/small_logo.png'},
+                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
                 replys: [ {
                     repId: 37, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '37', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '37', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 38, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '38', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '38', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 39, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '39', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '39', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 40, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '40', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '40', uAvater: '/resources/images/small_logo.png'}
                 }]
             }, {
                 comId: 3, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/static/images/small_logo.png'},
+                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
                 replys: []
             }, {
                 comId: 4, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/static/images/small_logo.png'},
+                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
                 replys: [{
                     repId: 41, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '41', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '41', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 42, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '42', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '42', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 43, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '43', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '43', uAvater: '/resources/images/small_logo.png'}
                 }, {
                     repId: 44, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '44', uAvater: '/static/images/small_logo.png'}
+                    user: {uUsername: '44', uAvater: '/resources/images/small_logo.png'}
                 }]
             }]
         }
@@ -200,7 +200,7 @@ export default {
             // 测试用
             this.comments = [{
                 comId: 7, comContent: '编去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢侠', uAvater: '/static/images/small_logo.png'},
+                user: {uUsername: '钢侠', uAvater: '/resources/images/small_logo.png'},
                 replys: []
             }]
         },
