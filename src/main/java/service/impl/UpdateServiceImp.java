@@ -4,6 +4,7 @@ import bean.Log;
 import bean.Model;
 import bean.Project;
 import bean.User;
+import dao.InvitationDao;
 import dao.LogDao;
 import dao.ModelDao;
 import dao.ProjectDao;
@@ -33,7 +34,8 @@ public class UpdateServiceImp implements UpdateService {
     @Autowired
     private LogDao logDao;
 
-
+    @Autowired
+    private InvitationDao invitationDao;
     /**
      * 更改项目资料
      *
@@ -89,5 +91,9 @@ public class UpdateServiceImp implements UpdateService {
     public boolean updateLogContext(Long lId,String lContext) {
         lContext = TransCharsetUtil.transISOToUTF(lContext);
         return (logDao.updateLogContext(lId,lContext)==1);
+    }
+
+    public int changeInvState(Long pid,String uName){
+        return (invitationDao.alterInvState(pid,uName));
     }
 }

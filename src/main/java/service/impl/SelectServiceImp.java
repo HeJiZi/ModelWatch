@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Service
-public class SelectServiceImpl implements SelectService {
+public class SelectServiceImp implements SelectService {
     @Autowired
     private ProjectDao projectDao;
 

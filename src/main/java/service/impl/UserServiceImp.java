@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import service.UserService;
 import util.MyFileUtil;
+import util.SendMailUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +76,11 @@ public class UserServiceImp implements UserService {
 
     public ListDto selectByName(String uName){
         List<User> users=userDao.selectUname(uName);
+        return new ListDto(users);
+    }
+
+    public ListDto getUmailByName(String uName){
+        List<User> users=userDao.getMailByName(uName);
         return new ListDto(users);
     }
 

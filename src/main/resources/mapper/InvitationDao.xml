@@ -33,4 +33,12 @@
         where u.U_id = i.Inv_uid AND  i.Inv_pid=#{pid}
         order by i.Inv_Time desc
     </select>
+
+    <update id="alterInvState">
+        UPDATE invitation SET Inv_state = 1 WHERE Inv_pid=#{pId} and Inv_uid=(select U_id from user where U_username=#{uName})
+    </update>
+
+    <delete id="deleteWaitItem">
+        delete from invitation where Inv_pid=#{pId} and Inv_uid=(select U_id from user where U_username=#{uName}) and Inv_State=0
+    </delete>
 </mapper>

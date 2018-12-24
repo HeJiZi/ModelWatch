@@ -48,4 +48,6 @@ public interface UserService {
 
     ListDto selectByName(String uName);
 
+    ListDto getUmailByName(String uName);
+
 }

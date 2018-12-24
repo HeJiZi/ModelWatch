@@ -12,6 +12,6 @@ public interface InvitationDao {
     int deleteInvitation(@Param("pid") long pid,@Param("uid") int uid);
     List<User> selectInvitationByPid(@Param("pid") int pid);
     List<User> selectCollaboratorsByPidPage(@Param("pid")long pid, @Param("page")Page page);
-
-
+    int alterInvState(@Param("pId") Long pId,@Param("uName") String uName);
+    int deleteWaitItem(@Param("pId") Long pId,@Param("uName") String uName);
 }

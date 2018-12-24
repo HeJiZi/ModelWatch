@@ -154,6 +154,7 @@
         page:1,
         focusState:false,
         totalNum:0,
+        uMail:'',
         collaborators: [
         // {
         //   uId:1,
@@ -164,16 +165,7 @@
         //   uEmail:"129312398@qq.com",
         //   uBirthday:'2018-07-05',
         //   invState: '0'
-        // }, {
-        //   uId:2,
-        //   uUsername: 'LiAn',
-        //   uSignature:'这是一段个性签名',
-        //   invTime:'2018-12-07 14:00:00',
-        //   uAvater:'/static/images/small_logo.png',
-        //   uBirthday:'2018-07-05',
-        //   uEmail:"129312398@qq.com",
-        //   invState: '1'
-        // }
+        // }, 
         ]
       };
     },
@@ -199,35 +191,21 @@
         }
         if(this.name!=null&&this.name.length!=0){
             this.$http.post('/api/invitation/'+1+'/'+this.name).then((response)=>{
-                // // this.collaborators=response.data.list;
-                // if(response.data){alert("成功插入"+response.data);}
-                alert("邮件已发送！")
                 this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
-                  this.collaborators=response.data.list;
-                  this.totalNum=response.data.page.totalNum;
+                      this.collaborators=response.data.list;
+                      this.totalNum=response.data.page.totalNum;
                 }); 
+                this.$http.get('/api/user/findMail/'+this.name).then((response)=>{
+                      this.uMail=response.data.list[0].uEmail;
+                      this.$http.post('/api/invitation/sendMail?name='+'HeJiZi'+'&uMail='+this.uMail+'&pId='+1).then((response)=>{
+                        if(!response.data){alert("已发送邮件！");}           
+                      });
+                });
             })
             .catch((response)=>{
                 alert("邀请失败！");
             });
         }
-
-        // if(this.name){
-        //   this.collaborators.push({
-        //           uId:'',
-        //           uUsername:this.name,
-        //           uSignature:'这是一段个性签名',
-        //           invTime:'2018-12-07 14:00:00',
-        //           uAvater:'/static/images/temp.jpeg', 
-        //           uBirthday:'2018-12-11',
-        //           uEmail:"129312398@qq.com",
-        //           invState: '1'
-        //   });
-        //   this.name='';
-        // }
-        // else{
-        //   this.focusState=true;
-        // }
       },
       handleSelect(item) {
         this.name=item.uUsername;

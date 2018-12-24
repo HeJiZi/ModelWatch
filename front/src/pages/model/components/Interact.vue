@@ -3,10 +3,10 @@
         <!-- 顶部评论输入框 -->
         <div style="width: 53%; margin: 0 auto;">
             <e-input-panel 
-                :user="user", :repId="0", 
-                :needRepId="0", :keyType="0", 
-                :needRepType="0", :comId="0", 
-                :repCom="0", :inputTip="inputTip",
+                :user="user" :repId="0"
+                :needRepId="0" :keyType="0"
+                :needRepType="0" :comId="0" 
+                :repCom="0" :inputTip="inputTip"
                 >
             </e-input-panel>
         </div>

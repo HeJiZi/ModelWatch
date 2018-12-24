@@ -15,7 +15,7 @@ public class SendMailUtil {
     public final static String FROM_NAME="ModelWatch";
     public final static String TAG_NAME = FROM_NAME;
 
-    public static void SendMail(String subject,String toAddress,String htmlBody){
+    public static int SendMail(String subject,String toAddress,String htmlBody){
         // 如果是除杭州region外的其它region（如新加坡、澳洲Region），需要将下面的"cn-hangzhou"替换为"ap-southeast-1"、或"ap-southeast-2"。
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", ACCESS_KEY_ID, SECRET);
         // 如果是除杭州region外的其它region（如新加坡region）， 需要做如下处理
@@ -39,9 +39,12 @@ public class SendMailUtil {
             request.setSubject(subject);
             request.setHtmlBody(htmlBody);
             SingleSendMailResponse httpResponse = client.getAcsResponse(request);
+
         }
         catch (ClientException e) {
             e.printStackTrace();
+            return 1;
         }
+        return 0;
     }
 }
