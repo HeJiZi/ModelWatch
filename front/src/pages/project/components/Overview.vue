@@ -91,17 +91,17 @@ export default {
                 pCreateTime:'2018-07-01',
                 pName: '星火',
                 pContext:'星火是一个制作星星与火焰特效模型的项目',
-                pPreview:'/static/images/pc.jpeg',
+                pPreview:'/resources/images/pc.jpeg',
                 user:{
                     uUsername:'HeJiZi'
                 }
             },
             models:[
-                {mId:1,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/static/images/1.png'},
-                {mId:2,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/static/images/1.png'},
-                {mId:3,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/static/images/1.png'},
-                {mId:4,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/static/images/1.png'},
-                {mId:5,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/static/images/1.png'},
+                {mId:1,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
+                {mId:2,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
+                {mId:3,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
+                {mId:4,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
+                {mId:5,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
             ]
         }
     },

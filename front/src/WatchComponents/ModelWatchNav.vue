@@ -3,7 +3,7 @@
         <div class="mw-nav-wrapper">
             <ul>
                 <li style="padding-left: 0px;">
-                    <img src="/static/images/small_logo.png" width="30px" height="30px">
+                    <img src="/resources/images/small_logo.png" width="30px" height="30px">
                     <a href="/">&nbsp;主页</a>
                 </li>
 
@@ -62,7 +62,21 @@ import '@/../static/css/watchUI.css'
 export default {
     name: 'mw-nav',
     inheritAttrs: false,
-    props: ['user', 'cs','ok'],
+    data(){
+        return{
+            ok:true,
+            cs:{
+                ava_class:'',
+                da_class:'',
+                mes_class:'',
+                menu_style:{
+                    opacity:0
+                }
+            },
+            user:{
+            }
+        }
+    },
     methods: {
         data_over: function () {
             this.cs.da_class = "active";

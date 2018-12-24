@@ -1,0 +1,88 @@
+<template>
+    <article id="profile"  style="display: flex;flex-flow: row wrap;">
+        <section class="profile-top">
+            <p style="margin-left:20px;font-size: 1.8em;">Your Profile</p>
+        </section>
+        <div style="width: 100%;display: flex;">
+
+            <section style="width: 65%;margin-left: 30px;display: flex;flex-flow: row wrap;padding-bottom: 20px;">
+                <section class="pro-input-box">
+                    <label for="name">Name</label>
+                    <input id='name' name="name" placeholder="username" v-model="user.uUsername" type="text">
+                </section>
+                <section class="pro-input-box" style="width:45%">
+                    <label for="email">Email</label>
+                    <input id='email' name="email" placeholder="email" v-model="user.uEmail" type="text">
+                </section>
+
+                <section class="pro-input-box">
+                    <label >Sex</label>
+                    <el-select size="small" v-model="user.uSex" placeholder="Select">
+                        <el-option name="female" key="female" label="female" value="female"></el-option>
+                        <el-option name="male" key="male" label="male" value="male"></el-option>
+                        <el-option name="unPublic" key="unPublic" label="unPublic" value="unPublic"></el-option>
+                    </el-select>
+                </section>
+                <section class="pro-input-box">
+                    <label>BirthDay</label>
+                    <el-date-picker  value-format="yyyy-MM-dd" v-model="user.uBirthday" type="date" placeholder="Pick a day">
+                    </el-date-picker>
+                </section>
+                <section class="pro-input-box">
+                    <label for="sig">Signature</label>
+                    <textarea v-model="user.uSignature" id="sig"></textarea>
+                </section>
+                <section class="pro-input-box">
+                    <p class="update-button" @click="updateData">Update Profile</p>
+                </section>
+
+                <section style="width:100%;height:1px;background-color:rgb(230, 230, 230);margin-bottom:10px;"></section>
+                <section class="pro-input-box">
+                    <label for="password">Password</label>
+                    <input v-model="user.uPassword" id='password' name="password" placeholder="password" type="password">
+                    <input @keyup="varifyPass" style="margin-top: 15px;" id='repassword' name="repassword" placeholder="repassword" type="password">
+                    <el-alert style="margin-top: 10px"
+                              :style="{display:aldis}"
+                            :title="alertText"
+                            :type="alType"
+                            show-icon>
+                    </el-alert>
+                </section>
+
+                <section class="pro-input-box">
+                    <el-button @click="updatePass"  type="primary" :disabled="disflag">Update Password</el-button>
+                </section>
+            </section>
+
+            <section style="width: 30%;">
+                <div style="margin-top: 30px;margin-left: 50px;">
+                    <h4>Profile picture</h4>
+                    <div class="profile-photo">
+                        <img width="200px" height="200px" :src="user.uAvater">
+                    </div>
+                    <label for="fileup" class="upload-text">
+                        Upload new picture
+                    </label>
+                    <input @change="upload" id="fileup" type="file" class="upload-button">
+
+                </div>
+            </section>
+
+        </div>
+    </article>
+</template>
+<script>
+import '@/../static/css/main.css'
+export default {
+    data(){
+        return{
+            user:{
+
+            },
+            disflag:false,
+            aldis:'none',
+
+        }
+    }
+}
+</script>

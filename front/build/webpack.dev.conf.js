@@ -30,6 +30,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         { from: /^\/project$/, to: path.posix.join(config.dev.assetsPublicPath, 'project.html') },
         { from: /^\/model$/, to: path.posix.join(config.dev.assetsPublicPath, 'model.html') },
         { from: /^\/inv$/, to: path.posix.join(config.dev.assetsPublicPath, 'inv.html') },
+        { from: /^\/user$/, to: path.posix.join(config.dev.assetsPublicPath, 'profile.html') },
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, '404.html') }
         
       ],
@@ -60,7 +61,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template: 'compOverview/index.html',
       inject: true,
       chunks: ['app']
     }),
@@ -87,6 +88,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'compOverview/inv.html',
       inject: true,
       chunks: ['inv']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'profile.html',
+      template: 'compOverview/profile.html',
+      inject: true,
+      chunks: ['profile']
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
