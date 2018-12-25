@@ -12,7 +12,7 @@
         </div>
         </section>
         <section style="display: flex;height: 10%;align-items: flex-end;">
-            <div @click="$router.push({path:'/up'})" class="jumpButton login">
+            <div @click="$router.push({path:'/up',replace:true})" class="jumpButton login">
                 <div  class="el-icon-arrow-up"/>
                 <span>
                     注册
@@ -94,11 +94,11 @@ export default {
     },
     methods:{
         login(){
-            this.$http.post('/admin',{
-                aUsername:this.username,
-                aPassword:this.password,
+            this.$http.post('/api/user/login',{
+                uUsername:this.username,
+                uPassword:this.password,
             }).then((response)=>{
-                if (response.data == true) window.location.href = '/managers';
+                if (response.data == true) window.location.href = '/';
                 else alert("用户名或密码错误");
             })
         }

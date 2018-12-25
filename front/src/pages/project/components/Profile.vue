@@ -58,7 +58,7 @@
 </style>
 
 <script>
-import '@/../static/css/change.css'
+import '|css/change.css'
 var image = '';
 function upload(file) {
     if (!file.files || !file.files[0]) {c

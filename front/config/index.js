@@ -16,8 +16,27 @@ module.exports = {
         pathRewrite: { '^/api': '' },
         changeOrigin: true,
         secure: false, // 接受 运行在 https 上的服务
-      }
+        onProxyRes(proxyRes, req, res) { //sessionId一致
+          var cookies = proxyRes.headers['set-cookie']
+          if (cookies == null || cookies.length == 0) {
+              delete proxyRes.headers['set-cookie']
+              return
+          }
+          for (var i = 0,n = cookies.length; i < n; i++) {
+              if(cookies[i].match(/^JSESSIONID=[^;]+;[\s\S]*Path=\/[^;]+/)){
+                  cookies[i] = cookies[i].replace(/Path=\/[^;]+/,'Path=/');
+              }
+          }
 
+          proxyRes.headers['set-cookie'] = cookies;
+        },
+      },
+      '/resources': {
+        target: 'http://localhost:8080',
+        pathRewrite: { '^/resources': '/resources' },
+        changeOrigin: true,
+        secure: false, // 接受 运行在 https 上的服务
+      },
     },
 
     // Various Dev Server settings

@@ -85,8 +85,8 @@
     </div>
 </template>
 <script>
-import '@/../static/css/main.css'
-import '@/../static/css/watchUI.css'
+import '|css/main.css'
+import '|css/watchUI.css'
 
 import { Raycaster, Vector2, Object3D, PerspectiveCamera, 
         WebGLRenderer, Scene, DirectionalLight, JSONLoader,

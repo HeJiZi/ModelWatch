@@ -27,7 +27,7 @@
 
 
 <script>
-import '@/../static/css/admin_login.css'
+import '|css/admin_login.css'
 
 export default {
     data(){

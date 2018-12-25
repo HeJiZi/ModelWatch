@@ -72,7 +72,7 @@
     </article>
 </template>
 <script>
-import '@/../static/css/main.css'
+import '|css/main.css'
 export default {
     data(){
         return{

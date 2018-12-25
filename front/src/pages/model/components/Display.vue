@@ -13,7 +13,7 @@
 
 
 <script>
-import '@/../static/css/main.css'
+import '|css/main.css'
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
 
 

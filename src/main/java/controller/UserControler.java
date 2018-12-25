@@ -2,9 +2,8 @@ package controller;
 
 import bean.User;
 import dto.ListDto;
-import dto.ListObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
@@ -20,20 +19,16 @@ public class UserControler {
 
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public boolean Login(HttpServletRequest request){
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
-        User user=userService.login(username,password);
+    public boolean Login(@RequestBody @Validated  User user1, HttpServletRequest request){
+        User user=userService.login(user1.getuUsername(),user1.getuPassword());
         request.getSession().setAttribute("user",user);
         return user==null?false:true;
     }
 
     @ResponseBody
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
-    public boolean Register(HttpServletRequest request){
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
-        return  userService.register(username,password);
+    public boolean Register(@RequestBody @Validated  User user){
+        return  userService.register(user.getuUsername(),user.getuPassword());
     }
 
     @ResponseBody

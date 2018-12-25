@@ -20,7 +20,15 @@ public class DtoListUtil {
                 Constructor constructor = dtoClass.getConstructor(sourceClass);
                  list.add(constructor.newInstance(sourceList.get(i)));
             }
-        }catch (Exception e) {
+        }catch (IndexOutOfBoundsException e) {
+            return  null;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
         return list;

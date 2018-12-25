@@ -13,10 +13,25 @@
 
     <context:component-scan base-package="controller"/>
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven validator="validator"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <!--<mvc:resources mapping="/html/**" location="/html/"/>-->
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="validationMessageSource"/>
+    </bean>
+
+    <bean id="validationMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames" >
+            <list>
+                <value>classpath:validationMessageSources</value>
+            </list>
+        </property>
+        <property name="fileEncodings" value="utf8"/>
+        <property name="cacheSeconds" value="120"/>
+
+    </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="50000000"></property>

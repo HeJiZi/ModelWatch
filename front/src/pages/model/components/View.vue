@@ -161,7 +161,7 @@ export default {
             modelLoading:true,
             model:{
                 mId:1,
-                mData: '/resources/3.json'
+                mData: '/resources/2.json'
             },
             markInfo: false,
             uId: 1,

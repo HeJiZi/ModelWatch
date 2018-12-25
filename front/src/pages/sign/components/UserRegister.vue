@@ -1,7 +1,7 @@
 <template>
     <div style="background: #731919;height:100%;width:100%;margin:0px">
         <section style="display: flex;height: 10%;align-items: flex-start;">
-            <div @click="$router.push({path:'/'})" class="jumpButton signup">
+            <div @click="$router.push({path:'/',replace:true})" class="jumpButton signup">
                 <div class="el-icon-arrow-down"/>
                 <span>
                     登录
@@ -16,7 +16,7 @@
             <el-input v-model="username" placeholder="用户名"></el-input>
             <el-input v-model="password" type="password" placeholder="密码"></el-input>
             <el-input v-model="rePassword" type="password" placeholder="请重新输入"></el-input>
-            <el-button @click="login" class="signup" round size="mini">注册</el-button>
+            <el-button @click="signup" class="signup" round size="mini">注册</el-button>
             </div>
         </div>
         </section>
@@ -96,13 +96,17 @@ export default {
         m_threeStart();
     },
     methods:{
-        login(){
-            this.$http.post('/admin',{
-                aUsername:this.username,
-                aPassword:this.password,
+        signup(){
+            if(this.rePassword!=this.password){
+                alert("输入的密码不一致")
+                return;
+            }
+            this.$http.post('/api/user/signup',{
+                uUsername:this.username,
+                uPassword:this.password,
             }).then((response)=>{
-                if (response.data == true) window.location.href = '/managers';
-                else alert("用户名或密码错误");
+                if (response.data == true) this.$router.push('/');
+                else alert("用户名已存在");
             })
         }
     },

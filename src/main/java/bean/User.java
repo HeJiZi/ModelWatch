@@ -2,14 +2,22 @@ package bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
 
 
 public class User {
     private int uId;
+
+    @NotNull
+    @Size(min = 1)
     private String uUsername;
     private String uAvater;
+
+    @NotNull
+    @Size(min = 1)
     private String uPassword;
     private String uEmail;
     private String uSex;

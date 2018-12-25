@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import '@/../static/css/show.css'
+import '|css/show.css'
 import mwPhoto from '@/WatchComponents/ModelWatchPhoto.vue'
 import { PerspectiveCamera, WebGLRenderer, Scene, DirectionalLight,MeshBasicMaterial,
         AmbientLight, Mesh,CubeGeometry,CanvasTexture,PlaneGeometry} from "three"

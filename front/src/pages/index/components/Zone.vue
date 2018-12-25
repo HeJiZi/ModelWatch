@@ -51,7 +51,7 @@
 </div>
 </template>
 <script>
-import '@/../static/css/pesonnalZone.css'
+import '|css/pesonnalZone.css'
 import mwPhoto from '@/WatchComponents/ModelWatchPhoto.vue'
 export default {
     data(){
