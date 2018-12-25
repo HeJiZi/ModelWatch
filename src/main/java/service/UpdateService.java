@@ -16,4 +16,6 @@ public interface UpdateService {
     public boolean updateModel(User user, String model, MultipartFile[] multipartFile,String lContext);
 
     public boolean updateLogContext(Long lId,String lContext);
+
+    public int changeInvState(Long pId,String uName);
 }

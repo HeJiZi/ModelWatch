@@ -59,4 +59,7 @@ public interface UserDao {
 
     int updateState(User user);
 
+    List<User> selectUname(@Param("uName") String Uname);
+
+    List<User> getMailByName(@Param("uName") String uName);
 }

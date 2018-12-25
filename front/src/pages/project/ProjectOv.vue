@@ -1,6 +1,7 @@
 <template>
   <div id="project">
     <mw-nav id="nav"></mw-nav>
+    <div style="background:#e6e6e6;margin:0px;padding:0px;height:1px;"></div>
     <article style="display:flex;max-width:1280px;min-width: 800px;margin: 0 auto;">
       <div style="width:15%;">
         <el-menu

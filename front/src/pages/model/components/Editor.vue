@@ -71,16 +71,16 @@
         </ul>
         <div class="toolbar">
             <div class="tool">
-                <img src="/static/images/selectButton.png">
+                <img src="/resources/images/selectButton.png">
             </div>
             <div class="tool">
-                <img src="/static/images/moveButton.png">
+                <img src="/resources/images/moveButton.png">
             </div>
             <div class="tool">
-                <img src="/static/images/rotateButton.png">
+                <img src="/resources/images/rotateButton.png">
             </div>
             <div class="tool">
-                <img src="/static/images/scaleButton.png">
+                <img src="/resources/images/scaleButton.png">
             </div>
         </div>
         <article v-loading="modelLoading" id="view" class="operation-view">
@@ -264,10 +264,10 @@ export default {
     data(){
         return{
             model:{
-                mId:3,
-                mData:'/static/3.json',
-                mName:'篮球',
-                project:{ 
+                mId:1,
+                mData:'/resources/3.json',
+                mName:'',
+                project:{
                     pId:1,
                     pName:'',
                 }

@@ -13,12 +13,13 @@
         insert into invitation(Inv_pid,Inv_uid,Inv_state)
                 values (#{pid},#{uid},1)
     </insert>
-    <insert id="addInvitationByUNameAndPid">
+    <insert id="addInvByNamePid">
         insert into invitation (Inv_pid, Inv_uid,Inv_state)
-        select ${pid},U_id,1
+        select #{pid},U_id,0
         from user
         where U_username=#{uUsername}
     </insert>
+
     <delete id="deleteInvitation">
         delete from invitation
         where Inv_pid=#{pid}
@@ -32,4 +33,12 @@
         where u.U_id = i.Inv_uid AND  i.Inv_pid=#{pid}
         order by i.Inv_Time desc
     </select>
+
+    <update id="alterInvState">
+        UPDATE invitation SET Inv_state = 1 WHERE Inv_pid=#{pId} and Inv_uid=(select U_id from user where U_username=#{uName})
+    </update>
+
+    <delete id="deleteWaitItem">
+        delete from invitation where Inv_pid=#{pId} and Inv_uid=(select U_id from user where U_username=#{uName}) and Inv_State=0
+    </delete>
 </mapper>

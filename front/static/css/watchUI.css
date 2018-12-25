@@ -3,11 +3,12 @@ body{
 }
 .mw-nav{
     font-family: fantasy;
-    box-shadow:3px 3px 1px rgba(151, 143, 143, 0.774);
     font-size: 15px;
     position: relative;
     z-index: 10000;
     background-color: white;
+
+
 }
     .mw-nav nav,div,ul,li,img{
         border: none;
@@ -146,14 +147,14 @@ body{
         margin:0 auto;
     }
     .mw-nav-wrapper .createBut{
-        background-color:rgb(233, 117, 81);
+        background-color:#2283e6;
         color: white;
         height: 55px;
         border-radius: 10px;
 
     }
         .mw-nav-wrapper .createBut:hover{
-            background: rgb(230, 144, 118);
+            background: #4da4ff;
         }
     .mw-nav-wrapper a{
         text-decoration: none;
@@ -164,7 +165,7 @@ body{
         color: inherit;
     }
     .mw-nav-wrapper ul> .active{
-        background-color:rgb(230, 144, 118);
+        background-color:#308fee;
         color:white;
     }
 .mw-nav-menu-sign{
@@ -192,7 +193,7 @@ body{
 }
 
 .mw-icon{
-    background-image: url(/static/images/icons.png);
+    background-image: url(/resources/images/icons.png);
     
     background-repeat: no-repeat;
     height:24px;

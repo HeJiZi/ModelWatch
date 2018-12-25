@@ -1,15 +1,26 @@
 <template>
-    <transition >
-        <router-view/>
-    </transition>
+    <div style="height:100%;position:absolute;width:40%;display:flex;flex-flow:row wrap;overflow:hidden;">
+        <transition :name="transitionName">
+            <router-view />
+        </transition>
+    </div>
 </template>
 
 <style>
-.in-enter-active, .in-leave-active,.up-enter-active, .up-leave-active{
+.slide-up-enter-active, .slide-up-leave-active,.slide-down-enter-active, .slide-down-leave-active{
     transition: transform ease .5s;
 }
-.in-enter-to{
-    transform: translateY(100%);
+.slide-up-leave-to,.slide-up-enter-to{
+    transform: translateY(-100%);
+}
+.slide-down-enter{
+    transform:translateY(-200%)
+}
+.slide-down-enter-to{
+    transform:translateY(-100%)
+}
+.slide-down-leave-to{
+    transform: translateY(100%)
 }
 
 </style>
@@ -17,14 +28,19 @@
 
 <script>
 import '@/../static/css/admin_login.css'
+
 export default {
-    watch: {
-        '$route' (to, from) {
-            const toDepth = to.path.split('/').length
-            const fromDepth = from.path.split('/').length
-            this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+    data(){
+        return{
+            transitionName:''
         }
-    }
+    },
+    watch: {
+        $route(to, from) {
+            console.log(to);
+            this.transitionName = to.meta.index > from.meta.index?'slide-up':'slide-down';
+        }
+    },
 };
 </script>
 

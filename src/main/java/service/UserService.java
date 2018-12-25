@@ -2,6 +2,7 @@ package service;
 
 import bean.Comment;
 import bean.User;
+import dto.ListDto;
 import org.springframework.web.multipart.MultipartFile;
 
 //用户服务，关于用户管理的接口都在这里调用
@@ -45,6 +46,8 @@ public interface UserService {
 
     boolean addComment(Comment comment);
 
+    ListDto selectByName(String uName);
 
+    ListDto getUmailByName(String uName);
 
 }

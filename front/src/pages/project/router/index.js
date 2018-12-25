@@ -6,7 +6,9 @@ import TeamWorker from './../components/TeamWorkers.vue'
 import Profile from './../components/Profile.vue'
 import Data from './../components/Data.vue'
 
+
 Vue.use(Router)
+
 
 export default new Router({
   routes: [
@@ -34,6 +36,6 @@ export default new Router({
         path: '/:pId/data',
         name: 'Data',
         component: Data
-    },
+    }
   ]
 })

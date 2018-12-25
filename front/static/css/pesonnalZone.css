@@ -5,16 +5,15 @@
 }
 
  .cover{
-     
      display: flex;
      justify-content: center;
      flex-flow: row wrap;
-     height: 30em;
-     background-image: url("../images/person_cover.jpeg");
+     height: 400px;
+     background-image: url("/resources/images/person_cover.jpeg");
      background-position-y: -5em;
  }
     .cover .wrapper{
-        margin-top:14.5em;
+        margin-top:200px;
         width: 10em;
         text-align: center;
     }
@@ -35,6 +34,7 @@
             font-size: 2em;
             color: white;
             opacity: 0.9;
+            margin:10px 0px;
         }
         .cover #simple_data>p{
             color: white;
@@ -51,6 +51,8 @@
  font-family: 'Times New Roman', Times, serif;
  text-decoration: none;
  color: black;
+ min-height: 435px;
+ padding-top:5px;
 }
 
 .pj-box{
@@ -58,6 +60,5 @@
     display: flex;
     flex-flow: row wrap;
     margin-left: 1em;
-    min-height: 310px;
     overflow: hidden;
 }
