@@ -46,7 +46,7 @@ public class UpdateServiceImp implements UpdateService {
 
     }
 
-    public boolean updateModel(User user, String model, MultipartFile[] files) {
+    public boolean updateModel(User user, String model, MultipartFile[] files,String lContext) {
         JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[] {"yyyy-MM-dd"}) );
         Model mo=(Model)JSONObject.toBean(JSONObject.fromObject(model),Model.class);
         if(files.length!=0){
@@ -74,7 +74,7 @@ public class UpdateServiceImp implements UpdateService {
         }
         Log log=new Log();
         log.setProject(mo.getProject());
-        log.setlContext(user.getuUsername()+"对模型"+mo.getmId()+"进行了上传");
+        log.setlContext(lContext);
         boolean flag=false;
         try {
             logDao.addLog(log);

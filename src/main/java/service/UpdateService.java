@@ -13,7 +13,7 @@ public interface UpdateService {
      */
     public void UpdateProject(String project, MultipartFile file);
 
-    public boolean updateModel(User user, String model, MultipartFile[] multipartFile);
+    public boolean updateModel(User user, String model, MultipartFile[] multipartFile,String lContext);
 
     public boolean updateLogContext(Long lId,String lContext);
 

@@ -143,7 +143,7 @@
             </el-card>
         </el-row>
         <!-- 编辑日志内容的Form -->
-        <el-dialog title="编辑日志内容" :visible.sync="editContentFormVisible">
+        <el-dialog title="编辑日志内容" :visible.sync="editFormVisible">
             <el-form :model="editForm" ref="editForm" >
                 <el-form-item>
                     <el-input
@@ -157,7 +157,7 @@
                 <el-form-item>
                     <el-button
                         type="primary"
-                        @click="editContentFormVisible = false;submiteditForm();"
+                        @click="editFormVisible = false;submiteditForm();"
                     >确认修改</el-button>
                     <el-button @click="reseteditForm();">重置</el-button>
                 </el-form-item>
@@ -230,7 +230,7 @@ export default {
                 }
             ],
             editForm:{lId: 0, lContext: ""},
-            editContentFormVisible: false,
+            editFormVisible: false,
             currentUser: {
                 mId: 1,
                 mUsername: "hejizi"

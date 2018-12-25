@@ -46,13 +46,13 @@ public class ModelController {
     }
 
     @PostMapping(value = "/upmodel")
-    public boolean upDateModel(@RequestParam("model") String model, HttpServletRequest request) {
+    public boolean upDateModel(@RequestParam("model") String model,@RequestParam("lContext")String lContext, HttpServletRequest request) {
         MultipartFile[] files = null;
         if (request instanceof MultipartHttpServletRequest) {
             files = MyFileUtil.getFiles(request);
         }
         User user = (User) request.getSession().getAttribute("user");
-        return updateService.updateModel(user, model, files);
+        return updateService.updateModel(user, model, files,lContext);
     }
     @PostMapping(value = "/model")
     public long addModel(HttpServletRequest request, @RequestBody Model model){
