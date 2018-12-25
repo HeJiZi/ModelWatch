@@ -21,8 +21,44 @@
                         style="border:none;font-size: 1em;font-weight: bold"
                 >{{model.mName}}</el-button>
             </h3>
-            <div class="submitButton" @click="upload">上传模型</div>
+            <div class="submitButton" @click="editFormVisible=true">上传模型</div>
+
         </nav>
+        
+                    <!-- 上传模型日志内容的Form -->
+            <el-dialog title="编辑上传模型日志内容" :visible.sync="editFormVisible">
+                <el-form :model="editForm" ref="editForm" >
+                    <el-form-item>
+                        <el-upload
+                            drag 
+                            multiple 
+                            name="file"
+                            action="https://jsonplaceholder.typicode.com/posts/">
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">将模型文件拖到此处，或<em>点击选择文件</em></div>
+                             <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploadModel">确认上传</el-button>
+                        </el-upload> 
+                    </el-form-item>
+                    <el-form-item>
+                        <el-input
+                            v-model="editForm.lContext"
+                            type="textarea"
+                            name="lContext"
+                            :autosize="{ minRows: 4, maxRows: 6}"
+                            placeholder="请输入日志内容" 
+                            autocomplete="off"
+                        ></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button
+                            type="primary"
+                            @click="editFormVisible = false;upload();"
+                        >确认修改</el-button>
+                        <el-button @click="reseteditForm();">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+            <!-- 上传模型日志内容的Form -->
         <ul class="menubar">
             <label for="temp">文件</label>
             <label>设置</label>
@@ -55,9 +91,7 @@
                 <li>{{label_dire}}组件</li>
             </ul>
 
-            <section id="3dcanvas" :style="{height:vheight+'px',width:cwidth+'px'}"
-                    onmousewheel="mousescale(event)" onmousedown="pushControl(event)"
-                    onmouseup="upControl(event)" onmouseleave="moveclean()">
+            <section id="3dcanvas" :style="{height:vheight+'px',width:cwidth+'px'}">
             </section>
             <section class="creatComp" >
                     <el-tabs :style="{height:vheight+'px',width:rwidth+'px'}" type="border-card">
@@ -103,8 +137,36 @@ var mesh
 var width,height
 var center=new Object3D()
 
+function InitEvent(em){
+
+    em.onmousedown = pushControl;
+    em.onmouseup = upControl;
+    em.onmouseleave = moveclean;
+    
+    var pressflag = false;
+
+    document.onkeydown = event=>{
+        if(event.keyCode == 18&&!pressflag){
+            event.preventDefault();
+            pressflag = true;
+            em.onmousewheel = wheelEvent => {
+                wheelEvent.preventDefault();
+                mousescale(wheelEvent,camera,scene,renderer);
+            }
+        }
+    }
+
+    document.onkeyup = event => {
+        pressflag = false;
+        em.onmousewheel = null;
+    }
+    
+}
+
 function initThree(obj) {
-    var c=document.getElementById('3dcanvas')
+    var c=document.getElementById('3dcanvas');
+    
+    InitEvent(c);
     width = c.clientWidth
     height = c.clientHeight
     renderer = new WebGLRenderer({
@@ -202,10 +264,10 @@ export default {
     data(){
         return{
             model:{
-                mId:1,
+                mId:3,
                 mData:'/static/3.json',
-                mName:'',
-                project:{
+                mName:'篮球',
+                project:{ 
                     pId:1,
                     pName:'',
                 }
@@ -227,6 +289,10 @@ export default {
                 label: 'label'
             },
             inputVisible: false,
+            editFormVisible: false,
+            editForm:{
+                lContext:null
+            },
             inputValue: '',
             modelLoading:true,       
         }
@@ -272,27 +338,29 @@ export default {
                 renderer.render(scene,camera)
             }
         },
-        upload:function(){
+        submitUploadModel:function(){
             var iurl=document.getElementById('canvas').toDataURL('image/png')
             var image=dataURLtoFile(iurl,"preview.png")
 
+            console.log(this.file);
 
             var formdata=new FormData();
             formdata.append("preview",image)
             formdata.append("file",this.file);
 
             formdata.append("model",JSON.stringify(this.model))
-            this.$http.post(
-                '/upmodel',
-                // 请求体中要发送给服务端数据
-                formdata,
-                {
-                    processData: false,       //必不可缺
-                    contentType: false,
-                }
-            ).then((response)=>{
-                alert("更改成功")
-            });
+            //console.log(formdata);
+            // this.$http.post(
+            //     '/upmodel',
+            //     // 请求体中要发送给服务端数据
+            //     formdata,
+            //     {
+            //         processData: false,       //必不可缺
+            //         contentType: false,
+            //     }
+            // ).then((response)=>{
+            //     alert("更改成功")
+            // });
         },
         initObject:function(){
             // instantiate a loader
