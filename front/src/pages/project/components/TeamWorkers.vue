@@ -199,7 +199,7 @@
                 }); 
                 this.$http.get('/api/user/findMail/'+this.name).then((response)=>{
                       this.uMail=response.data.list[0].uEmail;
-                      this.$http.post('/api/invitation/sendMail?name='+'HeJiZi'+'&uMail='+this.uMail+'&pId='+1).then((response)=>{
+                      this.$http.post('/api/invitation/sendMail?name='+'HeJiZi'+'&uMail='+this.uMail+'&pId='+1+'&myName='+this.name).then((response)=>{
                         if(!response.data){alert("已发送邮件！");}           
                       });
                 });

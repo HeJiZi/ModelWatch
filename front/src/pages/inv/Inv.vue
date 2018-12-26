@@ -8,9 +8,9 @@
             <div class="inv">
                 <el-row style="font-size:20px;margin-bottom:30px;padding-top:20px;font-family:'Times New Roman', Times, serif;">邀请信息</el-row>
                 <el-row>
-                    <img src='/static/images/temp.jpeg' class="figure">
+                    <img :src='serv_root+this.figure1' class="figure">
                     <i class="el-icon-plus" style="margin:0px 30px"></i>
-                    <img src='/static/images/temp.jpeg' class="figure" >
+                    <img :src='serv_root+this.figure2' class="figure" >
                 </el-row>    
                 <el-row>
                     <div style="padding-top:40px;padding-bottom:20px;">
@@ -76,12 +76,17 @@
 
 <script>
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
+import {serv_root} from '@config'
 export default {
     data(){
         return{
+            serv_root:serv_root,
             userName:'',
             pidName:'',
             pid:'',
+            figure1:'',
+            figure2:'',
+            myName:''
         }
     },
     methods:{
@@ -103,9 +108,15 @@ export default {
     created(){
         this.userName=this.$route.params.name;
         this.pid=this.$route.params.pId;
+        this.myName=this.$route.params.myName;
         this.$http.get('/api/project/data/'+this.pid).then((Response)=>{
                    this.pidName=Response.data.pName; 
         });
+        // this.$http.get('/api/invitation/findMessage/'+this.pid+'/'+this.userName+'/'+this.myName).then((Response)=>{
+        //            this.pidName=Response.data.pName; 
+        //            this.figure1=Response.data.manager.uAvater;
+        //            this.figure2=Response.data.collaborator.uAvater;
+        // });
     },
     components:{mwNav}
 }
