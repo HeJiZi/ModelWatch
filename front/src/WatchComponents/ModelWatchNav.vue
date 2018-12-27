@@ -28,7 +28,7 @@
                                     <span>{{user.uModelNum}}</span>
                                 </div>
                                 <div class="footer">
-                                    <div class="quit_button">退出</div>
+                                    <div @click="quit" class="quit_button">退出</div>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ export default {
             this.cs.menu_style.opacity = "0";
         },
         quit: function () {
-            window.open('/sign')
+            window.location.href='/sign';
         },
         search: function () {
             console.log("search invoke!");

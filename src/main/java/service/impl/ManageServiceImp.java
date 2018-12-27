@@ -32,10 +32,9 @@ public class ManageServiceImp implements ManageService {
     ModelDao modelDao;
 
     @Transactional
-    public boolean createProject(User user, String project, MultipartFile file) {
+    public Long createProject(User user, String project, MultipartFile file) {
         String[] fileName=file.getOriginalFilename().split("\\.");
         String suffix=fileName[fileName.length-1];
-
 
         int res;
         Project pj= (Project) JSONObject.toBean(JSONObject.fromObject(project),Project.class);
@@ -52,13 +51,12 @@ public class ManageServiceImp implements ManageService {
         try {
             res = projectDao.addProject(pj);
             if (res == 0)
-                return false;
+                return 0L;
             logDao.addLog(log);
         }
         catch (CreateProException e){
             throw e;
         }
-
 
         try {
             File outDir =new File(MyFileUtil.getResourcesUrl()+"/upload/pjCover");
@@ -69,7 +67,9 @@ public class ManageServiceImp implements ManageService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
+
+        user.setuProjectNum(user.getuProjectNum()+1);
+        return pj.getpId();
     }
 
     @Transactional
@@ -88,6 +88,7 @@ public class ManageServiceImp implements ManageService {
         catch (Exception e){
             e.printStackTrace();
         }
+        user.setuModelNum(user.getuModelNum()+1);
         return true;
     }
 }

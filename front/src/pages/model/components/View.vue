@@ -8,7 +8,7 @@
             </article>
 
             <div class="rightbar" style="opacity: 1">
-                <a title="切换模式" style="cursor:pointer" @click="$router.push({path:`/${$route.params.id}/editor`})">
+                <a title="切换模式" style="cursor:pointer" @click="$router.push({path:`/${$route.params.mId}/editor`})">
                     <div class="mw-icon transbutton"></div>
                 </a>
                 <div title="收藏" @click="mark">
@@ -160,11 +160,10 @@ export default {
         return{
             modelLoading:true,
             model:{
-                mId:1,
-                mData: '/resources/2.json'
+                mData: ''
             },
             markInfo: false,
-            uId: 1,
+            uId: 0,
             width: 0,
             height: 0,
             opacity: 0,
@@ -196,10 +195,9 @@ export default {
             renderer.render(scene, camera)
         }
         document.oncontextmenu = function () { return false; }
-        // this.getModel();
+        this.getModel();
     },
     mounted: function(){
-        this.init3D();
     },
     computed: {
         switch_h: function () {
@@ -255,9 +253,8 @@ export default {
             window.location.href = '../';
         },
         getModel:function(){
-            var url=window.location.href;
-            var id=url.substr(url.lastIndexOf('/')+1,url.length);
-            this.$http.get('/model/'+id).then((response)=>{
+            var id=this.$route.params.mId
+            this.$http.get('/api/model/'+id).then((response)=>{
                 this.model=response.data;
                 this.init3D();
                 this.getMarkInfo()
@@ -265,7 +262,7 @@ export default {
         },
         mark: function(){
             if (this.markInfo) {
-                this.$http.post('/mark/deleteMark',{
+                this.$http.post('/api/mark/deleteMark',{
                     uid:this.uId ,
                     mid: this.model.mId
                 },
@@ -279,7 +276,7 @@ export default {
                 })
             }
             else {
-                this.$http.post('/mark/addMark',{
+                this.$http.post('/api/mark/addMark',{
                     uid:this.uId ,
                     mid: this.model.mId
                 },
@@ -294,19 +291,20 @@ export default {
             }
         },
         getMarkInfo: function(){
-            this.$http.get('/user').then((response)=>{
+            this.$http.get('/api/user').then((response)=>{
                 this.uId = response.data.uId
+                this.$http.post('/api/mark/selectMark',{
+                    uid: this.uId ,
+                    mid: this.model.mId
+                },
+                {
+                    emulateJSON:true
+                }).then((response)=>{
+                    this.markInfo = response.data==1? true:false
+                    console.log(this.markInfo)
+                })                
             })
-            this.$http.post('/mark/selectMark',{
-                uid: this.uId ,
-                mid: this.model.mId
-            },
-            {
-                emulateJSON:true
-            }).then((response)=>{
-                this.markInfo = response.data==1? true:false
-                console.log(this.markInfo)
-            })
+
         },
         init3D: function () {
 

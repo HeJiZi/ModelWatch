@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="normalnav">
-            <a title="切换模式"  @click="$router.push({path:`/${$route.params.id}`})" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px;cursor:pointer"></a>
+            <a title="切换模式"  @click="$router.push({path:`/${$route.params.mId}`})" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px;cursor:pointer"></a>
             <a title="项目名" :href="'/project/'+model.project.pId" style="margin-left: 5px">
                 <h3>{{model.project.pName}}</h3>
             </a>

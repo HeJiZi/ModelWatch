@@ -30,17 +30,17 @@
             <section class="preview">
                 <div class="pv_wrapper">
                         <div class="pj-box" >
-                            <template v-if="selectedIndex=='project'">
-                                <mw-photo  v-for="project in projects" :key="project.id" :name="project.pName" :time="project.pCreateTime" 
-                                :img_url="project.pPreview" height="200px" :redirect="'/project#/'+project.pId"/>
+                            <template v-if="selectedIndex=='projects'">
+                                <mw-photo  v-for="project in projects" :key="project.pId" :name="project.pName" :time="project.pCreateTime" 
+                                :img_url="project.pPreview" height="250px" :redirect="'/project#/'+project.pId"/>
                                 
                             </template>
                             <template v-else-if="selectedIndex=='subScribes'">
-                                <mw-photo v-for="subpro in subPros" :key="subpro.id" :name="subpro.pName" :time="subpro.pCreateTime" 
-                                :img_url="subpro.pPreview" height="200px" :redirect="'/project#/'+subpro.pId"/>
+                                <mw-photo v-for="subpro in subPros" :key="subpro.pId" :name="subpro.pName" :time="subpro.pCreateTime" 
+                                :img_url="subpro.pPreview" height="250px" :redirect="'/project#/'+subpro.pId"/>
                             </template>
                             <template v-else-if="selectedIndex=='mark'">
-                                <mw-photo v-for="model in markModels" :key="model.id" :name="model.mName" :time="model.mCreateTime" 
+                                <mw-photo v-for="model in markModels" :key="model.mId" :name="model.mName" :time="model.mCreateTime" 
                                 :img_url="model.mPreview" height="150px" :redirect="'/model#/'+model.mId"/>
                             </template>
                         </div>
@@ -73,6 +73,29 @@ export default {
             ],
             selectedIndex:'projects',
         }
+    },
+    created(){
+        var id=this.$route.params.uId;
+        var obj =this;
+        this.$http.get('/api/zone/data/'+id).then((response)=>{
+            obj.user=response.data
+        })
+        this.$http.get('/api/zone/JoinPros/'+id).then((response) => {
+            obj.projects=response.data;
+        }, (response) => {
+            // 响应错误回调
+        });
+        this.$http.get('/api/zone/SubPros/'+id).then((response) => {
+            obj.subPros=response.data;
+        }, (response) => {
+            // 响应错误回调
+        });
+        this.$http.get('/api/zone/MarkModels/'+id).then((response) => {
+
+            obj.markModels=response.data;
+        }, (response) => {
+            // 响应错误回调
+        });
     },
     methods:{
         handleSelect(key,keyPath){
