@@ -41,4 +41,23 @@
     <delete id="deleteWaitItem">
         delete from invitation where Inv_pid=#{pId} and Inv_uid=(select U_id from user where U_username=#{uName}) and Inv_State=0
     </delete>
+
+    <select id="findMessage" resultType="Invitation">
+        select
+            p.U_username "manager.uUsername",
+            u.U_avater "collaborator.uAvater",
+            p.P_name "project.pName",
+            p.U_avater "manager.uAvater"
+        from invitation i,user u,
+            (select pj.P_id,P_name,mr.U_avater,mr.U_username from project pj,user mr where pj.P_Uid = mr.U_id) p
+        where p.P_id=#{pId} and u.U_username =#{myName} and i.Inv_pid = p.P_id and i.Inv_uid = u.u_id
+    </select>
+
+    <select id="getMailByName" resultType="User">
+        select * from user WHERE U_username=#{myName}
+    </select>
+
+    <select id="getUserName" resultType="User">
+        select u.U_username from user u,project p where u.U_id=p.P_Uid and p.P_id=#{pId}
+    </select>
 </mapper>

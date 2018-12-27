@@ -49,10 +49,4 @@ public class UserControler {
         return  userService.selectByName(uName);
     }
 
-    @ResponseBody
-    @RequestMapping(value="/findMail/{uName}",method = RequestMethod.GET)
-    public ListDto getUmail(@PathVariable("uName") String uName){
-        return userService.getUmailByName(uName);
-    }
-
 }

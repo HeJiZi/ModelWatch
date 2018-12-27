@@ -2,6 +2,7 @@ package service.impl;
 
 import bean.*;
 import dao.*;
+import dto.InvitationDto;
 import dto.ListObject;
 import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +98,14 @@ public class SelectServiceImp implements SelectService {
         page.setCurrentPageNum(currentPage);
         List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
         return new ListObject(users,page);
+    }
+
+    public InvitationDto findInvMessage(long pId,String myName){
+        Invitation invitation=invitationDao.findMessage(pId,myName);
+        String uAvater=invitation.getManager().getuAvater();
+        String uUsername=invitation.getManager().getuUsername();
+        String mAvater=invitation.getCollaborator().getuAvater();
+        String pName=invitation.getProject().getpName();
+        return (new InvitationDto(uAvater,uUsername,mAvater,pName));
     }
 }

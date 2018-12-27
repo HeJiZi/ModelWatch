@@ -48,7 +48,4 @@
         select * FROM user WHERE U_username like concat(#{uName},'%')
     </select>
 
-    <select id="getMailByName" resultType="User">
-        select * from user WHERE U_username=#{uName}
-    </select>
 </mapper>
