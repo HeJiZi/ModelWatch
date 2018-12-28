@@ -65,6 +65,12 @@ Vue.use(VueResource)
 export default {
     name: 'mw-nav',
     inheritAttrs: false,
+    props:{
+        uAvater:{
+            type:String,
+            default: '',
+        }
+    },
     created(){
         this.$http.get('/api/user').then((response)=>{
             var data=response.data
@@ -124,6 +130,11 @@ export default {
             window.open(this.creat_url);
         }
     },
+    watch:{
+        uAvater(val,oldVal){
+            this.user.uAvater = val;
+        }
+    }
 }
 </script>
 

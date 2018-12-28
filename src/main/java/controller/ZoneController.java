@@ -68,6 +68,7 @@ public class ZoneController {
         sus.setuEmail(us.getuEmail());
         sus.setuSex(us.getuSex());
         sus.setuUsername(us.getuUsername());
+        sus.setuSignature(us.getuSignature());
 
         return true;
     }

@@ -99,7 +99,7 @@ export default {
             formdata.append("file",file);
             formdata.append("user",JSON.stringify(this.user))
             this.$http.post(
-                '/zone/data',
+                '/api/zone/data',
                 // 请求体中要发送给服务端数据
                 formdata,
                 {
@@ -108,12 +108,12 @@ export default {
                 }
             ).then((response)=>{
                 alert("更改成功")
+                this.$emit('profileChange',this.user.uAvater)
             });
 
 
         },
         varifyPass:function (event) {
-            console.log(11);
             if(event.target.value!=this.user.uPassword){
                 this.aldis=''
                 this.alType="error"
@@ -129,11 +129,11 @@ export default {
         ,
         updatePass:function () {
             this.$http.put(
-                '/zone/pass',
+                '/api/zone/pass',
                 // 请求体中要发送给服务端数据
                 {
-                        uId:this.user.uId,
-                        uPassword:this.user.uPassword
+                    uId:this.user.uId,
+                    uPassword:this.user.uPassword
                 },
                 {
                     headers: {

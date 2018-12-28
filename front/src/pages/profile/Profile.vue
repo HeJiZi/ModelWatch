@@ -1,6 +1,6 @@
 <template>
     <div>
-        <mw-nav/>
+        <mw-nav :uAvater="uAvater"/>
         <!-- <div style="background:#e6e6e6;margin:0px;padding:0px;height:1px;"/> -->
         <div style="max-width:1280px;min-width:800px;margin:5px auto;display:flex;">
             <nav style="width:15%;margin-right:5px;">
@@ -15,7 +15,7 @@
                     </el-menu-item>
                 </el-menu>
             </nav>
-            <router-view style="width:80%;background:white;"/>
+            <router-view @profileChange="profileChange" style="width:80%;background:white;"/>
         </div>
     </div>
 </template>
@@ -29,6 +29,16 @@ body{
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
 
 export default {
+    data(){
+        return{
+            uAvater:'',
+        }
+    },
+    methods:{
+        profileChange(uAvater){
+            this.uAvater = uAvater
+        }
+    },
     components:{mwNav}
 }
 </script>
