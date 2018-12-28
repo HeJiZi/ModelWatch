@@ -1,6 +1,7 @@
 package service;
 
 import bean.*;
+import dto.InvitationDto;
 import dto.ListObject;
 import entity.Page;
 
@@ -46,4 +47,6 @@ public interface SelectService {
     List<Model> selectModel(long pId);
 
     ListObject selectCollaborators(long pId, int currentPage);
+
+    InvitationDto findInvMessage(long pId,String myName);
 }

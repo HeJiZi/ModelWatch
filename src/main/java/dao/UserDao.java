@@ -61,5 +61,4 @@ public interface UserDao {
 
     List<User> selectUname(@Param("uName") String Uname);
 
-    List<User> getMailByName(@Param("uName") String uName);
 }

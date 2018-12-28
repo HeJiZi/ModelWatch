@@ -1,5 +1,6 @@
 package service;
 
 public interface InsertService {
-    int addInvByUnameAndPid(Long pid,String uUsername);
+
+    int addCollaborator(Long pId,String myName);
 }

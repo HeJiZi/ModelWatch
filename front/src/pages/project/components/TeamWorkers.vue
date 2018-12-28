@@ -17,7 +17,7 @@
             <template slot-scope="{item}">
               <div style="margin:10px 0px;">
                 <div class="avatar" style="width:30px;height:30px">
-                  <img :src='serv_root+item.uAvater' width="30px" height="30px" >
+                  <img :src='item.uAvater' width="30px" height="30px" >
                 </div>
                 <span style="color: #564545;margin-left: 5px;font-size: 10px;">{{item.uUsername}}</span>
               </div>
@@ -42,7 +42,7 @@
                   </span>
                   <div slot="reference" class="name-wrapper" >
                     <div class="avatar">
-                      <img :src='serv_root+scope.row.uAvater' width="60px" height="60px" >
+                      <img :src='scope.row.uAvater' width="60px" height="60px" >
                     </div>
                   </div>
                 </el-popover>
@@ -145,11 +145,9 @@
   }
 </style>
 <script>
-  import {serv_root} from '@config'
   export default {
     data() {
       return {
-        serv_root:serv_root,
         users: [],
         name:'',
         inputBoxHeight:'0px',
@@ -157,18 +155,7 @@
         focusState:false,
         totalNum:0,
         uMail:'',
-        collaborators: [
-        // {
-        //   uId:1,
-        //   uUsername: 'HeJiZi',
-        //   uSignature:'太阳照常升起',
-        //   invTime:'2018-12-07 12:00:00',
-        //   uAvater:'/static/images/temp.jpeg',
-        //   uEmail:"129312398@qq.com",
-        //   uBirthday:'2018-07-05',
-        //   invState: '0'
-        // }, 
-        ]
+        collaborators: [],
       };
     },
     methods:{
@@ -192,21 +179,13 @@
           this.name='';
         }
         if(this.name!=null&&this.name.length!=0){
-            this.$http.post('/api/invitation/'+1+'/'+this.name).then((response)=>{
-                this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
-                      this.collaborators=response.data.list;
-                      this.totalNum=response.data.page.totalNum;
-                }); 
-                this.$http.get('/api/user/findMail/'+this.name).then((response)=>{
-                      this.uMail=response.data.list[0].uEmail;
-                      this.$http.post('/api/invitation/sendMail?name='+'HeJiZi'+'&uMail='+this.uMail+'&pId='+1+'&myName='+this.name).then((response)=>{
-                        if(!response.data){alert("已发送邮件！");}           
-                      });
-                });
-            })
-            .catch((response)=>{
-                alert("邀请失败！");
+          this.$http.get('/api/invitation/addCollaborators/'+this.$route.params.pId+'/'+this.name).then((response)=>{
+            this.$http.get('/api/invitation?pId='+this.$route.params.pId+'&currentPage='+this.page).then((response)=>{
+                this.collaborators=response.data.list;
+                this.totalNum=response.data.page.totalNum;
             });
+            if(response.data==0){alert("已发送邮件！");}
+          });
         }
       },
       handleSelect(item) {
@@ -265,9 +244,7 @@
       }
     },
     mounted(){
-      console.log(serv_root);
-      var obj =this;
-      this.$http.get('/api/invitation?pId='+obj.$route.params.pId+'&currentPage='+this.page).then((response)=>{
+      this.$http.get('/api/invitation?pId='+this.$route.params.pId+'&currentPage='+this.page).then((response)=>{
                 this.collaborators=response.data.list;
                 this.totalNum=response.data.page.totalNum;
             });
