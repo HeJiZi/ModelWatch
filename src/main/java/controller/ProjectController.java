@@ -35,10 +35,10 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public boolean UpdateData(@RequestParam("project") String project, HttpServletRequest request){
+    public Long AddProject(@RequestParam("project") String project, HttpServletRequest request){
         User user= (User) request.getSession().getAttribute("user");
         if(user==null||!(request instanceof MultipartHttpServletRequest))
-            return false;
+            return 0L;
         MultipartFile file=null;
         file=MyFileUtil.getFile(request);
         return manageService.createProject(user,project,file);

@@ -3,8 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
+    <resultMap id="user" type="User">
+        <id property="uId" column="u_id"></id>
+        <result property="uUsername" column="u_username"></result>
+        <result property="uAvater" column="u_avater"></result>
+    </resultMap>
+
+    <resultMap id="userInReply" type="User">
+        <id property="uId" column="r_u_id"></id>
+        <result property="uUsername" column="r_u_username"></result>
+        <result property="uAvater" column="r_u_avater"></result>
+    </resultMap>
+
     <select id="selectUserByUid" resultType="User">
-        SELECT U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature FROM User where U_Id=#{uId};
+        SELECT U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature FROM user where U_Id=#{uId};
     </select>
     <select id="selectUserByUNAndPass" resultType="User">
         select U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature,
@@ -48,7 +60,4 @@
         select * FROM user WHERE U_username like concat(#{uName},'%')
     </select>
 
-    <select id="getMailByName" resultType="User">
-        select * from user WHERE U_username=#{uName}
-    </select>
 </mapper>

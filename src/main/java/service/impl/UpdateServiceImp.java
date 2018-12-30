@@ -1,13 +1,7 @@
 package service.impl;
 
-import bean.Log;
-import bean.Model;
-import bean.Project;
-import bean.User;
-import dao.InvitationDao;
-import dao.LogDao;
-import dao.ModelDao;
-import dao.ProjectDao;
+import bean.*;
+import dao.*;
 import exception.UpdateModelException;
 import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
@@ -36,6 +30,13 @@ public class UpdateServiceImp implements UpdateService {
 
     @Autowired
     private InvitationDao invitationDao;
+
+    @Autowired
+    private ReplysDao replysDao;
+
+    @Autowired
+    private CommentsDao commentsDao;
+
     /**
      * 更改项目资料
      *
@@ -95,5 +96,21 @@ public class UpdateServiceImp implements UpdateService {
 
     public int changeInvState(Long pid,String uName){
         return (invitationDao.alterInvState(pid,uName));
+    }
+
+    public boolean updateCommentIdeaNum(int comId, int idea) {
+        if (idea == 1) {
+            return commentsDao.UpdateCommentPositiveNum(comId) == 1 ?true:false;
+        } else {
+            return commentsDao.UpdateCommentObjectiveNum(comId) == 1 ?true:false;
+        }
+    }
+
+    public boolean updateReplyIdeaNum(int repId, int idea) {
+        if (idea == 1) {
+            return replysDao.UpdateReplyPositiveNum(repId) == 1 ?true:false;
+        } else {
+            return replysDao.UpdateReplyObjectiveNum(repId) == 1 ?true:false;
+        }
     }
 }

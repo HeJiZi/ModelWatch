@@ -28,7 +28,7 @@
                                     <span>{{user.uModelNum}}</span>
                                 </div>
                                 <div class="footer">
-                                    <div class="quit_button">退出</div>
+                                    <div @click="quit" class="quit_button">退出</div>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +65,12 @@ Vue.use(VueResource)
 export default {
     name: 'mw-nav',
     inheritAttrs: false,
+    props:{
+        uAvater:{
+            type:String,
+            default: '',
+        }
+    },
     created(){
         this.$http.get('/api/user').then((response)=>{
             var data=response.data
@@ -112,7 +118,7 @@ export default {
             this.cs.menu_style.opacity = "0";
         },
         quit: function () {
-            window.open('/sign')
+            window.location.href='/sign';
         },
         search: function () {
             console.log("search invoke!");
@@ -124,6 +130,11 @@ export default {
             window.open(this.creat_url);
         }
     },
+    watch:{
+        uAvater(val,oldVal){
+            this.user.uAvater = val;
+        }
+    }
 }
 </script>
 

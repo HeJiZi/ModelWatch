@@ -110,17 +110,18 @@ export default {
     data(){
         return{
             models:[
-                {mId:1,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:2,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:3,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:4,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:5,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
+
             ]
       
         }
     },
     methods:{
 
+    },
+    created(){
+        this.$http.get('/api/model').then((response)=>{
+            this.models = response.data
+        })
     },
     mounted(){
         m_threeStart()

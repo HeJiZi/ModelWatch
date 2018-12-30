@@ -10,7 +10,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/:id',
+      path: '/:mId',
       component: Display,
       children: [
         {
@@ -23,7 +23,7 @@ export default new Router({
       ]
     },
     {
-      path: '/:id/editor',
+      path: '/:mId/editor',
       component: Editor,
     }
   ]

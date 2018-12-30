@@ -1,11 +1,11 @@
 package service;
 
 import bean.*;
+import dto.InvitationDto;
 import dto.ListObject;
 import entity.Page;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface SelectService {
@@ -36,7 +36,7 @@ public interface SelectService {
 
     List<User>  selectUser(String content);
 
-    List<Comment> getCommentsInModel(String mId);
+    List<Comment> getCommentsInModel(String mId, Page page);
 
     Project selectProject(long pId);
 
@@ -46,4 +46,7 @@ public interface SelectService {
     List<Model> selectModel(long pId);
 
     ListObject selectCollaborators(long pId, int currentPage);
+
+    List<Reply> selectReplysById(int comId);
+    InvitationDto findInvMessage(long pId,String myName);
 }

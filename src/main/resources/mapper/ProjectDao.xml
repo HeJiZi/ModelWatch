@@ -31,7 +31,7 @@
         select P_id,P_createTime,P_name,P_preview,P_context from project where P_id=#{pid}
     </select>
 
-    <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="User">
+    <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="Project">
         insert ignore into project(P_name,P_preview,P_context,P_Uid) values
             (#{pName},#{pPreview},#{pContext},#{user.uId})
     </insert>

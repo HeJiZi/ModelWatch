@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ReplysDao">
+
+    <resultMap id="reply" type="Reply">
+        <id property="repId" column="rep_id"></id>
+        <result property="repContent" column="rep_content"></result>
+        <result property="repLikeNum" column="rep_like_num"></result>
+        <result property="repDisLikeNum" column="rep_dislike_num"></result>
+        <result property="repCreateTime" column="rep_create_time"></result>
+        <result property="repState" column="rep_state"></result>
+        <result property="repRId" column="rep_r_id"></result>
+        <result property="repState" column="rep_state"></result>
+
+        <collection property="user" resultMap="dao.UserDao.userInReply"></collection>
+
+    </resultMap>
+
+    <select id="SelectReplysByComId" resultMap="reply">
+        select  rep_id, rep_content, rep_like_num, rep_dislike_num, rep_create_time,
+                rep_r_id, rep_u_id,
+                U_id r_u_id, U_avater r_u_avater, U_username r_u_username
+              from reply,user
+              where U_id=rep_u_id
+              and rep_com_id = #{comId}
+              and rep_state = 1
+              order by rep_create_time
+    </select>
+
+    <update id="UpdateReplyPositiveNum">
+        UPDATE reply SET rep_like_num=rep_like_num+1 where rep_id=#{repId}
+    </update>
+
+    <update id="UpdateReplyObjectiveNum">
+        UPDATE reply SET rep_dislike_num=rep_dislike_num+1 where rep_id=#{repId}
+    </update>
+
+    <insert id="AddReply">
+        <!--<selectKey keyProperty="repId" order="BEFORE">-->
+            <!--SELECT LAST_INSERT_ID()-->
+        <!--</selectKey>-->
+        <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
+        <!--VALUES(#{repComId}, #{rep_id}, #{repUId}, #{repType}, #{repContent})-->
+
+        insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)
+        VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})
+
+        <!--<choose>-->
+            <!--<when test="repRId != 1">-->
+                <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
+                <!--VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})-->
+            <!--</when>-->
+            <!--<otherwise>-->
+                <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
+                <!--VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})-->
+            <!--</otherwise>-->
+        <!--</choose>-->
+    </insert>
+
+</mapper>

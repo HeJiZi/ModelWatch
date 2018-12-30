@@ -2,6 +2,7 @@ package service.impl;
 
 import bean.*;
 import dao.*;
+import dto.InvitationDto;
 import dto.ListObject;
 import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class SelectServiceImp implements SelectService {
     @Autowired
     private InvitationDao invitationDao;
 
+    @Autowired
+    private ReplysDao replysDao;
+
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
     }
@@ -44,10 +48,13 @@ public class SelectServiceImp implements SelectService {
         return modelDao.getModelsByMarkUId(Integer.parseInt(uId));
     }
 
-    public List<Comment> getCommentsInModel(String mId){return commentsDao.SelectCommentsByMId(Integer.parseInt(mId));}
+    public List<Comment> getCommentsInModel(String mId, Page page) {
+
+        return commentsDao.SelectCommentsByMIdPage(Integer.parseInt(mId),page);
+    }
 
     public Model selectModelByMId(String mId) {
-        return modelDao.getModelById(Long.valueOf(mId));
+        return modelDao.getModelById(mId);
     }
 
     public User getUserData(String uId) {
@@ -97,5 +104,18 @@ public class SelectServiceImp implements SelectService {
         page.setCurrentPageNum(currentPage);
         List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
         return new ListObject(users,page);
+    }
+
+    public List<Reply> selectReplysById(int comId) {
+        return replysDao.SelectReplysByComId(comId);
+    }
+
+    public InvitationDto findInvMessage(long pId,String myName){
+        Invitation invitation=invitationDao.findMessage(pId,myName);
+        String uAvater=invitation.getManager().getuAvater();
+        String uUsername=invitation.getManager().getuUsername();
+        String mAvater=invitation.getCollaborator().getuAvater();
+        String pName=invitation.getProject().getpName();
+        return (new InvitationDto(uAvater,uUsername,mAvater,pName));
     }
 }

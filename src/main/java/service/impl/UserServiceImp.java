@@ -1,8 +1,10 @@
 package service.impl;
 
 import bean.Comment;
+import bean.Reply;
 import bean.User;
 import dao.CommentsDao;
+import dao.ReplysDao;
 import dao.UserDao;
 import dto.ListDto;
 import net.sf.ezmorph.object.DateMorpher;
@@ -28,6 +30,8 @@ public class UserServiceImp implements UserService {
     @Autowired
     private CommentsDao commentsDao;
 
+    @Autowired
+    private ReplysDao replysDao;
 
     public User updateUserProfile(String user, MultipartFile file) {
         JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[] {"yyyy-MM-dd"}) );
@@ -71,7 +75,12 @@ public class UserServiceImp implements UserService {
     public  User selectUser(int uId){return userDao.selectUserByUid(uId);}
 
     public boolean addComment(Comment comment) {
-        return commentsDao.AddComment(comment) == 1 ?true:false;
+        return commentsDao.AddComment(comment) == 1 ? true:false;
+    }
+
+    public boolean addReply(Reply reply) {
+        boolean res = replysDao.AddReply(reply) == 1 ? true:false;
+        return res;
     }
 
     public ListDto selectByName(String uName){
@@ -83,5 +92,7 @@ public class UserServiceImp implements UserService {
         List<User> users=userDao.getMailByName(uName);
         return new ListDto(users);
     }
+
+
 
 }

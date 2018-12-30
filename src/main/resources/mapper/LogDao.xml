@@ -21,7 +21,7 @@
     </update>
 
     <select id="filterLogPage" resultType="Log">
-        select L_id,L_context,L_Time,U_id "user.U_id",U_username "user.U_username",L_pid "project.pId",P_name "project.pName",M_id "model.mId",M_name "model.mName"
+        select L_id,L_context,L_Time,U_id "user.U_id", U_username "user.U_username", L_pid "project.pId", P_name "project.pName", M_id "model.mId", M_name "model.mName"
         from log,user,project,model where U_id=L_uid and P_id=L_pid and M_id=L_mid
         <if test="beginTime != null and endTime != null">
             AND L_Time between #{beginTime} and #{endTime}

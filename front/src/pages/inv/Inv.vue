@@ -3,18 +3,18 @@
         <mw-nav/>
         <el-card class="box-card">
             <div slot="header" >
-                <span style="padding-left:170px;"><i class="el-icon-message"></i><span style="color:rgb(137, 150, 173);padding-left:10px;">{{userName}}的邀请函</span></span>
+                <span style="padding-left:170px;"><i class="el-icon-message"></i><span style="color:rgb(137, 150, 173);padding-left:10px;">{{invitation.uUsername}}的邀请函</span></span>
             </div>
             <div class="inv">
                 <el-row style="font-size:20px;margin-bottom:30px;padding-top:20px;font-family:'Times New Roman', Times, serif;">邀请信息</el-row>
                 <el-row>
-                    <img :src='serv_root+this.figure1' class="figure">
+                    <img :src='invitation.uAvater' class="figure">
                     <i class="el-icon-plus" style="margin:0px 30px"></i>
-                    <img :src='serv_root+this.figure2' class="figure" >
+                    <img :src='invitation.mAvater' class="figure" >
                 </el-row>    
                 <el-row>
                     <div style="padding-top:40px;padding-bottom:20px;">
-                    <span class="tag"><a href="">@{{userName}}</a>邀请你在{{pidName}}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目上进行协作</span>
+                    <span class="tag"><a href="">@{{invitation.uUsername}}</a>邀请你在{{invitation.pName}}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;项目上进行协作</span>
                     </div>
                 </el-row>
                 <el-row>
@@ -25,7 +25,7 @@
                 </el-row>
                 <el-row>
                     <div style="padding:30px 50px 55px 400px;font-size:18px;text-align:left;">
-                        您可以接受或拒绝这个邀请。您也可以去查阅<a href="">{{pidName}}</a><br>资料库或访问以了解更多...
+                        您可以接受或拒绝这个邀请。您也可以去查阅<a href="">{{invitation.pName}}</a><br>资料库或访问以了解更多...
                     </div>
                 </el-row>
             </div>
@@ -76,22 +76,17 @@
 
 <script>
 import mwNav from '@/WatchComponents/ModelWatchNav.vue'
-import {serv_root} from '@config'
 export default {
     data(){
         return{
-            serv_root:serv_root,
-            userName:'',
-            pidName:'',
             pid:'',
-            figure1:'',
-            figure2:'',
-            myName:''
+            myName:'',
+            invitation:[]
         }
     },
     methods:{
         accept(){
-            this.$http.get('/api/invitation/updateState/'+this.pid+'/'+this.userName).then((Response)=>{
+            this.$http.get('/api/invitation/updateState/'+this.pid+'/'+this.myName).then((Response)=>{
                     if(Response.data){
                         alert("您已接受邀请!");
                     }
@@ -99,24 +94,18 @@ export default {
             });
         },
         decline(){
-            this.$http.get('/api/invitation/deleteWaitState/'+this.pid+'/'+this.userName).then((Response)=>{
+            this.$http.get('/api/invitation/deleteWaitState/'+this.pid+'/'+this.myName).then((Response)=>{
                     if(Response.data==1){alert("您已拒绝!");}
                     else{alert("页面出错");}
             });
         }
     },
     created(){
-        this.userName=this.$route.params.name;
         this.pid=this.$route.params.pId;
         this.myName=this.$route.params.myName;
-        this.$http.get('/api/project/data/'+this.pid).then((Response)=>{
-                   this.pidName=Response.data.pName; 
+        this.$http.get('/api/invitation/findMessage/'+this.pid+'/'+this.myName).then((Response)=>{
+                   this.invitation=Response.data;
         });
-        // this.$http.get('/api/invitation/findMessage/'+this.pid+'/'+this.userName+'/'+this.myName).then((Response)=>{
-        //            this.pidName=Response.data.pName; 
-        //            this.figure1=Response.data.manager.uAvater;
-        //            this.figure2=Response.data.collaborator.uAvater;
-        // });
     },
     components:{mwNav}
 }

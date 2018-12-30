@@ -13,9 +13,9 @@ public interface ManageService {
      * @param user
      * @param project
      * @param multipartFile 预览图文件
-     * @return 创建成功返回true，创建失败返回false
+     * @return 返回项目id
      */
-    boolean createProject(User user, String project, MultipartFile multipartFile);
+    Long createProject(User user, String project, MultipartFile multipartFile);
 
     boolean addModel(User user, Model model, long pId);
 }

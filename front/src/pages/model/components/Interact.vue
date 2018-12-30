@@ -7,13 +7,14 @@
                 :needRepId="0" :keyType="0"
                 :needRepType="0" :comId="0" 
                 :repCom="0" :inputTip="inputTip"
+                v-on:showNewComment="showNewComment"
                 >
             </e-input-panel>
         </div>
         <!-- 评论数量 -->
         <div style="width: 53%; margin: 0 auto">
             <span style="color: #6d757a; font-size: 20px; font-weight: 700; margin-left: 0px">评论数量</span>
-            <span style="color: #409EFF; font-size: 28px; font-weight: 900; margin-left: 5px">{{comments.length}}</span>
+            <span style="color: #409EFF; font-size: 28px; font-weight: 900; margin-left: 5px">{{commentsInfo.totalNum}}</span>
         </div>
         <!-- 评论&回复模板 -->
         <div style="width: 53%; margin: 0 auto">
@@ -29,17 +30,18 @@
                         :avater="comment.user.uAvater" 
                         :replys="comment.replys"
                         :repCom="repCom"
+
                         >
             </mw-comment>
         </div>
         <!-- 分页 -->
         <div style="width: 53%; margin: 0 auto;">
-            <el-pagination v-if="commentsInfo.totalNum >= commentsInfo.pageSize"    
+            <el-pagination v-if="commentsInfo.totalNum >= commentsInfo.number"
                 background
-                :page-size="commentsInfo.pageSize"
+                :page-size="commentsInfo.number"
                 layout="prev, pager, next"
                 :total="commentsInfo.totalNum"
-                :current-page.sync="commentsInfo.curPage"
+                :current-page.sync="commentsInfo.currentPageNum"
                 @next-click="nextPage"
                 @prev-click="prevPage"
                 @current-change="changePage"
@@ -71,104 +73,51 @@ export default {
             // @commentsInfo 评论信息（评论总数，当前页面） 用于分页
             commentsInfo: {
                 totalNum: 200,
-                curPage: 1,
-                pageSize: 8,
+                currentPageNum: 1,
+                number: 5,
+                totalPageNum: 5
             },
             // @comments 列表 评论回复，测试用
-            comments: [{
-                comId: 1, comContent: '这看起来真棒啊', comCreateTime: '2017-09-21 08:12:23', comLikeNum: 10, comDisLikeNum: 0, 
-                user: {uUsername: '隔壁老王', uAvater: '/resources/images/small_logo.png'},
-                replys: [{
-                    repId: 1, repContent: '是啊是啊', repTime: '2017-09-21 09:12:23', repLikeNum: 2, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '小孙', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 2, repContent: '放屁', repTime: '2017-09-21 10:12:23', repLikeNum: 0, repDisLikeNum: 12, repUsername: '小孙',
-                    user: {uUsername: '傻屌', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 25, repContent: '你才放屁', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '傻屌',
-                    user: {uUsername: '舞法天女', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 26, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '26', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 27, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '27', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 28, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '28', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 29, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '29', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 30, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '30', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 31, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '31', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 32, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '32', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 33, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '33', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 34, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '34', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 35, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '35', uAvater: '/resources/images/small_logo.png'}
-                }]
-            }, {
-                comId: 2, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
-                replys: [ {
-                    repId: 37, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '37', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 38, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '38', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 39, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '39', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 40, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '40', uAvater: '/resources/images/small_logo.png'}
-                }]
-            }, {
-                comId: 3, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
-                replys: []
-            }, {
-                comId: 4, comContent: '编不下去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢铁侠', uAvater: '/resources/images/small_logo.png'},
-                replys: [{
-                    repId: 41, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '41', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 42, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '42', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 43, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '43', uAvater: '/resources/images/small_logo.png'}
-                }, {
-                    repId: 44, repContent: 'this is a test', repTime: '2017-09-21 10:18:23', repLikeNum: 10, repDisLikeNum: 0, repUsername: '',
-                    user: {uUsername: '44', uAvater: '/resources/images/small_logo.png'}
-                }]
-            }]
+            comments: [
+              {comId: 1, comContent: '这看起来真棒啊', comCreateTime: '2017-09-21 08:12:23', comLikeNum: 10, comDisLikeNum: 0,
+              user: {uUsername: '隔壁老王', uAvater: '/resources/images/small_logo.png'},
+              replys: [{
+                repId: 1, repContent: '是啊是啊', repCreateTime: '2017-09-21 09:12:23', repLikeNum: 2, repDisLikeNum: 0, repUsername: '',
+                repRId: 1,
+                user: {uUsername: '小孙', uAvater: '/resources/images/small_logo.png'}
+              }]},
+            ],
+            modelId: 0,
         }
     },
 
     created:function() {
-        //Todo:ajax获取评论数据
+        var url = window.location.href;
+        this.modelId = this.$route.params.mId;
+        console.log(this.modelId);
 
-        // var url = window.location.href;
-        // var id = url.substr(url.lastIndexOf('/') + 1, url.length);
-        // this.$http.get('/model/' + id + '/comments').then((response) => {
-        //     this.comments = response.data
-        // })
-        // this.$http.get('/user/').then((response) => {
-        //     this.user = response.data;
-        // })
+        // this.$http.get('/api/model/' + id + '/commentsinfo/' + this.commentsInfo.curPage).then(
+        //   function (response) {
+        //     console.log(response);
+        //     this.commentsInfo = response.data;
+        //   }
+        // );
+
+        this.$http.get('/api/user/').then(
+          function (response) {
+            console.log(response);
+            this.user = response.data;
+          }
+        );
+
+        // 获得评论（包含回复、用户）
+        this.$http.get('/api/model/' + this.modelId + '/comments/' + this.commentsInfo.currentPageNum).then(
+          function (response) {
+            // console.log(response);
+            this.comments = response.data.list;
+            this.commentsInfo = response.data.page;
+          }
+        );
     },
 
     methods:{
@@ -196,21 +145,40 @@ export default {
             this.repCom = data;
         },
 
+        showNewComment(data) {
+          this.commentsInfo.currentPageNum = 1;
+          this.changePage();
+        },
+
         nextPage() {
-            // 测试用
-            this.comments = [{
-                comId: 7, comContent: '编去了', comCreateTime:  '2016-09-21 08:12:23', comLikeNum: 12, comDisLikeNum: 0,
-                user: {uUsername: '钢侠', uAvater: '/resources/images/small_logo.png'},
-                replys: []
-            }]
+          this.$http.get('/api/model/' + this.modelId + '/comments/' + (this.commentsInfo.currentPageNum + 1)).then(
+            function (response) {
+              // console.log(response);
+              this.comments = response.data.list;
+              this.commentsInfo = response.data.page;
+            }
+          );
         },
 
         prevPage() {
-
+            // 获得评论（包含回复、用户）
+            this.$http.get('/api/model/' + this.modelId + '/comments/' + (this.commentsInfo.currentPageNum - 1)).then(
+              function (response) {
+                // console.log(response);
+                this.comments = response.data.list;
+                this.commentsInfo = response.data.page;
+              }
+            );
         },
 
         changePage() {
-       
+          this.$http.get('/api/model/' + this.modelId + '/comments/' + this.commentsInfo.currentPageNum).then(
+            function (response) {
+              // console.log(response);
+              this.comments = response.data.list;
+              this.commentsInfo = response.data.page;
+            }
+          );
         }
 
     },

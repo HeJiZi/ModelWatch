@@ -1,6 +1,7 @@
 package service;
 
 import bean.Comment;
+import bean.Reply;
 import bean.User;
 import dto.ListDto;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +49,7 @@ public interface UserService {
 
     ListDto selectByName(String uName);
 
-    ListDto getUmailByName(String uName);
 
+
+    boolean addReply(Reply reply);
 }

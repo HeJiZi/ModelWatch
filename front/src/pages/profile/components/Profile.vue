@@ -50,7 +50,7 @@
                 </section>
 
                 <section class="pro-input-box">
-                    <el-button @click="updatePass"  type="primary" :disabled="disflag">Update Password</el-button>
+                    <el-button @click="updatePass" size="mini" type="primary" :disabled="disflag">Update Password</el-button>
                 </section>
             </section>
 
@@ -81,8 +81,86 @@ export default {
             },
             disflag:false,
             aldis:'none',
+            alertText:'',
+            alType:"error",
+            file:'',
+        }
+    },
+    created(){
+        this.$http.get('/api/user').then((response)=>{
+            var data=response.data
+            this.user =data;
+        })        
+    },
+    methods:{
+        updateData:function () {
+            var file=this.file;
+            var formdata=new FormData();
+            formdata.append("file",file);
+            formdata.append("user",JSON.stringify(this.user))
+            this.$http.post(
+                '/api/zone/data',
+                // 请求体中要发送给服务端数据
+                formdata,
+                {
+                    processData: false,       //必不可缺
+                    contentType: false,
+                }
+            ).then((response)=>{
+                alert("更改成功")
+                this.$emit('profileChange',this.user.uAvater)
+            });
+
+
+        },
+        varifyPass:function (event) {
+            if(event.target.value!=this.user.uPassword){
+                this.aldis=''
+                this.alType="error"
+                this.alertText="两次输入的密码不一致"
+                this.disflag=true
+            }
+            else {
+                this.alType="success"
+                this.alertText=""
+                this.disflag=false
+            }
+        }
+        ,
+        updatePass:function () {
+            this.$http.put(
+                '/api/zone/pass',
+                // 请求体中要发送给服务端数据
+                {
+                    uId:this.user.uId,
+                    uPassword:this.user.uPassword
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }
+            ).then((response)=>{
+                alert("更改成功")
+            });
+        }
+        ,
+        upload:function(event){
+
+            var oFReader = new FileReader();
+            var file=event.target.files[0];
+            this.file=file;
+
+            oFReader.readAsDataURL(file);
+
+            var obj=this;
+
+            oFReader.onloadend=function (OFRevent) {
+                var src=OFRevent.target.result;
+                obj.user.uAvater=src;
+            }
 
         }
-    }
+    }    
 }
 </script>
