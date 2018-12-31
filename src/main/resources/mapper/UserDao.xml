@@ -4,10 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
     <resultMap id="user" type="User">
-        <id property="uId" column="u_id"/>
-        <result property="uUsername" column="u_username"/>
+        <id property="uId" column="u_id"></id>
+        <result property="uUsername" column="u_username"></result>
+        <result property="uAvater" column="u_avater"></result>
     </resultMap>
 
+    <resultMap id="userInReply" type="User">
+        <id property="uId" column="r_u_id"></id>
+        <result property="uUsername" column="r_u_username"></result>
+        <result property="uAvater" column="r_u_avater"></result>
+    </resultMap>
+    
     <select id="getUserStatic" resultType="User">
         select U_username,
         (select COUNT(*) from log where L_uid = U_id and L_pid=Inv_pid ) submit_num

@@ -1,6 +1,7 @@
 package service;
 
 import bean.Comment;
+import bean.Reply;
 import bean.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,4 +52,6 @@ public interface UserService {
 
 
 
+
+    boolean addReply(Reply reply);
 }

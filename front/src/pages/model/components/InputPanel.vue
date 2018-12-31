@@ -35,6 +35,11 @@ import eInput from './Input.vue'
 export default {
     props:['user', 'repId', 'needRepId', 'keyType', 'needRepType', 'comId', 'repCom', 'inputTip'],
 
+    data() {
+      return {
+      }
+    },
+
     methods: {
         
         activeReply() {
@@ -43,18 +48,56 @@ export default {
 
         // 返回新的评论、回复信息
         returnNewContent(newContent) {
-            alert(newContent);
 
             var url = window.location.href;
-            var id = url.substr(url.lastIndexOf('/') + 1, url.length);
-            this.$http.post('/model/comment',{
-                comContent:newContent,
-                comUId:this.user.uId,
-                comMId:id,
-            }).then((response) => {
-                if(response.data == true) alert("评论成功，请等待管理员审核");
-                else alert("评论失败，存在异常操纵")
-            })
+            var mId = url.substr(url.lastIndexOf('/') + 1, url.length);
+
+            // 发送评论
+            if (this.repId == '0') {
+
+                this.$http.post('/api/comment/add', {
+                  comContent: newContent,
+                  comUId: this.user.uId,
+                  comMId: mId,
+                }).then(
+                  function (response) {
+                    if (response.data) {
+                      alert("评论成功");
+                      this.$refs.editor.$refs.textplace.getElementsByTagName("p").item(0).innerHTML = "";
+                      this.$emit("showNewComment", 0);
+                    } else {
+                      alert("评论失败");
+                    }
+                  }
+                );
+            }
+            else {
+                var repRId;
+                if (this.keyType != "0") {
+                  repRId = this.needRepId;  // this.needRepId: 此处指评论的id
+                } else {
+                  repRId = 1;
+                  // repRId = this.needRepId;
+                }
+                console.log(newContent, repRId, this.comId, this.user.uId, this.keyType)
+                this.$http.post('/api/reply/add', {
+                    repContent: newContent,
+                    repRId: repRId,
+                    repComId: this.comId,
+                    repUId: this.user.uId,
+                    repType: this.keyType,
+                }).then(
+                    function (response) {
+                      if (response.data) {
+                        alert("评论成功，正在等待管理员审核");
+                        this.$refs.editor.$refs.textplace.getElementsByTagName("p").item(0).innerHTML = "";
+                        this.$emit("closeCancelTip", repRId, this.keyType);
+                      } else {
+                        alert("评论失败");
+                      }
+                    }
+                );
+            }
         }
 
     },

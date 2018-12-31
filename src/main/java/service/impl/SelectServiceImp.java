@@ -41,6 +41,9 @@ public class SelectServiceImp implements SelectService {
     @Autowired
     HttpSession session;
 
+    @Autowired
+    private ReplysDao replysDao;
+
     public List<Project> getUserProjects(String uId) {
         return projectDao.getProjectsByCreateUId(Integer.parseInt(uId));
     }
@@ -53,10 +56,13 @@ public class SelectServiceImp implements SelectService {
         return modelDao.getModelsByMarkUId(Integer.parseInt(uId));
     }
 
-    public List<Comment> getCommentsInModel(String mId){return commentsDao.SelectCommentsByMId(Integer.parseInt(mId));}
+    public List<Comment> getCommentsInModel(String mId, Page page) {
+
+        return commentsDao.SelectCommentsByMIdPage(Integer.parseInt(mId),page);
+    }
 
     public Model selectModelByMId(String mId) {
-        return modelDao.getModelById(Long.valueOf(mId));
+        return modelDao.getModelById(mId);
     }
 
     public User getUserData(String uId) {
@@ -107,6 +113,10 @@ public class SelectServiceImp implements SelectService {
         page.setCurrentPageNum(currentPage);
         List<User> users = invitationDao.selectCollaboratorsByPidPage(pId,page);
         return new ListObject(users,page);
+    }
+
+    public List<Reply> selectReplysById(int comId) {
+        return replysDao.SelectReplysByComId(comId);
     }
 
     public InvitationDto findInvMessage(long pId,String myName){

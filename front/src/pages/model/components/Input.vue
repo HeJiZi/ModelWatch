@@ -69,7 +69,7 @@ export default {
     border-style: solid; 
     border-color: #dddddd;
     border-radius: 10px;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 20px 0px 20px;
     background: #f3f3f3;
 }
 

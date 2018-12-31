@@ -18,4 +18,8 @@ public interface UpdateService {
     public boolean updateLogContext(Long lId,String lContext);
 
     public int changeInvState(Long pId,String uName);
+
+    boolean updateCommentIdeaNum(int comId, int idea);
+
+    boolean updateReplyIdeaNum(int repId, int idea);
 }

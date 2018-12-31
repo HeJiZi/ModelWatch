@@ -9,7 +9,6 @@ import dto.project.ProjectStaticDto;
 import entity.Page;
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface SelectService {
@@ -40,7 +39,7 @@ public interface SelectService {
 
     List<User>  selectUser(String content);
 
-    List<Comment> getCommentsInModel(String mId);
+    List<Comment> getCommentsInModel(String mId, Page page);
 
     PjOverviewDto selectProject(long pId);
 
@@ -51,6 +50,7 @@ public interface SelectService {
 
     ListObject selectCollaborators(long pId, int currentPage);
 
+    List<Reply> selectReplysById(int comId);
     InvitationDto findInvMessage(long pId,String myName);
 
     ProjectStaticDto getProjectStatic(long pId);

@@ -26,7 +26,7 @@ public interface ModelDao {
      * @param mId
      * @return
      */
-    Model getModelById(Long mId);
+    Model getModelById(String mId);
 
     /**
      *
