@@ -2,7 +2,7 @@
     <div>
         <nav class="normalnav">
             <a title="切换模式"  @click="$router.push({path:`/${$route.params.mId}`})" class="mw-icon transbutton" style="margin: 0 3px;height: 20px;width:20px;cursor:pointer"></a>
-            <a title="项目名" :href="'/project/'+model.project.pId" style="margin-left: 5px">
+            <a title="项目名" :href="'/project#/'+model.project.pId" style="margin-left: 5px">
                 <h3>{{model.project.pName}}</h3>
             </a>
             <h3 style="cursor: default;margin-right:10px"> -></h3>
@@ -25,10 +25,10 @@
 
         </nav>
         
-                    <!-- 上传模型日志内容的Form -->
+            <!-- 上传模型日志内容的Form -->
             <el-dialog title="编辑上传模型日志内容" :visible.sync="editFormVisible">
                 <el-form :model="editForm" ref="editForm" >
-                    <el-form-item>
+                    <!-- <el-form-item>
                         <el-upload
                             drag 
                             multiple 
@@ -38,7 +38,7 @@
                             <div class="el-upload__text">将模型文件拖到此处，或<em>点击选择文件</em></div>
                              <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUploadModel">确认上传</el-button>
                         </el-upload> 
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item>
                         <el-input
                             v-model="editForm.lContext"
@@ -69,7 +69,7 @@
             <label>物理模拟</label>
             <label>帮助</label>
         </ul>
-        <div class="toolbar">
+        <div class="edi-toolbar">
             <div class="tool">
                 <img src="/resources/images/selectButton.png">
             </div>
@@ -297,6 +297,12 @@ export default {
             modelLoading:true,       
         }
     },
+    computed:{
+        id(){
+            return this.$route.params.mId
+        }
+    }
+    ,
     created: function () {
 
         var obj = this;
@@ -308,17 +314,12 @@ export default {
             obj.cwidth = window.innerWidth * 0.8;
             obj.rwidth = window.innerHeight * 0.2
             obj.vheight = window.innerHeight - 87;
-            // camera.aspect = window.innerWidth / window.innerHeight;
-            // camera.updateProjectionMatrix();
 
-            // renderer.setSize(window.innerWidth, window.innerHeight);
-            // renderer.render(scene, camera)
         }
         document.oncontextmenu = function () { return false; }
-        // this.getModel();
+        this.getModel();
     },
     mounted: function(){
-        this.init3D();
     },
     methods: {
         upObject:function (event) {
@@ -338,29 +339,30 @@ export default {
                 renderer.render(scene,camera)
             }
         },
-        submitUploadModel:function(){
+        upload:function(){
             var iurl=document.getElementById('canvas').toDataURL('image/png')
             var image=dataURLtoFile(iurl,"preview.png")
 
-            console.log(this.file);
 
             var formdata=new FormData();
             formdata.append("preview",image)
             formdata.append("file",this.file);
 
             formdata.append("model",JSON.stringify(this.model))
-            //console.log(formdata);
-            // this.$http.post(
-            //     '/upmodel',
-            //     // 请求体中要发送给服务端数据
-            //     formdata,
-            //     {
-            //         processData: false,       //必不可缺
-            //         contentType: false,
-            //     }
-            // ).then((response)=>{
-            //     alert("更改成功")
-            // });
+            formdata.append("lContext",this.editForm.lContext)
+
+            this.$http.post(
+                '/api/upmodel',
+                // 请求体中要发送给服务端数据
+                formdata,
+                {
+                    processData: false,       //必不可缺
+                    contentType: false,
+                }
+            ).then((response)=>{
+                alert("更改成功")
+            });            
+
         },
         initObject:function(){
             // instantiate a loader
@@ -411,9 +413,7 @@ export default {
             this.label_dire = ld == '<' ? '>' : '<';
         },
         getModel:function(){
-            var url=window.location.href;
-            var id=url.substr(url.lastIndexOf('/')+1,url.length);
-            this.$http.get('/model/'+id).then((response)=>{
+            this.$http.get('/api/model/'+this.id).then((response)=>{
                 this.model=response.data;
                 this.init3D();
             })

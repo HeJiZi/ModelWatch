@@ -8,12 +8,12 @@ import java.util.List;
 public interface UserDao {
     /**
      * 根据用户名与密码查询用户
-     * @param username
-     * @param password
+     * @param uUsername
+     * @param uPassword
      * @return 如果查询不到，返回null
      */
-    User selectUserByUNAndPass(@Param("username") String username,
-                               @Param("password")String password);
+    User selectUserByUNAndPass(@Param("uUsername") String uUsername,
+                               @Param("uPassword")String uPassword);
 
     /**
      * 根据用户名查询用户

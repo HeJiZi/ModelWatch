@@ -42,16 +42,10 @@ public class ManageServiceImp implements ManageService {
         pj.setUser(user);
         pj.setpPreview("/resources/upload/pjCover/"+fileSaveName);
 
-
-        Log log = new Log();
-        log.setProject(pj);
-        log.setlContext("用户" + user.getuUsername() + "创建了项目");
-
         try {
             res = projectDao.addProject(pj);
             if (res == 0)
                 return 0L;
-            logDao.addLog(log);
         }
         catch (CreateProException e){
             throw e;
@@ -77,7 +71,9 @@ public class ManageServiceImp implements ManageService {
         Project project = new Project();
         project.setpId(pId);
         log.setProject(project);
-        log.setlContext("用户" + user.getuUsername() + "创建了模型："+ model.getmName());
+        log.setUser(user);
+        log.setModel(model);
+        log.setlContext(user.getuUsername() + "创建了模型："+ model.getmName());
         try {
             if (modelDao.addModel(model)==0){
                 return false;

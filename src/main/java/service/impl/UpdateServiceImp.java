@@ -18,6 +18,7 @@ import service.UpdateService;
 import util.MyFileUtil;
 import util.TransCharsetUtil;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 
@@ -40,6 +41,7 @@ public class UpdateServiceImp implements UpdateService {
 
     @Autowired
     private CommentsDao commentsDao;
+
 
     /**
      * 更改项目资料
@@ -101,7 +103,9 @@ public class UpdateServiceImp implements UpdateService {
         }
         Log log=new Log();
         log.setProject(mo.getProject());
+        log.setModel(mo);
         log.setlContext(lContext);
+        log.setUser(user);
         boolean flag=false;
         try {
             logDao.addLog(log);

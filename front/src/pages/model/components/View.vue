@@ -181,8 +181,8 @@ export default {
             }
         }
     },
-    created: function () {
-        this.width = window.innerWidth;
+    mounted: function () {
+        this.width = window.innerWidth -17;
         this.height = window.innerHeight;
         var obj = this;
         window.onresize = function () {
@@ -196,8 +196,6 @@ export default {
         }
         document.oncontextmenu = function () { return false; }
         this.getModel();
-    },
-    mounted: function(){
     },
     computed: {
         switch_h: function () {

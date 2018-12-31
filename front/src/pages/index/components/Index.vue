@@ -29,7 +29,7 @@ function m_initThree() {
 
     var canvas = document.getElementById('a-top');
     var tiltle = document.getElementById('cover-tiltle');
-    width = canvas.clientWidth;
+    width = canvas.clientWidth -17;
     height = canvas.clientHeight;
     renderer = new WebGLRenderer();
     renderer.setSize(width, height);
@@ -127,7 +127,7 @@ export default {
         m_threeStart()
         var obj =this;
         window.onresize = function () {
-            width = window.innerWidth;
+            width = window.innerWidth -17;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
 
