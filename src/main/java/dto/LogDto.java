@@ -1,29 +1,26 @@
 package dto;
 
 import bean.Log;
-import bean.Model;
-import bean.User;
+import dto.model.TinyModelDto;
+import dto.project.TinyProjectDto;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class LogDto {
     private  Long lId;
     private String lContext;
     private Timestamp lTime;
 
-    private UserDto user;
-    private ProjectDto project;
-    private ModelDto model;
+    private TinyUserDto user;
+    private TinyProjectDto project;
+    private TinyModelDto model;
     public LogDto(Log log){
         this.lId = log.getlId();
         this.lContext = log.getlContext();
         this.lTime = log.getlTime();
-        this.user = new UserDto(log.getUser());
-        this.project = new ProjectDto(log.getProject());
-        this.model = new ModelDto(log.getModel());
+        this.user = new TinyUserDto(log.getUser());
+        this.project = new TinyProjectDto(log.getProject());
+        this.model = new TinyModelDto(log.getModel());
     }
 
     public Long getlId() {
@@ -50,27 +47,27 @@ public class LogDto {
         this.lTime = lTime;
     }
 
-    public ProjectDto getProject() {
+    public TinyProjectDto getProject() {
         return project;
     }
 
-    public void setProject(ProjectDto project) {
+    public void setProject(TinyProjectDto project) {
         this.project = project;
     }
 
-    public UserDto getUser() {
+    public TinyUserDto getUser() {
         return user;
     }
 
-    public void setUser(UserDto user) {
+    public void setUser(TinyUserDto user) {
         this.user = user;
     }
 
-    public ModelDto getModel() {
+    public TinyModelDto getModel() {
         return model;
     }
 
-    public void setModel(ModelDto model) {
+    public void setModel(TinyModelDto model) {
         this.model = model;
     }
 }

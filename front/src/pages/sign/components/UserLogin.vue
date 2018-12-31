@@ -5,7 +5,7 @@
         <div class="login_box">
             <div class="title">ModelWatch</div>
             <div class="input">
-            <el-input v-model="username" placeholder="用户名"></el-input>
+            <el-input v-model="uUsername" placeholder="用户名"></el-input>
             <el-input v-model="password" type="password" placeholder="密码"></el-input>
             <el-button @click="login" class="signin" round size="mini">登录</el-button>
             </div>
@@ -22,7 +22,7 @@
     </div>
 </template>
 
-<script>    
+<script>
 var rightRenderer;
 var rightCamera;
 var rightScene;
@@ -59,9 +59,9 @@ function m_initLight() {
 }
 
 function m_initObject(){
-    var geometry = new THREE.CubeGeometry(3,3,3); 
+    var geometry = new THREE.CubeGeometry(3,3,3);
     var material = new THREE.MeshBasicMaterial({color: 0xffffff});
-    rightCube = new THREE.Mesh(geometry, material); 
+    rightCube = new THREE.Mesh(geometry, material);
     rightScene.add(rightCube);
 }
 
@@ -85,7 +85,7 @@ function m_threeStart(){
 export default {
     data() {
         return{
-            username: '',
+            uUsername: '',
             password: '',
         }
     },
@@ -95,7 +95,7 @@ export default {
     methods:{
         login(){
             this.$http.post('/api/user/login',{
-                uUsername:this.username,
+                uUsername:this.uUsername,
                 uPassword:this.password,
             }).then((response)=>{
                 if (response.data == true) window.location.href = '/';

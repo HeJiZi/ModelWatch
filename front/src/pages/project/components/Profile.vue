@@ -1,6 +1,6 @@
 <template>
     <article>
-        <section  class="tw-wrapper">
+        <section v-loading="dataLoading"  class="tw-wrapper">
             <div class="title">修改项目信息</div>
             <div class="blo" >
                 <section >
@@ -14,15 +14,15 @@
                 </section>
                 <section >
                     <label>预览图</label>
-                    <div class="avatar-uploader">
+                    <div v-loading="loading" class="avatar-uploader">
                         <label for="test" tabindex="0" class="el-upload el-upload--text">
-                            <img v-if="project.pPreview" :src="project.pPreview" class="up-pre-photo" :style="{width:width+'px'}">
+                            <img v-if="project.pPreview" :src="project.pPreview" :height="height"  :width="width">
                             <i v-else class="el-icon-plus p-avatar-uploader-icon"></i>
-                            <input @change="upload" id="test" type="file" name="file" class="el-upload__input">
+                            <input @change="changePhoto" id="test" type="file" name="file" class="el-upload__input">
                         </label>
                     </div>  
                 </section>
-                <el-button type="primary" class="btn blo">确认修改</el-button>
+                <el-button type="primary" @click="changeData" class="btn blo">确认修改</el-button>
                 <!-- <a href="/proData/{pId}"><input type="submit" class="btn" id="btn" value="确认修改" ></a>             -->
             </div>
         </section>
@@ -40,7 +40,7 @@
             <div slot="title" style="color:white;font-weight:bold;">确认要删除项目吗?</div>
             <el-input v-model="inputPass" placeholder="请输入密码"></el-input>
             <span slot="footer" class="dialog-footer">
-                <el-button  type="danger" @click="console.log(111)">确 定</el-button>
+                <el-button  type="danger" @click="deleteProject">确 定</el-button>
             </span>
         </el-dialog>        
     </article>
@@ -59,56 +59,102 @@
 
 <script>
 import '|css/change.css'
-var image = '';
-function upload(file) {
-    if (!file.files || !file.files[0]) {c
-        return;
-    }
-    var reader = new FileReader();
-
-    reader.onload = function (event) {
-        document.getElementById('image').src = event.target.result;
-        var image=new Image();
-        image.src = event.target.result;
-        image.onload=function () {
-            console.log(image.width/image.height)
-            $('#image').attr('style','width:'+300*(image.width/image.height)+'px')
-        }
-
-    }
-    reader.readAsDataURL(file.files[0]);
-}
 
 export default {
-  data() {
-    return{
-        pid: null,
-        dialogVisible:false,
-        inputPass:null,
-        project:{
-            pContext:'星火是一个制作星星与火焰特效模型的项目',
-            pName:'星火',
+    data() {
+        return{
+            dataLoading:false,
+            loading:false,
+            dialogVisible:false,
+            inputPass:null,
+            project:{
+                pContext:'星火是一个制作星星与火焰特效模型的项目',
+                pName:'星火',
+            },
+            aspect:'',
+            height:300,
+            file:undefined
         }
-    }
 
     },
+    computed:{
+        width:function(){
+            return this.aspect*parseFloat(this.height);
+        }
+    },
     methods: {
-       
-        upload(file){
+        changePhoto(event){
+            var file=event.target.files[0];
+            if(file == undefined) return
+            this.loading =true;
+            var oFReader = new FileReader();
+            this.file=file;
 
+            oFReader.readAsDataURL(file);
+
+            var obj=this;
+
+            oFReader.onloadend=function (OFRevent) {
+
+                var src=OFRevent.target.result;
+                obj.project.pPreview=src;
+
+                var img=new Image();
+                img.src=src;
+                img.onload=function(){
+                    obj.loading =false;
+                    obj.aspect=(img.width/img.height);
+                }
+            }
+        },
+        changeData(){
+            var file=this.file;
+            var formdata=new FormData();
+            formdata.append("file",file);
+            formdata.append("project",JSON.stringify(this.project))
+            this.$http.post(
+                '/api/project/proData',
+                // 请求体中要发送给服务端数据
+                formdata,
+                {
+                    processData: false,       //必不可缺
+                    contentType: false,
+                }
+            ).then((response)=>{
+                alert("更改成功")
+                
+            });
+        },
+        deleteProject(){
+            this.$http.post('/api/project/delete',{
+                password:this.inputPass,
+                pId:this.project.pId
+
+            },{emulateJSON:true}).then((response)=>{
+                if(response.data==true){
+                    alert('删除成功')
+                    window.location.href = '/'
+                }
+                else{
+                    alert('密码输入错误')
+                }
+              
+            })            
         }
     },
     created(){
-        // var url=window.location.href;
-        // var pid=url.substr(url.lastIndexOf('/')+1,url.length);
-        // this.pid = pid
-        // this.$http.get('/invitation/'+pid
-        //     ).then((response)=>{
-        //     this.invitedUser = response.data
-        //     for (i of this.invitedUser){
-        //         this.dynamicTags.push(i.uUsername)
-        //     }
-        // })
+        this.dataLoading =true;
+        this.$http.get('/api/project/data/'+this.$route.params.pId
+            ).then((response)=>{
+            this.project = response.data
+            var img=new Image();
+            var obj=this;
+            img.src=obj.project.pPreview;
+            img.onload=function(){
+                obj.aspect=(img.width/img.height);
+                obj.dataLoading =false;
+            }               
+        })
     }   
 }
 </script>

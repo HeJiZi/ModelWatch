@@ -14,15 +14,14 @@ import java.util.List;
 public class DtoListUtil {
     public static List transelateList(List sourceList, Class dtoClass){
         List list = new ArrayList();
-        Class sourceClass = sourceList.get(0).getClass();
         try {
+            if(sourceList.size()<1) return list;
+            Class sourceClass = sourceList.get(0).getClass();
             for(int i=0;i<sourceList.size();i++){
                 Constructor constructor = dtoClass.getConstructor(sourceClass);
                  list.add(constructor.newInstance(sourceList.get(i)));
             }
-        }catch (IndexOutOfBoundsException e) {
-            return  null;
-        } catch (NoSuchMethodException e) {
+        }catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();

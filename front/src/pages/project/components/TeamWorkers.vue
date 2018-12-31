@@ -27,7 +27,7 @@
       </div>
     </el-row>
 
-    <el-table
+    <el-table v-loading="isLoading"
       :data="collaborators"
       :show-header="false"
       style="width:100%;text-align:center;">
@@ -156,6 +156,7 @@
         totalNum:0,
         uMail:'',
         collaborators: [],
+        isLoading:true,
       };
     },
     methods:{
@@ -228,25 +229,27 @@
       },
       cancelInv(index,user){
           this.$http.delete('/api/invitation/1/'+user.uId) 
-                        .then((response) => {   
-                            if(response.data!=0){ 
-                              this.collaborators.splice(index,1);
-                              this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
-                                this.collaborators=response.data.list;
-                                this.totalNum=response.data.page.totalNum;
-                              });    
-                              this.$message.success('已取消邀请！' + user.uUsername + '!');                       
-                            }
-                        }) 
-                        .catch((response) => { 
-                             this.$message.error('取消失败!'); 
-                        }); 
-      }
+            .then((response) => {   
+                if(response.data!=0){ 
+                  this.collaborators.splice(index,1);
+                  this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                    this.collaborators=response.data.list;
+                    this.totalNum=response.data.page.totalNum;
+                  });    
+                  this.$message.success('已取消邀请！' + user.uUsername + '!');                       
+                }
+            }) 
+            .catch((response) => { 
+                  this.$message.error('取消失败!'); 
+            }); 
+}
     },
     mounted(){
+      this.isLoading = true;
       this.$http.get('/api/invitation?pId='+this.$route.params.pId+'&currentPage='+this.page).then((response)=>{
                 this.collaborators=response.data.list;
                 this.totalNum=response.data.page.totalNum;
+                this.isLoading =false;
             });
     }
   }

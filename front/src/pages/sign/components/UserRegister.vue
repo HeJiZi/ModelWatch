@@ -7,13 +7,13 @@
                     登录
                 </span>
             </div>
-        </section>        
+        </section>
         <section id="login" style="position:relative;top:-5%;">
         <div id = "up-titleCanvas"></div>
         <div class="login_box">
             <div class="title">ModelWatch</div>
             <div class="input">
-            <el-input v-model="username" placeholder="用户名"></el-input>
+            <el-input v-model="uUsername" placeholder="用户名"></el-input>
             <el-input v-model="password" type="password" placeholder="密码"></el-input>
             <el-input v-model="rePassword" type="password" placeholder="请重新输入"></el-input>
             <el-button @click="signup" class="signup" round size="mini">注册</el-button>
@@ -24,7 +24,7 @@
     </div>
 </template>
 
-<script>    
+<script>
 var rightRenderer;
 var rightCamera;
 var rightScene;
@@ -61,9 +61,9 @@ function m_initLight() {
 }
 
 function m_initObject(){
-    var geometry = new THREE.CubeGeometry(3,3,3); 
+    var geometry = new THREE.CubeGeometry(3,3,3);
     var material = new THREE.MeshBasicMaterial({color: 0xffffff});
-    rightCube = new THREE.Mesh(geometry, material); 
+    rightCube = new THREE.Mesh(geometry, material);
     rightScene.add(rightCube);
 }
 
@@ -87,7 +87,7 @@ function m_threeStart(){
 export default {
     data() {
         return{
-            username: '',
+            uUsername: '',
             password: '',
             rePassword:'',
         }
@@ -102,7 +102,7 @@ export default {
                 return;
             }
             this.$http.post('/api/user/signup',{
-                uUsername:this.username,
+                uUsername:this.uUsername,
                 uPassword:this.password,
             }).then((response)=>{
                 if (response.data == true) this.$router.push('/');

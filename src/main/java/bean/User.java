@@ -25,6 +25,7 @@ public class User {
     private int invState;
     private int uModelNum;
     private int uProjectNum;
+    private int submitNum;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date uBirthday;
@@ -148,14 +149,13 @@ public class User {
         this.invState = invState;
     }
 
-    //    private int inId;
-//    public void setInId(int inId){
-//        this.inId=inId;
-//    }
-//    public int getInId(){
-//        return inId;
-//    }
+    public int getSubmitNum() {
+        return submitNum;
+    }
 
+    public void setSubmitNum(int submitNum) {
+        this.submitNum = submitNum;
+    }
 
     @Override
     public String toString() {
@@ -167,13 +167,14 @@ public class User {
                 ", uEmail='" + uEmail + '\'' +
                 ", uSex='" + uSex + '\'' +
                 ", uState=" + uState +
+                ", invState=" + invState +
+                ", uModelNum=" + uModelNum +
+                ", uProjectNum=" + uProjectNum +
+                ", submitNum=" + submitNum +
                 ", uBirthday=" + uBirthday +
                 ", uSignature='" + uSignature + '\'' +
                 ", uCreateTime=" + uCreateTime +
                 ", invTime=" + invTime +
-                ", invState=" + invState +
-                ", uModelNum=" + uModelNum +
-                ", uProjectNum=" + uProjectNum +
                 '}'+'\n';
     }
 }

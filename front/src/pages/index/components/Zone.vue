@@ -77,7 +77,7 @@ export default {
     created(){
         var id=this.$route.params.uId;
         var obj =this;
-        this.$http.get('/api/zone/data/'+id).then((response)=>{
+        this.$http.get('/api/user/data/'+id).then((response)=>{
             obj.user=response.data
         })
         this.$http.get('/api/zone/JoinPros/'+id).then((response) => {

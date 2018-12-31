@@ -3,6 +3,7 @@ package bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Project {
     private Long pId;
@@ -12,8 +13,15 @@ public class Project {
     private String pName;
     private String pContext;
     private String pPreview;
+    private int pSubsNum;
+    private boolean pSubed;
 
     private User user;
+
+    private List<Model> models;
+    private List<User> collaborators;
+    private List<PjHeatStatic> pjHeatStatic;
+    private List<LogStatic> logStatic;
 
     public Long getpId() {
         return pId;
@@ -63,6 +71,54 @@ public class Project {
         this.user = user;
     }
 
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
+
+    public int getpSubsNum() {
+        return pSubsNum;
+    }
+
+    public void setpSubsNum(int pSubsNum) {
+        this.pSubsNum = pSubsNum;
+    }
+
+    public boolean ispSubed() {
+        return pSubed;
+    }
+
+    public void setpSubed(boolean pSubed) {
+        this.pSubed = pSubed;
+    }
+
+    public List<User> getCollaborators() {
+        return collaborators;
+    }
+
+    public void setCollaborators(List<User> collaborators) {
+        this.collaborators = collaborators;
+    }
+
+    public List<PjHeatStatic> getPjHeatStatic() {
+        return pjHeatStatic;
+    }
+
+    public void setPjHeatStatic(List<PjHeatStatic> pjHeatStatic) {
+        this.pjHeatStatic = pjHeatStatic;
+    }
+
+    public List<LogStatic> getLogStatic() {
+        return logStatic;
+    }
+
+    public void setLogStatic(List<LogStatic> logStatic) {
+        this.logStatic = logStatic;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -71,7 +127,10 @@ public class Project {
                 ", pName='" + pName + '\'' +
                 ", pContext='" + pContext + '\'' +
                 ", pPreview='" + pPreview + '\'' +
+                ", pSubsNum=" + pSubsNum +
+                ", pIsSubed=" + pSubed +"\n"+
                 ", user=" + user +
-                '}';
+                ", models=" + models +
+                '}'+"\n";
     }
 }

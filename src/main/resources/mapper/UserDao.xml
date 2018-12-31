@@ -3,16 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDao">
+    <resultMap id="user" type="User">
+        <id property="uId" column="u_id"/>
+        <result property="uUsername" column="u_username"/>
+    </resultMap>
+
+    <select id="getUserStatic" resultType="User">
+        select U_username,
+        (select COUNT(*) from log where L_uid = U_id and L_pid=Inv_pid ) submit_num
+        from user,invitation
+        where U_id =Inv_uid and Inv_pid=#{pId} and Inv_state =1 union
+        select U_username,
+        (select COUNT(*) from log where L_uid = U_id and L_pid=P_id ) submit_num
+        from user,project
+        where U_id = P_Uid and P_id =#{pId}
+        order by submit_num desc
+    </select>
+
     <select id="selectUserByUid" resultType="User">
-        SELECT U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature FROM user where U_Id=#{uId};
+        select U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature,
+        (select count(*) umn from model,user u where M_pid in (select P_id from project p where p.P_Uid=u.U_id)
+        and u.u_id=#{uId} ) "uModelNum",
+        (select count(*) upn from project p,user u
+        where p.P_Uid=u.U_id and u.u_id=#{uId} ) "uProjectNum"
+        from user where u_id=#{uId}
     </select>
     <select id="selectUserByUNAndPass" resultType="User">
         select U_Id,U_username,U_avater,U_email,U_sex,U_birthday,U_signature,
         (select count(*) umn from model,user u where M_pid in (select P_id from project p where p.P_Uid=u.U_id)
-            and u.U_username=#{username} and u.U_password=#{password}) "uModelNum",
+            and u.U_username=#{uUsername} and u.U_password=#{password}) "uModelNum",
         (select count(*) upn from project p,user u
-            where p.P_Uid=u.U_id and U_username=#{username} and U_password=#{password}) "uProjectNum"
-        from user where U_username=#{username} and U_password=#{password}
+            where p.P_Uid=u.U_id and U_username=#{uUsername} and U_password=#{password}) "uProjectNum"
+        from user where U_username=#{uUsername} and U_password=#{password}
     </select>
 
     <select id="selectUsers" resultType="User">
@@ -41,7 +63,7 @@
     </update>
 
     <insert id="addUser">
-        insert ignore into user(U_username,U_password) values (#{username},#{password})
+        insert ignore into user(U_username,U_password) values (#{uUsername},#{password})
     </insert>
 
     <select id="selectUname" resultType="User">

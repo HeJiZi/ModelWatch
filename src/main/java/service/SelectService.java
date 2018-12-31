@@ -3,6 +3,9 @@ package service;
 import bean.*;
 import dto.InvitationDto;
 import dto.ListObject;
+import dto.project.PjOverviewDto;
+import dto.project.ProjectDataDto;
+import dto.project.ProjectStaticDto;
 import entity.Page;
 
 
@@ -39,14 +42,16 @@ public interface SelectService {
 
     List<Comment> getCommentsInModel(String mId);
 
-    Project selectProject(long pId);
+    PjOverviewDto selectProject(long pId);
+
+    ProjectDataDto selectProjectData(long pId);
 
     List<Log> selectLog(long pId,int currentPage,int limit);
     List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit);
 
-    List<Model> selectModel(long pId);
-
     ListObject selectCollaborators(long pId, int currentPage);
 
     InvitationDto findInvMessage(long pId,String myName);
+
+    ProjectStaticDto getProjectStatic(long pId);
 }

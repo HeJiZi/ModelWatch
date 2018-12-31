@@ -31,7 +31,8 @@ public class SelectServiceImplTest {
     }
 
     @Test
-    public void getSubProjects() {
+    public void getProjectStatic() {
+        System.out.println(selectService.getProjectStatic(2));
     }
 
     @Test

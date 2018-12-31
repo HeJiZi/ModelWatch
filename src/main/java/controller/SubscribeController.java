@@ -1,31 +1,28 @@
 package controller;
 
-import dao.SubscribeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import service.DeleteService;
+import service.InsertService;
 
 @RestController
 @RequestMapping("/subscribe")
 public class SubscribeController {
 
     @Autowired
-    SubscribeDao subscribeDao;
+    InsertService insertService;
 
-    @PostMapping(value = "/{pid}/{uid}")
-    public int addSubscribe(@PathVariable("pid") int pid,
-                            @PathVariable("uid") int uid){
-        return subscribeDao.addSubscribe(pid, uid);
+    @Autowired
+    DeleteService deleteService;
+
+    @PostMapping(value = "/{pId}")
+    public boolean addSubscribe(@PathVariable("pId") long pId){
+        return insertService.addSubscribe(pId);
     }
 
-    @DeleteMapping(value = "/{pid}/{uid}")
-    public int deleteSubscribe(@PathVariable("pid") int pid,
-                               @PathVariable("uid") int uid){
-        return subscribeDao.deleteSubscribe(pid, uid);
+    @DeleteMapping(value = "/{pId}")
+    public boolean deleteSubscribe(@PathVariable("pId") long pId){
+        return deleteService.deleteSubscribe(pId);
     }
 
-    @GetMapping(value = "/{pid}/{uid}")
-    public int selectSubscribe(@PathVariable("pid") int pid,
-                               @PathVariable("uid") int uid){
-        return subscribeDao.selectSubscribe(pid, uid);
-    }
 }

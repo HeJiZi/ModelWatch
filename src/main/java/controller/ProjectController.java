@@ -7,11 +7,15 @@ import bean.Model;
 import dao.ProjectDao;
 import dto.ListObject;
 import dto.LogDto;
+import dto.project.PjOverviewDto;
+import dto.project.ProjectDataDto;
+import dto.project.ProjectStaticDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import service.DeleteService;
 import service.ManageService;
 import service.SelectService;
 import service.UpdateService;
@@ -24,14 +28,12 @@ import java.util.List;
 
 //import jdk.incubator.http.HttpResponse;
 
+
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
     @Autowired
     ManageService manageService;
-
-    @Autowired
-    ProjectDao projectDao;
 
     @ResponseBody
     @RequestMapping(value = "",method = RequestMethod.POST)
@@ -50,23 +52,38 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping(value = "/proData",method = RequestMethod.POST)
-    public boolean updateProject(HttpServletRequest request,@RequestParam("project") String project){
+    public boolean updateProject(@RequestParam("project") String project,HttpServletRequest request){
         //从前端获取要传入的值
         MultipartFile file=null;
         if (request instanceof MultipartHttpServletRequest) {
             file=MyFileUtil.getFile(request);
         }
-        updateService.UpdateProject(project,file);
-        return true;
+        return updateService.UpdateProject(project,file);
+    }
+
+    @Autowired
+    DeleteService deleteService;
+
+
+    @ResponseBody
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public boolean deleteProject(String password,long pId){
+        return deleteService.deleteProject(password,pId);
     }
 
     @Autowired
     SelectService selectService;
 
     @ResponseBody
-    @RequestMapping(value = "/data/{pId}",method = RequestMethod.GET)
-    public Project getData(@PathVariable Long pId){
+    @RequestMapping(value = "/{pId}",method = RequestMethod.GET)
+    public PjOverviewDto getProjectOverview(@PathVariable Long pId){
         return  selectService.selectProject(pId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/data/{pId}",method = RequestMethod.GET)
+    public ProjectDataDto getData(@PathVariable Long pId){
+        return  selectService.selectProjectData(pId);
     }
 
     @ResponseBody
@@ -80,16 +97,11 @@ public class ProjectController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/model/{pId}",method = RequestMethod.GET)
-    public List<Model> getModel(@PathVariable long pId){
-        return  selectService.selectModel(pId);
+    @GetMapping(value = "/static/{pId}")
+    public ProjectStaticDto getStatic(@PathVariable long pId){
+        return selectService.getProjectStatic(pId);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/user/{pId}",method = RequestMethod.GET)
-    public Project getProjectUser(@PathVariable("pId") long pId){
-        return projectDao.getProjectAndUserByPid(pId);
-    }
 
 
 }

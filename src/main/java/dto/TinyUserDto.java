@@ -2,11 +2,11 @@ package dto;
 
 import bean.User;
 
-public class UserDto {
+public class TinyUserDto {
     private int uId;
     private String uUsername;
 
-    public UserDto(User user){
+    public TinyUserDto(User user){
         this.uId = user.getuId();
         this.uUsername = user.getuUsername();
     }

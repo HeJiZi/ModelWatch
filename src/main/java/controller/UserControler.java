@@ -1,13 +1,13 @@
 package controller;
 
 import bean.User;
-import dto.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -45,7 +45,7 @@ public class UserControler {
 
     @ResponseBody
     @RequestMapping(value = "/{uName}",method= RequestMethod.GET)
-    public ListDto getUsers(@PathVariable("uName") String uName){
+    public List getUsers(@PathVariable("uName") String uName){
         return  userService.selectByName(uName);
     }
 

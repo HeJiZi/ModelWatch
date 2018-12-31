@@ -47,7 +47,6 @@ public class ManageServiceImp implements ManageService {
         log.setProject(pj);
         log.setlContext("用户" + user.getuUsername() + "创建了项目");
 
-
         try {
             res = projectDao.addProject(pj);
             if (res == 0)

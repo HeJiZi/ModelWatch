@@ -23,7 +23,7 @@
       <div class="login_box">
         <div class="title">ModelWatch</div>
         <div class="input">
-          <el-input v-model="username" placeholder="用户名"></el-input>
+          <el-input v-model="uUsername" placeholder="用户名"></el-input>
           <el-input v-model="password" type="password" placeholder="密码"></el-input>
           <el-button @click="login" round size="mini">登录</el-button>
         </div>
@@ -39,13 +39,13 @@
   const admin = new Vue({
     el: "#login_frame",
     data: {
-      username: '',
+      uUsername: '',
       password: '',
     },
       methods:{
         login(){
             this.$http.post('/admin',{
-                aUsername:this.username,
+                aUsername:this.uUsername,
                 aPassword:this.password,
             }).then((response)=>{
                 if (response.data == true) window.location.href = '/managers';

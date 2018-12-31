@@ -8,6 +8,7 @@ import dao.InvitationDao;
 import dao.LogDao;
 import dao.ModelDao;
 import dao.ProjectDao;
+import exception.CreateProException;
 import exception.UpdateModelException;
 import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
@@ -15,6 +16,7 @@ import net.sf.json.util.JSONUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import service.UpdateService;
 import util.MyFileUtil;
@@ -42,8 +44,30 @@ public class UpdateServiceImp implements UpdateService {
      * @param project
      * @param file
      */
-    public void UpdateProject(String project, MultipartFile file) {
+    @Transactional
+    public boolean UpdateProject(String project, MultipartFile file) {
+        Project pj= (Project) JSONObject.toBean(JSONObject.fromObject(project),Project.class);
+        String fileSaveName =null;
+        if(file!=null){
+            String[] fileName=file.getOriginalFilename().split("\\.");
+            String suffix=fileName[fileName.length-1];
+            fileSaveName=pj.getpId()+"."+suffix;
+            pj.setpPreview("/resources/upload/pjCover/"+fileSaveName);
+        }
 
+        int res =projectDao.updateProjectData(pj);
+
+        if(file!=null){
+            try {
+                File outDir =new File(MyFileUtil.getResourcesUrl()+"/upload/pjCover");
+                FileUtils.copyInputStreamToFile(file.getInputStream(),new File(outDir,fileSaveName));
+            } catch (IOException e) {
+                e.printStackTrace();
+                res =0;
+            }
+        }
+
+        return res!=0;
     }
 
     public boolean updateModel(User user, String model, MultipartFile[] files,String lContext) {

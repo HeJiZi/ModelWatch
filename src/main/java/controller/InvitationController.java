@@ -2,14 +2,11 @@ package controller;
 
 import bean.User;
 import dto.InvitationDto;
-import dto.ListDto;
 import dto.ListObject;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import dao.InvitationDao;
 import service.*;
-import util.SendMailUtil;
 
 
 import java.util.List;

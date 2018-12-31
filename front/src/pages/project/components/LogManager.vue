@@ -87,7 +87,7 @@
                 </fieldset>
             </el-collapse-transition>
         </div>
-        <div class="divInLogManager">
+        <div class="divInLogManager" >
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -99,7 +99,7 @@
             ></el-pagination>
         </div>
 
-        <el-row class="divInLogManager" v-for="log in logs" :key="log.lId">
+        <el-row v-loading="isLoading" class="divInLogManager" v-for="log in logs" :key="log.lId">
             <el-card :body-style="{ padding: '0px',width: '70vw'}">
                 <div class="divInLogManager">
                     <span
@@ -185,7 +185,7 @@ export default {
             searchLogsUrl: "api/log",
             deleteLogUrl: "api/log",
             updateLogUrl: "api/log",
-            currentProjectId: 1,
+            currentProjectId: this.$route.params.pId,
             show_create_log: false,
             show_search_log: false,
             currentPage: 1,
@@ -276,7 +276,8 @@ export default {
                 timeRange: null,
                 uUsername: null,
                 mName: null
-            }
+            },
+            isLoading : true,
         };
     },
     mounted: function() {
@@ -288,6 +289,7 @@ export default {
     },
     methods: {
         get_logs() {
+            this.isLoading =true
             var startPage = (this.currentPage - 1) * this.currentPageSize;
             //console.log(this.getLogsBypPidUrl+this.currentProjectId);
 
@@ -301,6 +303,7 @@ export default {
                 .then(
                     function(res) {
                         this.logs = res.body;
+                        this.isLoading = false
                     },
                     function(res) {
                         console.log(res.status);

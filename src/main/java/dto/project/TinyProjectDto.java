@@ -1,12 +1,12 @@
-package dto;
+package dto.project;
 
 import bean.Project;
 
-public class ProjectDto {
+public class TinyProjectDto {
     private Long pId;
     private String pName;
 
-    public ProjectDto(Project project){
+    public TinyProjectDto(Project project){
         this.pId = project.getpId();
         this.pName = project.getpName();
     }

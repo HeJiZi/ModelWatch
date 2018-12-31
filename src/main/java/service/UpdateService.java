@@ -11,7 +11,7 @@ public interface UpdateService {
      * @param project
      * @param file
      */
-    public void UpdateProject(String project, MultipartFile file);
+    public boolean UpdateProject(String project, MultipartFile file);
 
     public boolean updateModel(User user, String model, MultipartFile[] multipartFile,String lContext);
 

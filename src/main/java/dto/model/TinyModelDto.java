@@ -1,12 +1,12 @@
-package dto;
+package dto.model;
 
 import bean.Model;
 
-public class ModelDto {
+public class TinyModelDto {
     private Long mId;
     private String mName;
 
-    public ModelDto(Model model){
+    public TinyModelDto(Model model){
         this.mId = model.getmId();
         this.mName = model.getmName();
     }

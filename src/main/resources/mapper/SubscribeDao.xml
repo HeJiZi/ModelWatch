@@ -3,16 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.SubscribeDao">
-  <select id="selectSubscribe" resultType="java.lang.Integer">
-      select count(*)
-      from subscribe
-      where Sub_pid=#{pid}
-      and Sub_uid=#{uid}
-  </select>
+
     <insert id="addSubscribe">
-        insert into subscribe (Sub_pid, Sub_uid) values (#{pid},#{uid})
+        insert into subscribe (Sub_pid, Sub_uid) values (#{pId},#{uId})
     </insert>
     <delete id="deleteSubscribe">
-        delete from subscribe where Sub_pid=#{pid} and Sub_uid=#{uid}
+        delete from subscribe where Sub_pid=#{pId} and Sub_uid=#{uId}
     </delete>
 </mapper>

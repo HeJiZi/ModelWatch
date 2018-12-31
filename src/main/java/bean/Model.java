@@ -10,6 +10,8 @@ public class Model {
     private String mPreview;
     private String mName;
     private int mState;
+    private int comNum;
+    private int markNum;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Timestamp mCreateTime;
@@ -81,6 +83,22 @@ public class Model {
         this.mState = mState;
     }
 
+    public int getComNum() {
+        return comNum;
+    }
+
+    public void setComNum(int comNum) {
+        this.comNum = comNum;
+    }
+
+    public int getMarkNum() {
+        return markNum;
+    }
+
+    public void setMarkNum(int markNum) {
+        this.markNum = markNum;
+    }
+
     @Override
     public String toString() {
         return "Model{" +
@@ -88,9 +106,12 @@ public class Model {
                 ", mData='" + mData + '\'' +
                 ", mPreview='" + mPreview + '\'' +
                 ", mName='" + mName + '\'' +
+                ", mState=" + mState +
+                ", comNum=" + comNum +
+                ", markNum=" + markNum +
                 ", mCreateTime=" + mCreateTime +
                 ", project=" + project +
                 ", aClass=" + aClass +
-                '}';
+                "}\n";
     }
 }

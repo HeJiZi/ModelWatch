@@ -10,7 +10,6 @@ import service.UpdateService;
 import util.DtoListUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -54,6 +53,6 @@ public class LogController {
     @ResponseBody
     @RequestMapping(value = "/{lId}",method = RequestMethod.DELETE)
     public boolean deleteLog(@PathVariable Long lId){
-        return deleteService.DeleteLog(lId);
+        return deleteService.deleteLog(lId);
     }
 }

@@ -2,6 +2,7 @@ package service.impl;
 
 import bean.User;
 import dao.InvitationDao;
+import dao.SubscribeDao;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import service.InsertService;
 import dao.UserDao;
 import util.SendMailUtil;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -16,6 +18,12 @@ public class InsertServiceImp implements InsertService {
 
     @Autowired
     private InvitationDao invitationDao;
+
+    @Autowired
+    private SubscribeDao subscribeDao;
+
+    @Autowired
+    HttpSession session;
 
     public int addCollaborator(Long pId,String myName) {
         int s=1;
@@ -45,5 +53,11 @@ public class InsertServiceImp implements InsertService {
             }
         }
         return s;
+    }
+
+    public boolean addSubscribe(long pId) {
+        User user = (User) session.getAttribute("user");
+        int uId =user.getuId();
+        return subscribeDao.addSubscribe(pId,uId)!=0;
     }
 }

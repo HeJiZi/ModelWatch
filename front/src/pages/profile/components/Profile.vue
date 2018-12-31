@@ -8,7 +8,7 @@
             <section style="width: 65%;margin-left: 30px;display: flex;flex-flow: row wrap;padding-bottom: 20px;">
                 <section class="pro-input-box">
                     <label for="name">Name</label>
-                    <input id='name' name="name" placeholder="username" v-model="user.uUsername" type="text">
+                    <input id='name' name="name" placeholder="uUsername" v-model="user.uUsername" type="text">
                 </section>
                 <section class="pro-input-box" style="width:45%">
                     <label for="email">Email</label>
@@ -25,7 +25,7 @@
                 </section>
                 <section class="pro-input-box">
                     <label>BirthDay</label>
-                    <el-date-picker  value-format="yyyy-MM-dd" v-model="user.uBirthday" type="date" placeholder="Pick a day">
+                    <el-date-picker  value-format="yyyy-MM-dd" v-model="user.uBirthday" type="date" placeholder="Pick a pDay">
                     </el-date-picker>
                 </section>
                 <section class="pro-input-box">
@@ -79,7 +79,7 @@ export default {
             user:{
 
             },
-            disflag:false,
+            disflag:true,
             aldis:'none',
             alertText:'',
             alType:"error",
@@ -90,7 +90,7 @@ export default {
         this.$http.get('/api/user').then((response)=>{
             var data=response.data
             this.user =data;
-        })        
+        })
     },
     methods:{
         updateData:function () {
@@ -149,6 +149,7 @@ export default {
 
             var oFReader = new FileReader();
             var file=event.target.files[0];
+            if(file == undefined) return;
             this.file=file;
 
             oFReader.readAsDataURL(file);
@@ -161,6 +162,6 @@ export default {
             }
 
         }
-    }    
+    }
 }
 </script>

@@ -28,10 +28,10 @@ public class JumpController {
         return "personalZone";
     }
 
-    @RequestMapping(value = "/project/{pId}",method = RequestMethod.GET)
-    public String toProject(){
-        return "project";
-    }
+//    @RequestMapping(value = "/project/{pId}",method = RequestMethod.GET)
+//    public String toProject(){
+//        return "project";
+//    }
 
     @RequestMapping(value = "/profile/{uId}",method = RequestMethod.GET)
     public String toProfile(){

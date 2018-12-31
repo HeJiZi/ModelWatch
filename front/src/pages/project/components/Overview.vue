@@ -1,14 +1,17 @@
 <template>
-    <article class="ov-wrapper">
+    <article v-loading="isLoading" class="ov-wrapper">
         <div style="display: flex;border-bottom: 1px solid rgb(222, 222, 222);padding-bottom: 10px;margin-bottom: 10px;font-size: 17px;align-items: flex-end;">
           <p class="ov-title">项目总览</p>
           <div style="width: 49%;display: flex;justify-content: flex-end;">
-              <el-button size="mini"  icon="el-icon-view">关注  <span style="font-weight:bold">35</span></el-button>
+                <el-button @click="subscribe" size="mini"  icon="el-icon-view">
+                  <template v-if="project.pSubed">已</template>关注  
+                  <span style="font-weight:bold">{{project.pSubsNum}}</span>
+                </el-button>
           </div>
         </div>
         <div style="display:flex">
             <div style="display:flex;width:70%;">
-                <article style=";overflow: hidden;cursor: pointer;" :style="{height:height,width:width}">
+                <article style=";overflow: hidden;cursor: pointer;" :style="{height:height+'px',width:width+'px'}">
                     <img :height="height" :width="width" :src="project.pPreview">
                 </article>
                 <div id="des" style="margin-left: 20px;">
@@ -20,7 +23,7 @@
                       
             </div>
             <div style="padding-left:10px;border-left:1px solid rgb(222, 222, 222);height:80px">
-                <p>模型数：{{models.length}}</p>
+                <p>模型数：{{project.models.length}}</p>
 
             </div>    
         </div>        
@@ -28,8 +31,8 @@
           <p class="ov-title">模型总览</p>
         </div>
         <div style="display:flex;flex-flow:row wrap;">
-            <mw-photo  v-for="model in models" :key="model.mId" :name="model.mName" 
-                :time="model.mCreateTime" :img_url="model.mPreview" height="150px" :redirect="'/model/dis/'+model.mId"></mw-photo>
+            <mw-photo  v-for="model in project.models" :key="model.mId" :name="model.mName" 
+                :time="model.mCreateTime" :img_url="model.mPreview" height="150px" :redirect="'/model#/'+model.mId"></mw-photo>
             <div @click="dialogVisible =true;" class="avatar-uploader">
                 <label for="test" tabindex="0" class="el-upload el-upload--text" style="margin-top:0px">
                     <i class="el-icon-plus avatar-uploader-icon"></i>
@@ -82,46 +85,76 @@ import mwPhoto from '@/WatchComponents/ModelWatchPhoto.vue'
 export default {
     data(){
         return{
+            isLoading:false,
             dialogVisible:false,
-            height:'200px',
+            height:200,
             aspect:'',
             modelName:'',
             project:{
-                pId:1,
-                pCreateTime:'2018-07-01',
-                pName: '星火',
-                pContext:'星火是一个制作星星与火焰特效模型的项目',
-                pPreview:'/resources/images/pc.jpeg',
+                pId:null,
+                pCreateTime:'',
+                pName: '',
+                pContext:'',
+                pPreview:'',
+                pSubsNum:null,
+                pSubed:false,
                 user:{
-                    uUsername:'HeJiZi'
-                }
+                    uUsername:''
+                },
+                models:[]
             },
-            models:[
-                {mId:1,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:2,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:3,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:4,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-                {mId:5,mName:'logo',mCreateTime:'2018-09-07',mPreview:'/resources/images/1.png'},
-            ]
         }
     },
     computed:{
         width:function(){
-            return this.aspect*parseFloat(this.height) +'px';
+            return this.aspect*parseFloat(this.height);
         }
     },
     created: function(){
-        var img=new Image();
-        var obj=this;
-        img.src=obj.project.pPreview;
-        img.onload=function(){
-            obj.aspect=(img.width/img.height);
-        }
+        this.isLoading =true;
+        this.$http.get('/api/project/'+this.$route.params.pId).then(response=>{
+            this.project = response.data;
+
+            var img=new Image();
+            var obj=this;
+            img.src=obj.project.pPreview;
+            img.onload=function(){
+                obj.aspect=(img.width/img.height);
+                obj.isLoading =false;
+            }            
+        })
+
     },
     methods:{
         addModel:function(){
-
+            this.$http.post('/api/model',{
+                    mName: this.modelName,
+                    project:{
+                        pId:this.$route.params.pId
+                    }
+                }).then((response)=>{
+                if (response.data){
+                    this.dialogVisible = false
+                    window.location.href = '/model#/'+response.data
+                }
+            })
         },
+        subscribe(){
+            var pId = this.$route.params.pId;
+            if(this.project.pSubed){
+                this.$http.delete('/api/subscribe/'+pId).then(response=>{
+                    this.project.pSubsNum -=1;
+                    this.project.pSubed =false;
+                })
+            }
+            else{
+                this.$http.post('/api/subscribe/'+pId).then(response=>{
+                    this.project.pSubsNum +=1;
+                    this.project.pSubed =true;
+                })
+
+            }
+        }
 
     },
     components:{mwPhoto,}

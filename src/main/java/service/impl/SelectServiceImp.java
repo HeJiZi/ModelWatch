@@ -4,12 +4,17 @@ import bean.*;
 import dao.*;
 import dto.InvitationDto;
 import dto.ListObject;
+import dto.project.PjOverviewDto;
+import dto.project.ProjectDataDto;
+import dto.project.ProjectStaticDto;
 import entity.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import service.SelectService;
 import util.TransCharsetUtil;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -33,8 +38,11 @@ public class SelectServiceImp implements SelectService {
     @Autowired
     private InvitationDao invitationDao;
 
+    @Autowired
+    HttpSession session;
+
     public List<Project> getUserProjects(String uId) {
-        return projectDao.getProjectsByCreateUid(Integer.parseInt(uId));
+        return projectDao.getProjectsByCreateUId(Integer.parseInt(uId));
     }
 
     public List<Project> getSubProjects(String uId) {
@@ -59,12 +67,16 @@ public class SelectServiceImp implements SelectService {
         return userDao.selectUsersByContent(content);
     }
 
-    public Project getProjectData(String pId) {
-        return projectDao.getProjectById(Long.parseLong(pId));
+
+    public PjOverviewDto selectProject(long pId){
+        User user = (User) session.getAttribute("user");
+        Project project = projectDao.getProjectById(pId,user==null?0:user.getuId());
+        return project == null?null:new PjOverviewDto(project);
     }
 
-    public Project selectProject(long pId){
-        return projectDao.getProjectById(pId);
+    public ProjectDataDto selectProjectData(long pId) {
+        Project project = projectDao.getProjectData(pId);
+        return project==null?null:new ProjectDataDto(project);
     }
 
     public List<Log> selectLog(long pId,int currentPage,int limit){
@@ -89,9 +101,6 @@ public class SelectServiceImp implements SelectService {
         return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
     }
 
-    public List<Model> selectModel(long pId){
-        return modelDao.getProjectModelByPid(pId);
-    }
 
     public ListObject selectCollaborators(long pId, int currentPage) {
         Page page = new Page(5);
@@ -107,5 +116,11 @@ public class SelectServiceImp implements SelectService {
         String mAvater=invitation.getCollaborator().getuAvater();
         String pName=invitation.getProject().getpName();
         return (new InvitationDto(uAvater,uUsername,mAvater,pName));
+    }
+
+    @Transactional
+    public ProjectStaticDto getProjectStatic(long pId) {
+        Project project = projectDao.getStatic(pId);
+        return project==null?null:new ProjectStaticDto(project);
     }
 }

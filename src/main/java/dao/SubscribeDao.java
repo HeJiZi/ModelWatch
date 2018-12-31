@@ -5,25 +5,19 @@ import org.apache.ibatis.annotations.Param;
 public interface SubscribeDao {
     /**
      * 用户添加关注
-     * @param pid
-     * @param uid
+     * @param pId
+     * @param uId
      * @return
      */
-    int addSubscribe(@Param("pid") int pid, @Param("uid") int uid);
+    int addSubscribe(@Param("pId") long pId, @Param("uId") int uId);
 
     /**
      * 用户取消关注
-     * @param pid
-     * @param uid
+     * @param pId
+     * @param uId
      * @return
      */
-    int deleteSubscribe(@Param("pid") int pid,@Param("uid") int uid);
+    int deleteSubscribe(@Param("pId") long pId,@Param("uId") int uId);
 
-    /**
-     * 查找用户是否关注个该项目
-     * @param pid
-     * @param uid
-     * @return
-     */
-    int selectSubscribe(@Param("pid") int pid,@Param("uid") int uid);
+
 }

@@ -2,22 +2,41 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.ProjectDao">
-
-    <resultMap id="user" type="User">
-        <result property="uId" column="U_id" />
-        <result property="uUsername" column="U_username" />
-    </resultMap>
+<mapper namespace="dao.ProjectDao" >
 
     <resultMap id="project" type="Project">
-      <result property="pId" column="P_id" />
-      <result property="pName" column="P_name" />
-      <result property="pContext" column="P_context" />
-      <result property="pPreview" column="P_preview" />
-      <collection property="user" resultMap="dao.ProjectDao.user" />
+        <id property="pId" column="P_id"/>
+        <result property="pName" column="P_name"/>
+        <result property="pContext" column="P_context"/>
+        <result property="pCreateTime" column="P_createTime"/>
+        <result property="pPreview" column="P_preview"/>
+        <result property="pSubsNum" column="p_subs_num"/>
+        <result property="pSubed" column="p_subed"/>
+        <collection property="user" resultMap="dao.UserDao.user"/>
+        <collection property="models" column="p_id" select="dao.ModelDao.getProjectModelByPid"/>
     </resultMap>
 
-    <select id="getProjectsByCreateUid" resultType="Project">
+    <resultMap id="pStatic" type="Project">
+        <collection property="models" column="p_id" select="dao.ModelDao.getModelStatic"/>
+        <collection property="collaborators" column="p_id" select="dao.UserDao.getUserStatic"/>
+        <collection property="pjHeatStatic" column="p_id" select="getProjectHeat"/>
+        <collection property="logStatic" column="p_id" select="getLogStatic"/>
+    </resultMap>
+
+    <select id="getProjectById" resultMap="project">
+        select P_id,P_name,P_context,P_createTime,P_preview,
+        (select COUNT(*) from subscribe where Sub_pid=P_id)p_subs_num,
+        (select COUNT(*) from subscribe where Sub_pid=P_id and Sub_uid = #{uId})p_subed,
+        U_id,U_username
+        from project,user where P_id=#{pId} and U_id =P_Uid
+    </select>
+
+    <select id="getProjectData" resultType="Project">
+        select P_id,P_context,P_name,P_preview,U_id "user.uId",U_password "user.uPassword"
+        from project,user where P_id=#{pId} and P_Uid =U_id
+    </select>
+
+    <select id="getProjectsByCreateUId" resultType="Project">
         select P_id,P_createTime,P_name,P_preview from project,(select U_id from user where U_id=#{uid}) u
         where u.U_id=project.P_Uid;
     </select>
@@ -27,31 +46,57 @@
         where u.Sub_pid=project.P_id;
     </select>
 
-    <select id="getProjectById" resultType="Project">
-        select P_id,P_createTime,P_name,P_preview,P_context from project where P_id=#{pid}
-    </select>
 
     <insert id="addProject" keyProperty="pId" useGeneratedKeys="true" parameterType="Project">
         insert ignore into project(P_name,P_preview,P_context,P_Uid) values
-            (#{pName},#{pPreview},#{pContext},#{user.uId})
+        (#{pName},#{pPreview},#{pContext},#{user.uId})
     </insert>
+
+
     <update id="updateProjectData">
-        update project set P_context=#{pContext} where P_id=#{pId}
+        update project set P_context=#{pContext},p_name=#{pName},p_preview=#{pPreview} where P_id=#{pId}
     </update>
 
-    <select id="selectProjectDate">
-        select P_id,P_context,P_name from project where P_id=#{pId}
-    </select>
 
     <delete id="deleteProject">
         delete from project
         where P_id=#{pId}
     </delete>
 
-    <select id="getProjectAndUserByPid" resultMap="project">
-        select P_id,P_createTime,P_name,P_preview,P_context,U_id,U_username
-        from project,user
-        where project.P_id=#{pId}
-        and project.P_Uid=user.U_id
+
+<!--查询项目统计信息-->
+    <select id="getStatic" resultMap="pStatic">
+        select p_id from project where p_id = #{pId}
     </select>
+
+
+    <select id="getProjectHeat" resultType="PjHeatStatic">
+        select temp.day p_day ,sub_num,mark_num
+        from ((select date_format(Mark_time,"%Y-%m-%d")day
+        from model,mark
+        where model.M_pid =#{pId} and Mark_mid =model.M_id group by day union
+        (    select date_format(Sub_time,"%Y-%m-%d")day
+        from subscribe
+        where Sub_pid=#{pId}  group by day))temp left join
+        (select count(*)sub_num,date_format(Sub_time,"%Y-%m-%d")day
+        from subscribe
+        where Sub_pid=#{pId} group by day
+        )s
+        on temp.day = s.day
+        ) left join
+        (select count(*)mark_num,date_format(Mark_time,"%Y-%m-%d")day
+        from model,mark
+        where model.M_pid =#{pId} and Mark_mid =model.M_id group by day
+        )m
+        on temp.day =m.day order by temp.day
+
+    </select>
+
+    <select id="getLogStatic" resultType="LogStatic">
+        select count(*)commit_num,date_format(L_Time,"%Y-%m-%d") l_day
+        from log where L_pid =#{pId}
+        group by l_day
+    </select>
+    <!--查询项目统计信息-->
+
 </mapper>
