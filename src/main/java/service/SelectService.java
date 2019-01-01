@@ -45,8 +45,8 @@ public interface SelectService {
 
     ProjectDataDto selectProjectData(long pId);
 
-    List<Log> selectLog(long pId,int currentPage,int limit);
-    List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit);
+    ListObject selectLog(long pId,int currentPage,int limit);
+    ListObject filterLog(String beginTime, String endTime, String uUsername, String mName, Long pId, int currentPage, int limit);
 
     ListObject selectCollaborators(long pId, int currentPage);
 

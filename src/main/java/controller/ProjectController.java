@@ -88,11 +88,10 @@ public class ProjectController {
 
     @ResponseBody
     @RequestMapping(value = "/log/{pId}",method = RequestMethod.GET)
-    public List getData(@PathVariable Long pId,
+    public ListObject getData(@PathVariable Long pId,
                         @RequestParam(value = "currentPage") int currentPage,
                         @RequestParam(value = "limit") int limit){
-        List<Log> logList =  selectService.selectLog(pId,currentPage,limit);
-        return (List<LogDto>)DtoListUtil.transelateList(logList,LogDto.class);
+        return selectService.selectLog(pId,currentPage,limit);
         //return logList;
     }
 

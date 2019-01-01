@@ -5,7 +5,7 @@
             </div>
             <h1>热门推荐</h1>
             <div id="a-bottom">
-                <div class="projects" >
+                <div v-loading="isLoading" class="projects" >
                     <mw-photo  v-for="model in models" :key="model.key" :name="model.mName" :time="model.mCreateTime"  :img_url="model.mPreview" height="250px" :redirect="'/model#/'+model.mId"/>
                 </div>
             </div>        
@@ -111,7 +111,8 @@ export default {
         return{
             models:[
 
-            ]
+            ],
+            isLoading:true,
       
         }
     },
@@ -119,8 +120,10 @@ export default {
 
     },
     created(){
+        this.isLoading = true;
         this.$http.get('/api/model').then((response)=>{
             this.models = response.data
+            this.isLoading =false;
         })
     },
     mounted(){

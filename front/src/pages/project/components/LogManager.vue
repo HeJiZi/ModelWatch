@@ -1,43 +1,15 @@
 <template>
     <article>
-        <div class="divInLogManager">
-            <el-button type="primary" v-show="!show_create_log" @click="show_create_log = true">新建日志</el-button>
-            <el-button type="primary" v-show="!show_search_log" @click="show_search_log = true">搜索日志</el-button>
-        </div>
-        <div class="divInLogManager">
-            <el-collapse-transition>
-                <fieldset
-                    v-show="show_create_log"
-                    style="border:4px #fff groove;border-radius: 10px; "
-                >
-                    <legend style="font-size:1.2em;color:grey">新建日志:</legend>
-                    <el-input
-                        type="textarea"
-                        :autosize="{ minRows: 4, maxRows: 6}"
-                        placeholder="请输入日志内容"
-                    ></el-input>
-                </fieldset>
-            </el-collapse-transition>
-            <el-button
-                class="buttonInLogManager"
-                type="primary"
-                v-show="show_create_log"
-                @click="confirm_create_log"
-            >上传</el-button>
-            <el-button
-                class="buttonInLogManager"
-                type="danger"
-                v-show="show_create_log"
-                @click="cancel_create_log"
-            >取消</el-button>
-        </div>
+        <div class="divInLogManager"> 
+            <el-button type="primary" v-show="!show_search_log" @click="show_search_log = true">筛选日志</el-button>
+        </div> 
         <div class="divInLogManager">
             <el-collapse-transition>
                 <fieldset
                     v-show="show_search_log"
                     style="border:4px #fff groove;border-radius: 10px; "
                 >
-                    <legend style="font-size:1.2em;color:grey">搜索日志:</legend>
+                    <legend style="font-size:1.2em;color:grey">筛选日志:</legend>
                     <div class="divInLogManager">
                         <div class="divInLogManager">时间：
                             <el-date-picker
@@ -95,7 +67,7 @@
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="currentPageSize"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="logs.length"
+                :total="currentTotal"
             ></el-pagination>
         </div>
 
@@ -190,6 +162,7 @@ export default {
             show_search_log: false,
             currentPage: 1,
             currentPageSize: 10,
+            currentTotal:0,
             fakeData: [
                 {
                     lId: 1,
@@ -302,7 +275,8 @@ export default {
                 .get(this.getLogsBypPidUrl + "" + this.currentProjectId,{params:params})
                 .then(
                     function(res) {
-                        this.logs = res.body;
+                        this.logs = res.body.list;
+                        this.currentTotal = res.body.page.totalNum;
                         this.isLoading = false
                     },
                     function(res) {
@@ -477,7 +451,8 @@ export default {
                 .then(
                     function(res) {
                         //console.log(res.body);
-                        this.logs = res.body;
+                        this.logs = res.body.list;
+                        this.currentTotal = res.body.page.totalNum;
                     },
                     function(res) {
                         console.log(res.status);

@@ -162,7 +162,7 @@
     methods:{
       querySearch(queryString, cb){  
               this.$http.get('/api/user/'+queryString).then((response)=>{   
-                      this.users=response.data.list;
+                      this.users=response.data;
                       cb(this.users);
               })
               .catch((response) => { 

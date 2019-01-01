@@ -1,5 +1,6 @@
 package controller;
 
+import dto.ListObject;
 import dto.LogDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,14 @@ public class LogController {
 
     @ResponseBody
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public List searchLog(@RequestParam(value = "beginTime",required = false) String beginTime,
-                        @RequestParam(value = "endTime", required = false) String endTime,
-                        @RequestParam(value = "uUsername", required = false) String uUsername,
-                        @RequestParam(value = "mName",required = false) String mName,
-                          @RequestParam(value = "pId") Long pId,
-                          @RequestParam(value = "currentPage") int currentPage,
-                          @RequestParam(value = "limit") int limit){
-        return DtoListUtil.transelateList(selectService.filterLog(beginTime, endTime, uUsername, mName,pId,currentPage,limit),LogDto.class);
+    public ListObject searchLog(@RequestParam(value = "beginTime",required = false) String beginTime,
+                                @RequestParam(value = "endTime", required = false) String endTime,
+                                @RequestParam(value = "uUsername", required = false) String uUsername,
+                                @RequestParam(value = "mName",required = false) String mName,
+                                @RequestParam(value = "pId") Long pId,
+                                @RequestParam(value = "currentPage") int currentPage,
+                                @RequestParam(value = "limit") int limit){
+        return selectService.filterLog(beginTime, endTime, uUsername, mName,pId,currentPage,limit);
     }
 
     @Autowired

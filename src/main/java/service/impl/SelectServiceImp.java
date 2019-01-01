@@ -4,6 +4,7 @@ import bean.*;
 import dao.*;
 import dto.InvitationDto;
 import dto.ListObject;
+import dto.LogDto;
 import dto.project.PjOverviewDto;
 import dto.project.ProjectDataDto;
 import dto.project.ProjectStaticDto;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.SelectService;
+import util.DtoListUtil;
 import util.TransCharsetUtil;
 
 import javax.servlet.http.HttpSession;
@@ -85,12 +87,12 @@ public class SelectServiceImp implements SelectService {
         return project==null?null:new ProjectDataDto(project);
     }
 
-    public List<Log> selectLog(long pId,int currentPage,int limit){
+    public ListObject selectLog(long pId,int currentPage,int limit){
         Page page = new Page(limit);
         page.setCurrentPageNum(currentPage);
-        return logDao.getLogByPidPage(pId,page);
+        return new ListObject(logDao.getLogByPidPage(pId,page),page);
     }
-    public List<Log> filterLog(String beginTime,String endTime,String uUsername,String mName,Long pId,int currentPage,int limit){
+    public ListObject filterLog(String beginTime, String endTime, String uUsername, String mName, Long pId, int currentPage, int limit){
         Timestamp beginTimestamp = null;
         Timestamp endTimestamp = null;
         if(beginTime != null && endTime != null){
@@ -104,7 +106,11 @@ public class SelectServiceImp implements SelectService {
         Page page = new Page(limit);
         page.setCurrentPageNum(currentPage);
 
-        return logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
+        List<Log> logs = logDao.filterLogPage(beginTimestamp,endTimestamp,uUsername,mName,pId,page);
+        DtoListUtil.transelateList(logs, LogDto.class);
+
+        ListObject listObject = new ListObject(logs,page);
+        return listObject;
     }
 
 
