@@ -37,26 +37,18 @@
         UPDATE reply SET rep_dislike_num=rep_dislike_num+1 where rep_id=#{repId}
     </update>
 
-    <insert id="AddReply">
-        <!--<selectKey keyProperty="repId" order="BEFORE">-->
-            <!--SELECT LAST_INSERT_ID()-->
-        <!--</selectKey>-->
-        <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
-        <!--VALUES(#{repComId}, #{rep_id}, #{repUId}, #{repType}, #{repContent})-->
 
-        insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)
-        VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})
-
-        <!--<choose>-->
-            <!--<when test="repRId != 1">-->
-                <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
-                <!--VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})-->
-            <!--</when>-->
-            <!--<otherwise>-->
-                <!--insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)-->
-                <!--VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})-->
-            <!--</otherwise>-->
-        <!--</choose>-->
+    <insert id="AddReply" >
+        <choose>
+            <when test="repRId != 0">
+                insert into reply (rep_com_id, rep_r_id, rep_u_id, rep_type, rep_content)
+                VALUES(#{repComId}, #{repRId}, #{repUId}, #{repType}, #{repContent})
+            </when>
+            <otherwise>
+                insert into reply (rep_com_id, rep_u_id, rep_type, rep_content)
+                VALUES(#{repComId}, #{repUId}, #{repType}, #{repContent})
+            </otherwise>
+        </choose>
     </insert>
 
 </mapper>
