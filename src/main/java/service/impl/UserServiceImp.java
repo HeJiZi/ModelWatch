@@ -86,11 +86,4 @@ public class UserServiceImp implements UserService {
         return users;
     }
 
-//    public ListDto getUmailByName(String uName){
-//        List<User> users=userDao.getMailByName(uName);
-//        return new ListDto(users);
-//    }
-
-
-
 }

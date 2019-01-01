@@ -53,7 +53,7 @@
                         <div style="display: flex; width: 100%; ">
                             <h5>{{reply.user.uUsername}}</h5>
                             <!--<h5 style="color: #409EFF; " v-if="reply.repRId != reply.repId">&nbsp;回复@</h5>-->
-                            <h5 style="color: #409EFF; " v-if="reply.repRId != 1">&nbsp;回复@</h5>
+                            <h5 style="color: #409EFF; " v-if="reply.repRId != 0">&nbsp;回复@</h5>
                             <h5 style="color: #409EFF">{{reply.repUsername}}</h5>
                         </div>
                         

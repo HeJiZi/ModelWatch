@@ -76,7 +76,7 @@ export default {
                 if (this.keyType != "0") {
                   repRId = this.needRepId;  // this.needRepId: 此处指评论的id
                 } else {
-                  repRId = 1;
+                  repRId = 0;
                   // repRId = this.needRepId;
                 }
                 console.log(newContent, repRId, this.comId, this.user.uId, this.keyType)
