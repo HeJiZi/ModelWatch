@@ -41,7 +41,7 @@ public class InsertServiceImp implements InsertService {
                                 "        <div style=\"text-indent:2em;fontsize:15px;\">\n" +
                                 "            " + myName + ",你好,我是邀请者" + uName + ",鉴于你的项目管理记录良好，在此诚挚的邀请你共同管理我的项目。\n" +
                                 "            <br>详情请请点击下面的邀请链接:\n" +
-                                "            <br>&nbsp;&nbsp;&nbsp;<a href=\"http://127.0.0.1:8070/inv#/" + uName + "/" + pId + "/" + myName + "\">http:127.0.0.1:8070/inv</a>\n" +
+                                "            <br>&nbsp;&nbsp;&nbsp;<a href=\"http://127.0.0.1:8070/inv#/" + pId + "/" + myName + "\">点这里</a>\n" +
                                 "            <br>期待与你的合作！\n" +
                                 "        </div>\n" +
                                 "        <div style=\"font-size:18px;\">   \n" +
