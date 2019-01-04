@@ -289,6 +289,7 @@ export default {
                         }
                     }
                 }
+                this.$emit("reflashReplys", this.replys, this.id);
 
               }
             );
