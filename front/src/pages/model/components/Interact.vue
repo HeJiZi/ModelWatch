@@ -30,13 +30,13 @@
                         :avater="comment.user.uAvater" 
                         :replys="comment.replys"
                         :repCom="repCom"
-
+                        v-on:reflashReplys="flashReplys"
                         >
             </mw-comment>
         </div>
         <!-- 分页 -->
         <div style="width: 53%; margin: 0 auto;">
-            <el-pagination v-if="commentsInfo.totalNum >= commentsInfo.number"
+            <el-pagination v-if="commentsInfo.totalNum > commentsInfo.number"
                 background
                 :page-size="commentsInfo.number"
                 layout="prev, pager, next"
@@ -179,6 +179,15 @@ export default {
               this.commentsInfo = response.data.page;
             }
           );
+        },
+
+        flashReplys(replys, id) {
+          var i;
+          for (i = 0; i < this.comments.length; i++) {
+            if (this.comments[i].comId == id) {
+              this.comments[i].replys = replys;
+            }
+          }
         }
 
     },
