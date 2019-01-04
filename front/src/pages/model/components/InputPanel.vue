@@ -89,7 +89,7 @@ export default {
                 }).then(
                     function (response) {
                       if (response.data) {
-                        alert("评论成功，正在等待管理员审核");
+                        alert("评论成功");
                         this.$refs.editor.$refs.textplace.getElementsByTagName("p").item(0).innerHTML = "";
                         this.$emit("closeCancelTip", repRId, this.keyType);
                       } else {

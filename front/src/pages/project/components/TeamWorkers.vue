@@ -159,6 +159,11 @@
         isLoading:true,
       };
     },
+    computed:{
+      pId(){
+        return this.$route.params.pId;
+      }
+    },
     methods:{
       querySearch(queryString, cb){  
               this.$http.get('/api/user/'+queryString).then((response)=>{   
@@ -171,7 +176,7 @@
       },
       changePage(val){
         this.page=val;
-        this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+        this.$http.get('/api/invitation?pId='+this.pId+'&currentPage='+this.page).then((response)=>{
                 this.collaborators=response.data.list;
             });
       },
@@ -198,11 +203,11 @@
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                  this.$http.delete('/api/invitation/1/'+user.uId) 
+                  this.$http.delete('/api/invitation/'+this.pId+'/'+user.uId)
                         .then((response) => {   
                             if(response.data!=0){ 
                               this.collaborators.splice(index,1);
-                              this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                              this.$http.get('/api/invitation?pId='+this.pId+'&currentPage='+this.page).then((response)=>{
                                 this.collaborators=response.data.list;
                                 this.totalNum=response.data.page.totalNum;
                               });    
@@ -228,11 +233,11 @@
         oInput.style.display = "none";
       },
       cancelInv(index,user){
-          this.$http.delete('/api/invitation/1/'+user.uId) 
+          this.$http.delete('/api/invitation/'+this.pId+'/'+user.uId)
             .then((response) => {   
                 if(response.data!=0){ 
                   this.collaborators.splice(index,1);
-                  this.$http.get('/api/invitation?pId='+1+'&currentPage='+this.page).then((response)=>{
+                  this.$http.get('/api/invitation?pId='+this.pId+'/'+'&currentPage='+this.page).then((response)=>{
                     this.collaborators=response.data.list;
                     this.totalNum=response.data.page.totalNum;
                   });    
