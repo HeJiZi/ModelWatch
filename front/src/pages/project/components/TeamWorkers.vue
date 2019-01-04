@@ -71,9 +71,8 @@
                   offset=0>
                   <div style="margin-bottom:10px">邀请链接:</div>
                   <div class="me" style="border:2px solid rgb(57, 139, 211);display:flex;border-radius:3px;">
-                    <el-input :value=scope.row.uEmail readonly id="nu"  
-                      style="width:200px;display:inline-block;vertical-align:middle;"></el-input>
-                    <el-button icon="el-icon-edit-outline" style="border: 0px;margin-left: -10px;height: 40px;width:55px;" @click="copy"></el-button>                
+                    <el-input id="nu" :value="'http://localhost:8070/inv#/'+pId+'/'+scope.row.uUsername" readonly style="width:200px;display:inline-block;vertical-align:middle;"></el-input>
+                    <el-button icon="el-icon-edit-outline" style="border: 0px;margin-left: -10px;height: 40px;width:55px;" @click="copy(scope.row.uUsername)"></el-button>                
                   </div>
                   <el-button size="mini" slot="reference">复制链接</el-button>
                 </el-popover>
@@ -222,8 +221,8 @@
                     this.$message.info('已取消删除!'); 
               });      
       },
-      copy(){
-        var Url2 = document.getElementById("nu").value;
+      copy(itemName){
+        var Url2="http://localhost:8070/inv#/"+this.pId+"/"+itemName;
         var oInput = document.createElement("input");
         oInput.value = Url2;
         document.body.appendChild(oInput);
@@ -237,7 +236,7 @@
             .then((response) => {   
                 if(response.data!=0){ 
                   this.collaborators.splice(index,1);
-                  this.$http.get('/api/invitation?pId='+this.pId+'/'+'&currentPage='+this.page).then((response)=>{
+                  this.$http.get('/api/invitation?pId='+this.pId+'&currentPage='+this.page).then((response)=>{
                     this.collaborators=response.data.list;
                     this.totalNum=response.data.page.totalNum;
                   });    
@@ -247,7 +246,7 @@
             .catch((response) => { 
                   this.$message.error('取消失败!'); 
             }); 
-}
+      }
     },
     mounted(){
       this.isLoading = true;
