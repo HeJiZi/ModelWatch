@@ -38,7 +38,7 @@
                 width="30%"
                 >
             <div slot="title" style="color:white;font-weight:bold;">确认要删除项目吗?</div>
-            <el-input v-model="inputPass" placeholder="请输入密码"></el-input>
+            <el-input type="password" v-model="inputPass" placeholder="请输入密码"></el-input>
             <span slot="footer" class="dialog-footer">
                 <el-button  type="danger" @click="deleteProject">确 定</el-button>
             </span>
