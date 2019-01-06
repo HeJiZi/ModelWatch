@@ -19,7 +19,7 @@ public interface ModelDao {
      */
     List<Model> getAllModels();
 
-    List<Model> GetUnCheckModels();
+    List<Model> getCheckModels();
 
     /**
      * 根据id获得模型

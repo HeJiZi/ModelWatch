@@ -37,11 +37,11 @@
     </resultMap>
 
     <select id="SelectComments" resultType="Comment">
-        select com_Id,com_content,com_create_time,
+        select com_Id,com_content,com_create_time,com_state,
         u_username "user.uUsername"
         from comments c, user u
         WHERE c.com_uId = u.u_id
-        and com_state = 0
+        and com_state = #{state}
     </select>
 
     <select id="SelectReplysByComId" resultMap="reply">

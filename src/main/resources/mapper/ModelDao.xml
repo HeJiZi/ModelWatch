@@ -21,9 +21,9 @@
         from model where M_State = 1
     </select>
 
-    <select id="GetUnCheckModels" resultType="Model">
-        select M_id,M_data,M_preview,M_name,M_createTime
-        from model where M_State = 0
+    <select id="getCheckModels" resultType="Model">
+        select M_id,M_data,M_preview,M_name,M_createTime,M_state
+        from model
     </select>
 
     <select id="getModelById" resultType="Model">

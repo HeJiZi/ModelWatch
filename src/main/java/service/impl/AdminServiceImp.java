@@ -53,17 +53,17 @@ public class AdminServiceImp implements AdminService {
     }
 
     public void CheckComment(Comment comment) {
-        if(comment.getComState() == 0) commentsDao.DeleteComment(comment.getComId());
-        else commentsDao.UpdateCommentState(comment);
+        commentsDao.UpdateCommentState(comment);
     }
 
     public void CheckModel(Model model) {
-        if(model.getmState() == 0) modelDao.deleteModel(model.getmId());
-        else modelDao.updateModelState(model);
+        modelDao.updateModelState(model);
     }
 
     public List<Comment> GetComments() {
-        return commentsDao.SelectComments(0);
+        List list =commentsDao.SelectComments(0);
+        list.addAll(commentsDao.SelectComments(1));
+        return list;
     }
 
     public List<User> GetUsers() {
@@ -71,6 +71,6 @@ public class AdminServiceImp implements AdminService {
     }
 
     public List<Model> GetModels() {
-        return modelDao.GetUnCheckModels();
+        return modelDao.getCheckModels();
     }
 }

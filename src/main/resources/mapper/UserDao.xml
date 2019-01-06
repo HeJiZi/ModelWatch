@@ -45,11 +45,11 @@
     </select>
 
     <select id="selectUsers" resultType="User">
-        select * FROM User
+        select * FROM user
     </select>
 
     <select id="selectUsersByContent" resultType="User">
-        select * FROM User WHERE u_id=#{content} OR u_username LIKE '%' #{content} '%'
+        select * FROM user WHERE u_id=#{content} OR u_username LIKE '%' #{content} '%'
     </select>
 
     <update id="updateData">

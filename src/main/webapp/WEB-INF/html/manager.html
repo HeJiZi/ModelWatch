@@ -132,8 +132,8 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button type="success" size="mini" @click="checkModel(scope.$index, scope.row,1)">通过</el-button>
-              <el-button type="danger" size="mini" @click="checkModel(scope.$index, scope.row,0)">不通过</el-button>
+              <el-button v-if="scope.row.mState=='0'" type="success" size="mini" @click="checkModel(scope.$index, scope.row,1)">恢复</el-button>
+              <el-button v-if="scope.row.mState=='1'" type="danger" size="mini" @click="checkModel(scope.$index, scope.row,0)">撤回</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -164,8 +164,8 @@
             </el-table-column>
             <el-table-column label="操作">
               <template slot-scope="scope">
-                <el-button type="success" size="mini" @click="checkComment(scope.$index, scope.row,1)">通过</el-button>
-                <el-button type="danger" size="mini" @click="checkComment(scope.$index, scope.row,0)">不通过</el-button>
+                <el-button v-if="scope.row.comState=='0'" type="success" size="mini" @click="checkComment(scope.$index, scope.row,1)">恢复</el-button>
+                <el-button v-if="scope.row.comState=='1'"  type="danger" size="mini" @click="checkComment(scope.$index, scope.row,0)">撤回</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -364,23 +364,17 @@
       checkModel(index,row,state){
           row.mState = state;
           var obj = this;
-          this.check("/managers/model",row,()=>{
-              obj.models.splice(index,1);
-          });
+
       },
       checkComment(index,row,state){
           row.comState = state;
-          var obj = this;
-          this.check("/managers/comment",row,()=>{
-              obj.comments.splice(index,1);
-          });
+
       },
 
-      check:function (url,row,action) {
+      check:function (url,row) {
           this.$http.post(url, row).then((response) => {
               if (response.data == true) {
                   alert("更改成功");
-                  action();
               }
               else alert("更改失败");
           });

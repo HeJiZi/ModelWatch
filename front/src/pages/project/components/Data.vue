@@ -86,7 +86,7 @@
         },
         model:{
             mName:'logo',
-            mPreview:'/static/images/1.png',
+            mPreview:'',
         },
         pjHeatStatic:{
 
@@ -114,9 +114,11 @@
         this.$http.get('/api/project/static/'+this.$route.params.pId).then((response)=>{
             var d = response.data;
             this.pjHeatStatic.rows = d.pjHeatStatic;
-            this.modelStatic.rows = d.modelStatic;
+            if(d.modelStatic!=null){
+                this.modelStatic.rows = d.modelStatic;
+                this.hotestModel = d.hotestModel;
+            }
             this.logStatic.rows = d.logStatic;
-            this.hotestModel = d.hotestModel;
             this.users.rows = d.users;
 
             this.isLoading =false;
