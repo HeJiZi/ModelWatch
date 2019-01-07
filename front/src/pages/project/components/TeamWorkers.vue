@@ -23,7 +23,7 @@
               </div>
             </template> 
           </el-autocomplete>
-          <el-button type="primary" @click="addCollaborators">添加邀请</el-button>
+          <el-button v-loading="sendLoading" type="primary" @click="addCollaborators">添加邀请</el-button>
       </div>
     </el-row>
 
@@ -156,6 +156,7 @@
         uMail:'',
         collaborators: [],
         isLoading:true,
+        sendLoading:false,
       };
     },
     computed:{
@@ -180,6 +181,7 @@
             });
       },
       addCollaborators(){
+        this.sendLoading=true
         if(this.users.length==0){
           this.name='';
         }
@@ -189,7 +191,7 @@
                 this.collaborators=response.data.list;
                 this.totalNum=response.data.page.totalNum;
             });
-            if(response.data==0){alert("已发送邮件！");}
+            if(response.data==0){alert("已发送邮件！");this.sendLoading=false}
           });
         }
       },

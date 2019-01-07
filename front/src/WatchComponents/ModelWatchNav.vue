@@ -69,6 +69,9 @@ export default {
         uAvater:{
             type:String,
             default: '',
+        },
+        outUser:{
+            type:Object,
         }
     },
     created(){
@@ -133,6 +136,12 @@ export default {
     watch:{
         uAvater(val,oldVal){
             this.user.uAvater = val;
+        },
+        outUser(val,oldVal){
+            this.$http.get('/api/user').then((response)=>{
+                var data=response.data
+                this.user =data;
+            });
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="inv-wrapper">
-        <mw-nav/>
+        <mw-nav :outUser="user"/>
         <el-card class="box-card">
             <div slot="header" >
                 <span style="padding-left:170px;"><i class="el-icon-message"></i><span style="color:rgb(137, 150, 173);padding-left:10px;">{{invitation.uUsername}}的邀请函</span></span>
@@ -29,7 +29,21 @@
                     </div>
                 </el-row>
             </div>
-        </el-card>           
+        </el-card>
+        <el-dialog
+          title="请先登录"
+          :visible.sync="dialogVisible"
+          :close-on-click-modal="false"
+          :close-on-press-escape="false"
+          :show-close="false"
+          width="30%"
+          >
+            <el-input v-model="uUsername" placeholder="请输入用户名" style="margin-bottom:10px"></el-input>
+            <el-input type="password" placeholder="请输入密码" v-model="uPassword"></el-input>
+          <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="login">确 定</el-button>
+          </span>
+        </el-dialog>
     </div>
  
 
@@ -92,7 +106,13 @@ export default {
         return{
             pid:'',
             myName:'',
-            invitation:[]
+            invitation:[],
+            uUsername:'',
+            uPassword:'',
+            dialogVisible:true,
+            user:{
+
+            }
         }
     },
     methods:{
@@ -109,11 +129,33 @@ export default {
                     if(Response.data==1){window.location.href="/";}
                     else{alert("页面出错");}
             });
+        },
+        login(){
+            this.$http.post('/api/user/login',{
+                uUsername:this.uUsername,
+                uPassword:this.uPassword
+            }).then(Response=>{
+                if(Response.data == true){
+                    alert("登录成功")
+                    this.dialogVisible =false;
+                    this.user = {a:'123'};
+                }
+                else{
+                    alert("账户或密码错误");
+                }
+            },Response=>{
+                alert("服务器出现异常")
+            })
         }
     },
     created(){
         this.pid=this.$route.params.pId;
         this.myName=this.$route.params.myName;
+        this.$http.get('/api/user').then(response=>{
+            console.log(response.data)
+            if(response.data=='') this.dialogVisible =true;
+            else this.dialogVisible=false;
+        })
         this.$http.get('/api/invitation/findMessage/'+this.pid+'/'+this.myName).then((Response)=>{
                    this.invitation=Response.data;
         });
